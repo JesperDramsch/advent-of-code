@@ -1,13 +1,29 @@
 from util import Day
 
-def fuel(module: int) -> int:
-    return module // 3 - 2
+def fuel(weight: int) -> int:
+    """Calculate Fuel Requirements
+    
+    Arguments:
+        weight {int} -- Weight of Input
+    
+    Returns:
+        int -- Fuel Requirements
+    """
+    return weight // 3 - 2
 
 def fuelchain(module: int) -> int:
+    """Recursive Fuel calculation
+    
+    Arguments:
+        module {int} -- Weight of Module
+    
+    Returns:
+        int -- Total Fuel Requirements with "wishing really hard"
+    """
     out = [fuel(module)]
     while(out[-1] > 0):
         out.append(fuel(out[-1]))
-    return sum(out[:-1])
+    return sum(out[:-1]) # Skip last one
 
 if __name__ == "__main__":
     ## Part One
