@@ -32,6 +32,7 @@ if __name__ == "__main__":
     
     out = sum(part1.apply(fuel))
     
+    print(part1.desc)
     print(part1.answer(out))
 
     ## Part 2
@@ -40,4 +41,5 @@ if __name__ == "__main__":
 
     out = sum(part2.apply(fuelchain))
     
+    print(part2.desc)
     print(part2.answer(out))
