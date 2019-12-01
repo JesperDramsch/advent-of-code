@@ -1,4 +1,7 @@
 def description(day: int, part: int):
+    """Just a lazy function to return the description
+    Don't want this to be in the nice code but need a data structure
+    """
     description = {k: None for k in range(1,24+1)}
 
     description[1] = [

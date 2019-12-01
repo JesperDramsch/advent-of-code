@@ -6,13 +6,34 @@ class Day:
         self.desc = description(day, part)
     
     def load(self, typing=str) -> list:
+        """Loads Data for Problem
+        File _must_ be named dayXX.txt
+        Returns data and makes it available as attribte "data"
+
+        Keyword Arguments:
+            typing {[type]} -- Type of data in list (default: {str})
+        
+        Returns:
+            list -- Data for Problem
+        """
         with open(f"day{self.day:02d}.txt") as f:
             data = f.read().splitlines()
         self.data = list(map(typing, data))
+        self.raw_data = self.data
         return self.data
 
     def apply(self, func) -> list:
-        return list(map(func, self.data))
+        """Apply a function to every element.
+        Changes the original data.
+
+        Arguments:
+            func {function} -- Function to apply to every element in input
+        
+        Returns:
+            list -- Function applied to every element in input
+        """
+        self.data = list(map(func, self.data))
+        return self.data
 
     def answer(self, num) -> str:
         return f"The Solution on Day {self.day} for Part {self.part} is: {num}"
