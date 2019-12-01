@@ -1,9 +1,9 @@
 from util import Day
 
-def fuel(module: int):
+def fuel(module: int) -> int:
     return module // 3 - 2
 
-def fuelchain(module: int):
+def fuelchain(module: int) -> int:
     out = [fuel(module)]
     while(out[-1] > 0):
         out.append(fuel(out[-1]))

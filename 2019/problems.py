@@ -1,4 +1,4 @@
-def description(day, part):
+def description(day: int, part: int):
     description = {k: None for k in range(1,24+1)}
 
     description[1] = [
