@@ -21,7 +21,7 @@ class Day:
         if "" in data:
             data.remove("")
         self.data = list(map(typing, data))
-        self.raw_data = self.data
+        self.raw_data = self.data.copy()
         return self.data
 
     def apply(self, func) -> list:
