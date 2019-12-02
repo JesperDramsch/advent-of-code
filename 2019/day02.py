@@ -40,7 +40,7 @@ if __name__ == "__main__":
             if out is None:
                 continue
             elif out[0] == 19690720:
-                print(out)
+                print(i,j)
                 print(part2.answer(100 * i + j))
                 break
     
