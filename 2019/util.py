@@ -5,7 +5,7 @@ class Day:
         self.part = part
         self.desc = description(day, part)
     
-    def load(self, typing=str) -> list:
+    def load(self, typing=str, sep="\n") -> list:
         """Loads Data for Problem
         File _must_ be named dayXX.txt
         Returns data and makes it available as attribte "data"
@@ -17,7 +17,9 @@ class Day:
             list -- Data for Problem
         """
         with open(f"day{self.day:02d}.txt") as f:
-            data = f.read().splitlines()
+            data = f.read().split(sep)
+        if "" in data:
+            data.remove("")
         self.data = list(map(typing, data))
         self.raw_data = self.data
         return self.data
