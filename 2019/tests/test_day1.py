@@ -1,4 +1,4 @@
-# Test Working solutions to Build a nice Day Cass
+# Test Working solutions to Build a nice Day Class
 import sys
 sys.path.insert(0, '.')
 from util import Day
