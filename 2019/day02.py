@@ -43,7 +43,21 @@ if __name__ == "__main__":
                 print(i,j)
                 print(part2.answer(100 * i + j))
                 break
-    
+
+    obj_part2 = Day(2,2)
+    obj_part2.load(int, ",")
+
+    for i in range(100):
+        for j in range(100):
+            obj_part2.reset()
+            obj_part2.data[1:3] = [i, j]
+            out = obj_part2.execute_opcode()
+            if out is None:
+                continue
+            elif out[0] == 19690720:
+                print(i,j)
+                print(obj_part2.answer(100 * i + j))
+                break
     #out = sum(part2.apply(fuelchain))
     
     #print(part2.desc)

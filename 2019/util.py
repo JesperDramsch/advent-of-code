@@ -23,6 +23,11 @@ class Day:
         self.data = list(map(typing, data))
         self.raw_data = self.data.copy()
         return self.data
+    
+    def reset(self):
+        """Reset Data to original
+        """
+        self.data = self.raw_data.copy()
 
     def apply(self, func) -> list:
         """Apply a function to every element.
@@ -36,6 +41,27 @@ class Day:
         """
         self.data = list(map(func, self.data))
         return self.data
+
+    def execute_opcode(self) -> list:
+        """Execute OpCode operation
+        
+        1:  Add
+        2:  Multiply
+        99: Exit
+
+        Returns:
+            list -- Opcode after execution
+        """
+        for i in range(0,len(self.data),4):
+            if self.data[i] == 1:
+                self.data[self.data[i+3]] = self.data[self.data[i+1]] + self.data[self.data[i+2]]
+            elif self.data[i] == 2:
+                self.data[self.data[i+3]] = self.data[self.data[i+1]] * self.data[self.data[i+2]]
+            elif self.data[i] == 99:
+                return self.data 
+            else:
+                break
+
 
     def answer(self, num) -> str:
         return f"The Solution on Day {self.day} for Part {self.part} is: {num}"
