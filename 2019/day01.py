@@ -13,6 +13,7 @@ def fuel(weight: int) -> int:
 
 def fuelchain(module: int) -> int:
     """Recursive Fuel calculation
+    To understand recursion, one first has to understand recursion.
     
     Arguments:
         module {int} -- Weight of Module
