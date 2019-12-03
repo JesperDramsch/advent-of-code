@@ -41,6 +41,6 @@ if __name__ == "__main__":
     part2 = Day(3,2)
 
     print(part1.answer(min([abs(x)+abs(y) for (x,y) in union])))
-    print(part2.answer(min([pathA[p]+pathB[p] for p in union])))
+    print(part2.answer(min([pathA[coord]+pathB[coord] for coord in union])))
 
 
