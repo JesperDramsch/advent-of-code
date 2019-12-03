@@ -1,13 +1,13 @@
 from util import Day
 
-def path(directions: list):
+def path(directions: list) -> dict:
     index = {k:i for i, k in enumerate("RLUD")}
     
     dx = [1, -1, 0,  0]
     dy = [0,  0, 1, -1]
     
     x, y = 0, 0
-    length = 0
+    steps = 0
 
     out = {}
 
@@ -16,34 +16,33 @@ def path(directions: list):
         num = int(direction[1:])
 
         for _ in range(num):
-            length += 1
+            steps += 1
             x += dx[index[rlud]]
             y += dy[index[rlud]]
             if (x,y) not in out:
-                out[(x,y)] = length
+                out[(x,y)] = steps
+            #out[(x,y)] = 1  Part 1, you served me well
     return out
 
-def intersect(pathA, pathB):
-    return set(pathA.keys()) & set(pathB.keys())
+def intersect(pathA: dict, pathB: dict) -> list:
+    return list(set(pathA.keys()) & set(pathB.keys()))
 
 if __name__ == "__main__":
     ## Part One
     part1 = Day(3,1)
-    part1.load(str)
+    part2 = Day(3,2)
+
+    part1.load()
     
     part1.data = {0: part1.data[0].split(","),
                   1: part1.data[1].split(",")}
+    part2.data = part1.data
 
-    #print(part1.data[0])
     pathA = path(part1.data[0])
     pathB = path(part1.data[1])
-
     union = intersect(pathA, pathB)
 
-    print(part1.answer(min(abs(x)+abs(y) for (x,y) in union)))
-    
-
-    part2 = Day(3,2)
+    print(part1.answer(min(abs(coord[0])+abs(coord[1]) for coord in union)))
 
     print(part2.answer(min(pathA[coord]+pathB[coord] for coord in union)))
 
