@@ -34,8 +34,8 @@ if __name__ == "__main__":
 
     part1.load()
     
-    part1.data = {0: part1.data[0].split(","),
-                  1: part1.data[1].split(",")}
+    part1.load(data = {0: part1.data[0].split(","),
+                       1: part1.data[1].split(",")})
     part2.data = part1.data
 
     pathA = path(part1.data[0])
