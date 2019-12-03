@@ -23,6 +23,8 @@ def path(directions: list):
                 out[(x,y)] = length
     return out
 
+def intersect(pathA, pathB):
+    return set(pathA.keys()) & set(pathB.keys())
 
 if __name__ == "__main__":
     ## Part One
@@ -36,11 +38,13 @@ if __name__ == "__main__":
     pathA = path(part1.data[0])
     pathB = path(part1.data[1])
 
-    union = set(pathA.keys()) & set(pathB.keys())
+    union = intersect(pathA, pathB)
+
+    print(part1.answer(min(abs(x)+abs(y) for (x,y) in union)))
+    
 
     part2 = Day(3,2)
 
-    print(part1.answer(min([abs(x)+abs(y) for (x,y) in union])))
-    print(part2.answer(min([pathA[coord]+pathB[coord] for coord in union])))
+    print(part2.answer(min(pathA[coord]+pathB[coord] for coord in union)))
 
 
