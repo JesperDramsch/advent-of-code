@@ -29,7 +29,6 @@ def test_obj():
     assert part1_obj.data[0] == 3101878
 
     part1_obj.reset()
-    assert part1_obj.data[0] == 1
 
     part1_obj.data[1:3] = [84, 44]
     part1_obj.execute_opcode()
