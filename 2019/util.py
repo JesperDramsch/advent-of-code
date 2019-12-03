@@ -5,7 +5,7 @@ class Day:
         self.part = part
         self.desc = description(day, part)
     
-    def load(self, typing=str, sep="\n", data=None) -> list:
+    def load(self, data=None, typing=str, sep="\n") -> list:
         """Loads Data for Problem
         File _must_ be named dayXX.txt
         Returns data and makes it available as attribte "data"

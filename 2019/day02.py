@@ -16,7 +16,7 @@ def compute(opcode: list) -> list:
 if __name__ == "__main__":
     ## Part One
     part1 = Day(2,1)
-    part1.load(int, ",")
+    part1.load(typing=int, sep=",")
     
     part1.data[1] = 12
     part1.data[2] = 2
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     ## Part 2
     part2 = Day(2,2)
-    part2.load(int, ",")
+    part2.load(typing=int, sep=",")
 
     for i in range(100):
         for j in range(100):
@@ -45,7 +45,7 @@ if __name__ == "__main__":
                 break
 
     obj_part2 = Day(2,2)
-    obj_part2.load(int, ",")
+    obj_part2.load(typing=int, sep=",")
 
     for i in range(100):
         for j in range(100):

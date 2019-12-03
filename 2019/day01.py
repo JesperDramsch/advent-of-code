@@ -29,7 +29,7 @@ def fuelchain(module: int) -> int:
 if __name__ == "__main__":
     ## Part One
     part1 = Day(1,1)
-    part1.load(int)
+    part1.load(typing=int)
     
     out = sum(part1.apply(fuel))
     
@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     ## Part 2
     part2 = Day(1,2)
-    part2.load(int)
+    part2.load(typing=int)
 
     out = sum(part2.apply(fuelchain))
     
