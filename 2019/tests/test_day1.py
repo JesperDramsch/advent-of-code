@@ -6,7 +6,7 @@ from day01 import *
 
 def test_part1():
     part1 = Day(1,1)
-    part1.load(int)
+    part1.load(typing=int)
     assert sum(part1.apply(fuel)) == 3279287
 
 def test_part1_given_0():
@@ -35,7 +35,7 @@ def test_part1_given_3():
 
 def test_part2():
     part2 = Day(1,2)
-    part2.load(int)
+    part2.load(typing=int)
     assert sum(part2.apply(fuelchain)) == 4916076
 
 def test_part2_given_0():
