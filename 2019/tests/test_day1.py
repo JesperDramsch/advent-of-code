@@ -37,3 +37,21 @@ def test_part2():
     part2 = Day(1,2)
     part2.load(int)
     assert sum(part2.apply(fuelchain)) == 4916076
+
+def test_part2_given_0():
+    part2 = Day(1,2)
+    part2.load(typing=int, data=[14])
+    part2.answer(sum(part2.apply(fuelchain)))
+    assert part2.result == 2
+
+def test_part2_given_1():
+    part2 = Day(1,2)
+    part2.load(typing=int, data=[1969])
+    part2.answer(sum(part2.apply(fuelchain)))
+    assert part2.result == 966
+
+def test_part2_given_3():
+    part2 = Day(1,2)
+    part2.load(typing=int, data=[100756])
+    part2.answer(sum(part2.apply(fuelchain)))
+    assert part2.result == 50346
