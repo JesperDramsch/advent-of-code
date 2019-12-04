@@ -2,10 +2,23 @@ from util import Day
 from itertools import groupby
 
 def check_password(password: str, limit_groups=False) -> bool:
+    """Password Checker
+    
+    Arguments:
+        password {str} -- 6 string password
+    
+    Keyword Arguments:
+        limit_groups {bool} -- Only conut real doubles (no groups) (default: {False})
+    
+    Returns:
+        bool -- Valid password
+    """
+    password = password.strip() # because always
+
     six  = len(password) == 6
-    #doub = not sorted(set(password)) == sorted(password)
+    #doub = not sorted(set(password)) == sorted(password) # Part 1 worked
     for _, g in groupby(password):
-        lg = len(list(g))
+        lg = len(list(g)) # This here killed me. g is empty after one run.
         if lg >= 2 and not limit_groups:
             doub = True 
             break
@@ -20,7 +33,7 @@ def check_password(password: str, limit_groups=False) -> bool:
 
 
 if __name__ == "__main__":
-    #print(check_groups("111122"))
+    # Part 1
     part1 = Day(4,1)
 
     part1.load(typing=int,sep="-")
@@ -32,6 +45,7 @@ if __name__ == "__main__":
 
     print(part1.answer(part1.sum()))
 
+    # Part 2
     part2 = Day(4,2)
 
     part2.load(typing=int,sep="-")
