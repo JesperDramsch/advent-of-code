@@ -40,7 +40,7 @@ def test_part1():
 
     test.apply(check_password)
 
-    print(test.answer(test.sum()))
+    test.answer(test.sum())
 
     assert test.result == 495
 
@@ -48,7 +48,7 @@ def test_given_4():
     test = Day(4,1)
     test.load(["112233"],sep="-")
 
-    test.apply(check_groups)
+    test.apply(check_password, limit_groups=True)
     test.answer(test.sum())
 
     assert test.result == 1
@@ -57,7 +57,7 @@ def test_given_5():
     test = Day(4,1)
     test.load(["123444"],sep="-")
 
-    test.apply(check_groups)
+    test.apply(check_password, limit_groups=True)
     test.answer(test.sum())
 
     assert test.result == 0
@@ -66,7 +66,7 @@ def test_given_6():
     test = Day(4,1)
     test.load(["111122"],sep="-")
 
-    test.apply(check_groups)
+    test.apply(check_password, limit_groups=True)
     test.answer(test.sum())
 
     assert test.result == 1
@@ -79,7 +79,7 @@ def test_part2():
 
     part2.apply(str)
 
-    part2.apply(check_groups)
+    part2.apply(check_password, limit_groups=True)
     part2.answer(part2.sum())
 
     assert part2.result == 305

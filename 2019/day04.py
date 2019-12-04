@@ -1,22 +1,26 @@
 from util import Day
 from itertools import groupby
 
-def check_password(password: str) -> bool:
+def check_password(password: str, limit_groups=False) -> bool:
     six  = len(password) == 6
-    doub = not sorted(set(password)) == sorted(password)
+    #doub = not sorted(set(password)) == sorted(password)
+    for _, g in groupby(password):
+        lg = len(list(g))
+        if lg >= 2 and not limit_groups:
+            doub = True 
+            break
+        elif lg == 2 and limit_groups:
+            doub = True
+            break
+    else:
+        doub = False
+
     sort = ''.join(sorted(password)) == password
     return six and doub and sort
 
-def check_groups(password: str) -> bool:
-    groups = []
-    for _, g in groupby(password):
-        if len(list(g)) == 2:
-            return True and  check_password(password)
-    return False
-
-
 
 if __name__ == "__main__":
+    #print(check_groups("111122"))
     part1 = Day(4,1)
 
     part1.load(typing=int,sep="-")
@@ -26,7 +30,7 @@ if __name__ == "__main__":
 
     part1.apply(check_password)
 
-    print(part1.answer(sum(part1.data)))
+    print(part1.answer(part1.sum()))
 
     part2 = Day(4,2)
 
@@ -35,7 +39,7 @@ if __name__ == "__main__":
 
     part2.apply(str)
 
-    part2.apply(check_groups)
+    part2.apply(check_password, limit_groups=True)
 
     print(part2.answer(part2.sum()))
 
