@@ -1,3 +1,5 @@
+from functools import partial
+
 class Day:
     def __init__(self, day: int, part: int):
         from problems import description
@@ -34,7 +36,7 @@ class Day:
         """
         self.data = self.raw_data.copy()
 
-    def apply(self, func) -> list:
+    def apply(self, func, *args, **kwargs) -> list:
         """Apply a function to every element.
         Changes the original data.
 
@@ -44,7 +46,8 @@ class Day:
         Returns:
             list -- Function applied to every element in input
         """
-        self.data = list(map(func, self.data))
+        mapfunc = partial(func, *args,**kwargs)
+        self.data = list(map(mapfunc, self.data))
         return self.data
 
     def execute_opcode(self) -> list:
