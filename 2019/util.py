@@ -66,6 +66,9 @@ class Day:
                 return self.data 
             else:
                 break
+    
+    def sum(self) -> float:
+        return sum(self.data)
 
     def answer(self, num) -> str:
         self.result = num
