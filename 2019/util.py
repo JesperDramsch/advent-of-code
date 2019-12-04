@@ -23,7 +23,7 @@ class Day:
         if data:
             self.data = data
         else:
-            with open(f"day{self.day:02d}.txt") as f:
+            with open(f"data/day{self.day:02d}.txt") as f:
                 data = f.read().split(sep)
             if "" in data:
                 data.remove("")
@@ -80,7 +80,6 @@ class Day:
 if __name__ == "__main__":
     day = Day(1,1)
 
-    print("Data is:", day.data(int))
     print("Day is:", day.day)
     print("Part is:", day.part)
     print("Description is:", day.desc)
