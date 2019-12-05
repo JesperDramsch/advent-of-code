@@ -71,6 +71,30 @@ def test_given_jump(monkeypatch):
     out = part1.execute_opcode()
     assert part1.diagnostic == 0
 
+def test_given_1(monkeypatch):
+    part1 = Day(5,2)
+    part1.load([3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9], sep=",")
+
+    monkeypatch.setattr('builtins.input', lambda x: "0")
+    out = part1.execute_opcode()
+    assert part1.diagnostic == 0
+    
+    part1.reset()
+    monkeypatch.setattr('builtins.input', lambda x: "1")
+    out = part1.execute_opcode()
+    assert part1.diagnostic == 1
+    
+    part1.load([3,3,1105,-1,9,1101,0,0,12,4,12,99,1], sep=",")
+
+    monkeypatch.setattr('builtins.input', lambda x: "0")
+    out = part1.execute_opcode()
+    assert part1.diagnostic == 0
+    
+    part1.reset()
+    monkeypatch.setattr('builtins.input', lambda x: "1")
+    out = part1.execute_opcode()
+    assert part1.diagnostic == 1
+
 def test_given_long(monkeypatch):
     part1 = Day(5,2)
     part1.load([3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99], sep=",")
