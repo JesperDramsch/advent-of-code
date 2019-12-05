@@ -61,43 +61,79 @@ class Day:
         2:  Multiply
         3:  Input
         4:  Output
+        5:  Jump If True
+        6:  Jump If False
+        7:  Less Than
+        8:  Equals
         99: Exit
 
         Returns:
             list -- Opcode after execution
         """
 
-        def __opmode(position: int, mode: int) -> int:
+        def __opmode(position: int, mode: int, get = False) -> int:
             if int(mode) == 0:
+                position = self.data[position]
+            if get:
                 return self.data[position]
-            elif int(mode) == 1:
+            else:
                 return position
         
         def __instructor(code: int):
             mode = f"{code:05d}"
             return int(mode[3:]), mode[2], mode[1], mode[0]
 
-        loop = 0
-        while loop < len(self.data) or self.data[loop] != 99:
-            instruct, A, B, C = __instructor(self.data[loop])
+        pointer = 0
+        while pointer < len(self.data):
+            instruct, A, B, C = __instructor(self.data[pointer])
+            inc = 0
             if instruct == 1:
-                self.data[__opmode(loop+3, C)] = self.data[__opmode(loop+1, A)] + self.data[__opmode(loop+2, B)]
+                # Multiply
+                self.data[__opmode(pointer+3, C)] = __opmode(pointer+1, A, get=True) + __opmode(pointer+2, B, get=True)
                 inc = 4
             elif instruct == 2:
-                self.data[__opmode(loop+3, C)] = self.data[__opmode(loop+1, A)] * self.data[__opmode(loop+2, B)]
+                # Add
+                self.data[__opmode(pointer+3, C)] = __opmode(pointer+1, A, get=True) * __opmode(pointer+2, B, get=True)
                 inc = 4
             elif instruct == 3:
-                self.data[__opmode(loop+1, C)] = int(input("Please provide input: "))
+                # Input
+                self.data[__opmode(pointer+1, C)] = int(input("Please provide input: "))
                 inc = 2
             elif instruct == 4:
-                self.diagnostic = self.data[__opmode(loop+1, C)]
+                # Output
+                self.diagnostic = __opmode(pointer+1, A, get=True)
                 print(self.diagnostic)
                 inc = 2
+            elif instruct == 5:
+                # Jump If True
+                # Jump If False
+                if __opmode(pointer+1, A, get=True) != 0: 
+                    pointer = __opmode(pointer+2, B, get=True)
+                else:
+                    inc = 3
+            elif instruct == 6:
+                # Jump If True
+                # Jump If False
+                if __opmode(pointer+1, A, get=True) == 0: 
+                    pointer = __opmode(pointer+2, B, get=True)
+                else:
+                    inc = 3
+            elif instruct == 7:
+                # Less Than
+                self.data[__opmode(pointer+3, 0)] = int(__opmode(pointer+1, A, get=True) < __opmode(pointer+2, B, get=True))
+                inc = 4
+                pass
+            elif instruct == 8:
+                # Equals
+                self.data[__opmode(pointer+3, 0)]  = int(__opmode(pointer+1, A, get=True) == __opmode(pointer+2, B, get=True))
+                inc = 4
+                pass
             elif instruct == 99:
                 return self.data 
             else:
+                raise RuntimeError(f'ERR {instruct}: \n Data Dump: {self.data[pointer], pointer}')
                 break
-            loop += inc
+            pointer += inc
     
     def answer(self, num=None, v=False) -> str:
         if not num == None:
