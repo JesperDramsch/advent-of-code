@@ -82,58 +82,57 @@ class Day:
         def __instructor(code: int):
             mode = f"{code:05d}"
             return int(mode[3:]), mode[2], mode[1], mode[0]
-
+        inc = {1: 4,
+               2: 4,
+               3: 2,
+               4: 2,
+               5: 3,
+               6: 3,
+               7: 4,
+               8: 4,}
         pointer = 0
         while pointer < len(self.data):
             instruct, A, B, C = __instructor(self.data[pointer])
-            inc = 0
             if instruct == 1:
                 # Multiply
                 self.data[__opmode(pointer+3, C)] = __opmode(pointer+1, A, get=True) + __opmode(pointer+2, B, get=True)
-                inc = 4
             elif instruct == 2:
                 # Add
                 self.data[__opmode(pointer+3, C)] = __opmode(pointer+1, A, get=True) * __opmode(pointer+2, B, get=True)
-                inc = 4
             elif instruct == 3:
                 # Input
                 self.data[__opmode(pointer+1, C)] = int(input("Please provide input: "))
-                inc = 2
             elif instruct == 4:
                 # Output
                 self.diagnostic = __opmode(pointer+1, A, get=True)
                 print(self.diagnostic)
-                inc = 2
             elif instruct == 5:
                 # Jump If True
-                # Jump If False
                 if __opmode(pointer+1, A, get=True) != 0: 
                     pointer = __opmode(pointer+2, B, get=True)
+                    inc[5] = 0
                 else:
-                    inc = 3
+                    inc[5] = 3
             elif instruct == 6:
-                # Jump If True
                 # Jump If False
                 if __opmode(pointer+1, A, get=True) == 0: 
                     pointer = __opmode(pointer+2, B, get=True)
+                    inc[6] = 0
                 else:
-                    inc = 3
+                    inc[6] = 3
             elif instruct == 7:
                 # Less Than
                 self.data[__opmode(pointer+3, 0)] = int(__opmode(pointer+1, A, get=True) < __opmode(pointer+2, B, get=True))
-                inc = 4
-                pass
             elif instruct == 8:
                 # Equals
                 self.data[__opmode(pointer+3, 0)]  = int(__opmode(pointer+1, A, get=True) == __opmode(pointer+2, B, get=True))
-                inc = 4
-                pass
+
             elif instruct == 99:
                 return self.data 
             else:
                 raise RuntimeError(f'ERR {instruct}: \n Data Dump: {self.data[pointer], pointer}')
                 break
-            pointer += inc
+            pointer += inc[instruct]
     
     def answer(self, num=None, v=False) -> str:
         if not num == None:
