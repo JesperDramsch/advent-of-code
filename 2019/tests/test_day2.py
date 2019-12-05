@@ -42,7 +42,7 @@ def test_given():
     assert part1_obj.result == 3500
 
     part1_obj = Day(2,1)
-    part1_obj.load([1,0,0,0,991,0,0,0,99])
+    part1_obj.load([1,0,0,0,99,0,0,0,99])
     part1_obj.execute_opcode()
     print(part1_obj.answer(part1_obj.data[0]))
     assert part1_obj.result == 2
