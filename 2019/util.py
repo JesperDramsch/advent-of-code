@@ -71,9 +71,11 @@ class Day:
             list -- Opcode after execution
         """
 
-        def __opmode(position: int, mode: int, get = False) -> int:
-            if int(mode) == 0:
-                position = self.data[position]
+        def __opmode(pointer: int, mode: tuple, offset: int, get = False) -> int:
+            if int(mode[offset-1]) == 0:
+                position = self.data[pointer+offset]
+            else:
+                position = pointer+offset
             if get:
                 return self.data[position]
             else:
@@ -81,7 +83,8 @@ class Day:
         
         def __instructor(code: int):
             mode = f"{code:05d}"
-            return int(mode[3:]), mode[2], mode[1], mode[0]
+            return int(mode[3:]), (mode[2], mode[1], mode[0])
+
         inc = {1: 4,
                2: 4,
                3: 2,
@@ -90,47 +93,48 @@ class Day:
                6: 3,
                7: 4,
                8: 4,}
+
         pointer = 0
         while pointer < len(self.data):
-            instruct, A, B, C = __instructor(self.data[pointer])
+            instruct, param = __instructor(self.data[pointer])
             if instruct == 1:
                 # Multiply
-                self.data[__opmode(pointer+3, C)] = __opmode(pointer+1, A, get=True) + __opmode(pointer+2, B, get=True)
+                self.data[__opmode(pointer, param, offset=3)] = __opmode(pointer, param, offset=1, get=True) + __opmode(pointer, param, offset=2, get=True)
             elif instruct == 2:
                 # Add
-                self.data[__opmode(pointer+3, C)] = __opmode(pointer+1, A, get=True) * __opmode(pointer+2, B, get=True)
+                self.data[__opmode(pointer, param, offset=3)] = __opmode(pointer, param, offset=1, get=True) * __opmode(pointer, param, offset=2, get=True)
             elif instruct == 3:
                 # Input
-                self.data[__opmode(pointer+1, C)] = int(input("Please provide input: "))
+                self.data[__opmode(pointer, param, offset=1)] = int(input("Please provide input: "))
             elif instruct == 4:
                 # Output
-                self.diagnostic = __opmode(pointer+1, A, get=True)
+                self.diagnostic = __opmode(pointer, param, offset=1, get=True)
+                self.result = self.diagnostic # Save as result
                 print(self.diagnostic)
             elif instruct == 5:
                 # Jump If True
-                if __opmode(pointer+1, A, get=True) != 0: 
-                    pointer = __opmode(pointer+2, B, get=True)
+                if __opmode(pointer, param, offset=1, get=True) != 0: 
+                    pointer = __opmode(pointer, param, offset=2, get=True)
                     inc[5] = 0
                 else:
                     inc[5] = 3
             elif instruct == 6:
                 # Jump If False
-                if __opmode(pointer+1, A, get=True) == 0: 
-                    pointer = __opmode(pointer+2, B, get=True)
+                if __opmode(pointer, param, offset=1, get=True) == 0: 
+                    pointer = __opmode(pointer, param, offset=2, get=True)
                     inc[6] = 0
                 else:
                     inc[6] = 3
             elif instruct == 7:
                 # Less Than
-                self.data[__opmode(pointer+3, 0)] = int(__opmode(pointer+1, A, get=True) < __opmode(pointer+2, B, get=True))
+                self.data[__opmode(pointer, param, offset=3)] = int(__opmode(pointer, param, offset=1, get=True) < __opmode(pointer, param, offset=2, get=True))
             elif instruct == 8:
                 # Equals
-                self.data[__opmode(pointer+3, 0)]  = int(__opmode(pointer+1, A, get=True) == __opmode(pointer+2, B, get=True))
-
+                self.data[__opmode(pointer, param, offset=3)]  = int(__opmode(pointer, param, offset=1, get=True) == __opmode(pointer, param, offset=2, get=True))
             elif instruct == 99:
                 return self.data 
             else:
-                raise RuntimeError(f'ERR {instruct}: \n Data Dump: {self.data[pointer], pointer}')
+                raise RuntimeError(f'ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}')
                 break
             pointer += inc[instruct]
     
