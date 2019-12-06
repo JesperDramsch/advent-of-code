@@ -2,7 +2,7 @@ from util import Day
 
 
 def compute(opcode: list) -> list:
-    for i in range(len(opcode), 4):
+    for i in range(0, len(opcode), 4):
         if opcode[i] == 1:
             opcode[opcode[i + 3]] = opcode[opcode[i + 1]] + opcode[opcode[i + 2]]
         elif opcode[i] == 2:

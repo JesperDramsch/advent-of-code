@@ -21,20 +21,16 @@ def check_password(password: str, limit_groups=False) -> bool:
     for _, g in groupby(password):
         lg = len(list(g))  # This here killed me. g is empty after one run.
         if lg >= 2 and not limit_groups:
-            newmethod994()
+            doub = True
             break
         elif lg == 2 and limit_groups:
-            newmethod994()
+            doub = True
             break
     else:
         doub = False
 
     sort = "".join(sorted(password)) == password
     return six and doub and sort
-
-
-def newmethod994():
-    doub = True
 
 
 if __name__ == "__main__":
