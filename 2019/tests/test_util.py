@@ -13,7 +13,26 @@ def test_reset():
 
     day.data[0] = None
 
-    assert day.data[0] == None
+    assert day.data[0] is None
 
     day.reset()
     assert day.data[0] == test
+
+
+def test_opcode_three_in_1():
+    day = Day(5, 2)
+    day.load(typing=int, sep=",")
+
+    day.execute_opcode(three_in=5)
+
+    assert day.diagnostic == 14340395
+
+
+def test_opcode_three_in_2():
+    day = Day(5, 1)
+    day.load(typing=int, sep=",")
+
+    day.execute_opcode(three_in=1)
+
+    assert day.diagnostic == 7692125
+    

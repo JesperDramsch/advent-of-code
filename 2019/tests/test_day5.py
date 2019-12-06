@@ -170,7 +170,7 @@ def test_given_long(monkeypatch):
     assert part1.diagnostic == 1001
 
 
-def test_part1(monkeypatch):
+def test_part2(monkeypatch):
 
     # monkeypatch the "input" function, so that it returns "Mark".
     # This simulates the user entering "Mark" in the terminal:

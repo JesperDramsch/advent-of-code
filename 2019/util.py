@@ -57,7 +57,7 @@ class Day:
         self.data = list(map(mapfunc, self.data))
         return self.data
 
-    def execute_opcode(self) -> list:
+    def execute_opcode(self, three_in=None) -> list:
         """Execute OpCode operation
         
         1:  Add
@@ -114,7 +114,10 @@ class Day:
                 ) * __opmode(pointer, param, offset=2, get=True)
             elif instruct == 3:
                 # Input
-                self.data[__opmode(pointer, param, offset=1)] = int(input("Please provide input: "))
+                if three_in is None:
+                    self.data[__opmode(pointer, param, offset=1)] = int(input("Please provide input: "))
+                else:
+                    self.data[__opmode(pointer, param, offset=1)] = int(three_in)
             elif instruct == 4:
                 # Output
                 self.diagnostic = __opmode(pointer, param, offset=1, get=True)
@@ -156,7 +159,7 @@ class Day:
             pointer += inc[instruct]
 
     def answer(self, num=None, v=False) -> str:
-        if not num == None:
+        if num is not None:
             self.result = num
         s = f"The Solution on Day {self.day} for Part {self.part} is: {self.result}"
         if v:
