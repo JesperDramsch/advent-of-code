@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '.')
 from util import Day
-from day04 import *
+from day05 import *
 
 def test_given_1():
     test = Day(4,1)
