@@ -46,6 +46,17 @@ def test_hist():
     day.hist()
 
 
+def test_summary():
+    day = Day(1, 1)
+    day.load([1, 2, 3])
+
+    day.summary()
+
+    day.answer(7)
+
+    day.summary()
+
+
 def test_opcode_three_in_1():
     day = Day(5, 2)
     day.load(typing=int, sep=",")
@@ -62,3 +73,6 @@ def test_opcode_three_in_2():
     day.execute_opcode(three_in=1)
 
     assert day.diagnostic == 7692125
+
+if __name__ == "__main__":
+    test_summary()

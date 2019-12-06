@@ -8,6 +8,7 @@ class Day:
         self.day = day
         self.part = part
         self.desc = description(day, part)
+        self.task = self.desc.strip().split("\n")[-1].strip()
 
     def load(self, data=None, typing=str, sep="\n", path="") -> list:
         """Loads Data for Problem
@@ -46,7 +47,7 @@ class Day:
         if step is None:
             step = len(self.raw_data) - 1
         self.data = self.raw_data[step]
-        self.raw_data = self.raw_data[:step+1]
+        self.raw_data = self.raw_data[: step + 1]
 
     def hist(self):
         """Produce data history
@@ -54,10 +55,20 @@ class Day:
         l = len(self.raw_data)
         ends = ("y", "ies")
         print(f"{l} histor{ends[l != 1]} saved")
-        print("="*15)
+        print("=" * 15)
         for hist in self.raw_data:
             s = f"{hist}"
-            print(s[:70] + " . . ."*(70 < len(s)))
+            print(s[:70] + " . . ." * (70 < len(s)))
+
+    def summary(self):
+        """Produce Task Summary
+        """
+        s = f"The problem for Day {self.day} and part {self.part}:\n{self.task}"
+        if hasattr(self, "result"):
+            print(s)
+            self.answer(v=True)
+        else:
+            print(s)
 
     def sum(self) -> float:
         return sum(self.data)
@@ -134,7 +145,9 @@ class Day:
             elif instruct == 3:
                 # Input
                 if three_in is None:
-                    self.data[__opmode(pointer, param, offset=1)] = int(input("Please provide input: "))
+                    self.data[__opmode(pointer, param, offset=1)] = int(
+                        input("Please provide input: ")
+                    )
                 else:
                     self.data[__opmode(pointer, param, offset=1)] = int(three_in)
             elif instruct == 4:
@@ -171,7 +184,9 @@ class Day:
             elif instruct == 99:
                 return self.data
             else:
-                raise RuntimeError(f"ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}")
+                raise RuntimeError(
+                    f"ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}"
+                )
                 break
             pointer += inc[instruct]
 
