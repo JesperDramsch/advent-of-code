@@ -46,7 +46,18 @@ class Day:
         if step is None:
             step = len(self.raw_data) - 1
         self.data = self.raw_data[step]
-        self.raw_data = [self.raw_data[:step+1]]
+        self.raw_data = self.raw_data[:step+1]
+
+    def hist(self):
+        """Produce data history
+        """
+        l = len(self.raw_data)
+        ends = ("y", "ies")
+        print(f"{l} histor{ends[l != 1]} saved")
+        print("="*15)
+        for hist in self.raw_data:
+            s = f"{hist}"
+            print(s[:70] + " . . ."*(70 < len(s)))
 
     def sum(self) -> float:
         return sum(self.data)

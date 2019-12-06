@@ -33,12 +33,16 @@ def test_bake():
     assert day.data == 1
     day.reset()
     assert day.data == 0
-    
+    day.hist()
     day.reset(0)
-
     assert len(day.raw_data) == 1
     assert type(day.raw_data) == list
 
+def test_hist():
+    day = Day(1, 1)
+    day.load([1, 2, 3])
+
+    day.hist()
 
 def test_opcode_three_in_1():
     day = Day(5, 2)
