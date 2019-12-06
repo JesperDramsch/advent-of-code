@@ -32,13 +32,21 @@ class Day:
             if "" in data:
                 data.remove("")
             self.data = list(map(typing, data))
-        self.raw_data = self.data.copy()
+        self.raw_data = [self.data.copy()]
         return self.data
 
-    def reset(self):
+    def bake(self):
+        """Finalize processed data as resettable
+        """
+        self.raw_data.append(self.data)
+
+    def reset(self, step=None):
         """Reset Data to original
         """
-        self.data = self.raw_data.copy()
+        if step is None:
+            step = len(self.raw_data) - 1
+        self.data = self.raw_data[step]
+        self.raw_data = [self.raw_data[:step+1]]
 
     def sum(self) -> float:
         return sum(self.data)
@@ -152,9 +160,7 @@ class Day:
             elif instruct == 99:
                 return self.data
             else:
-                raise RuntimeError(
-                    f"ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}"
-                )
+                raise RuntimeError(f"ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}")
                 break
             pointer += inc[instruct]
 
