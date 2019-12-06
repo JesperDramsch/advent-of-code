@@ -1,12 +1,14 @@
 from functools import partial
 
+
 class Day:
     def __init__(self, day: int, part: int):
         from problems import description
-        self.day  = day
+
+        self.day = day
         self.part = part
         self.desc = description(day, part)
-    
+
     def load(self, data=None, typing=str, sep="\n", path="") -> list:
         """Loads Data for Problem
         File _must_ be named dayXX.txt
@@ -29,17 +31,18 @@ class Day:
                 data = f.read().split(sep)
             if "" in data:
                 data.remove("")
-            self.data = list(map(typing, data))  
+            self.data = list(map(typing, data))
         self.raw_data = self.data.copy()
         return self.data
-    
+
     def reset(self):
         """Reset Data to original
         """
         self.data = self.raw_data.copy()
+
     def sum(self) -> float:
         return sum(self.data)
-    
+
     def apply(self, func, *args, **kwargs) -> list:
         """Apply a function to every element.
         Changes the original data.
@@ -50,10 +53,10 @@ class Day:
         Returns:
             list -- Function applied to every element in input
         """
-        mapfunc = partial(func, *args,**kwargs)
+        mapfunc = partial(func, *args, **kwargs)
         self.data = list(map(mapfunc, self.data))
         return self.data
-    
+
     def execute_opcode(self) -> list:
         """Execute OpCode operation
         
@@ -71,73 +74,87 @@ class Day:
             list -- Opcode after execution
         """
 
-        def __opmode(pointer: int, mode: tuple, offset: int, get = False) -> int:
-            if int(mode[offset-1]) == 0:
-                position = self.data[pointer+offset]
+        def __opmode(pointer: int, mode: tuple, offset: int, get=False) -> int:
+            if int(mode[offset - 1]) == 0:
+                position = self.data[pointer + offset]
             else:
-                position = pointer+offset
+                position = pointer + offset
             if get:
                 return self.data[position]
             else:
                 return position
-        
+
         def __instructor(code: int):
             mode = f"{code:05d}"
             return int(mode[3:]), (mode[2], mode[1], mode[0])
 
-        inc = {1: 4,
-               2: 4,
-               3: 2,
-               4: 2,
-               5: 3,
-               6: 3,
-               7: 4,
-               8: 4,}
+        inc = {
+            1: 4,
+            2: 4,
+            3: 2,
+            4: 2,
+            5: 3,
+            6: 3,
+            7: 4,
+            8: 4,
+        }
 
         pointer = 0
         while pointer < len(self.data):
             instruct, param = __instructor(self.data[pointer])
             if instruct == 1:
                 # Multiply
-                self.data[__opmode(pointer, param, offset=3)] = __opmode(pointer, param, offset=1, get=True) + __opmode(pointer, param, offset=2, get=True)
+                self.data[__opmode(pointer, param, offset=3)] = __opmode(
+                    pointer, param, offset=1, get=True
+                ) + __opmode(pointer, param, offset=2, get=True)
             elif instruct == 2:
                 # Add
-                self.data[__opmode(pointer, param, offset=3)] = __opmode(pointer, param, offset=1, get=True) * __opmode(pointer, param, offset=2, get=True)
+                self.data[__opmode(pointer, param, offset=3)] = __opmode(
+                    pointer, param, offset=1, get=True
+                ) * __opmode(pointer, param, offset=2, get=True)
             elif instruct == 3:
                 # Input
                 self.data[__opmode(pointer, param, offset=1)] = int(input("Please provide input: "))
             elif instruct == 4:
                 # Output
                 self.diagnostic = __opmode(pointer, param, offset=1, get=True)
-                self.result = self.diagnostic # Save as result
+                self.result = self.diagnostic  # Save as result
                 print(self.diagnostic)
             elif instruct == 5:
                 # Jump If True
-                if __opmode(pointer, param, offset=1, get=True) != 0: 
+                if __opmode(pointer, param, offset=1, get=True) != 0:
                     pointer = __opmode(pointer, param, offset=2, get=True)
                     inc[5] = 0
                 else:
                     inc[5] = 3
             elif instruct == 6:
                 # Jump If False
-                if __opmode(pointer, param, offset=1, get=True) == 0: 
+                if __opmode(pointer, param, offset=1, get=True) == 0:
                     pointer = __opmode(pointer, param, offset=2, get=True)
                     inc[6] = 0
                 else:
                     inc[6] = 3
             elif instruct == 7:
                 # Less Than
-                self.data[__opmode(pointer, param, offset=3)] = int(__opmode(pointer, param, offset=1, get=True) < __opmode(pointer, param, offset=2, get=True))
+                self.data[__opmode(pointer, param, offset=3)] = int(
+                    __opmode(pointer, param, offset=1, get=True)
+                    < __opmode(pointer, param, offset=2, get=True)
+                )
             elif instruct == 8:
                 # Equals
-                self.data[__opmode(pointer, param, offset=3)]  = int(__opmode(pointer, param, offset=1, get=True) == __opmode(pointer, param, offset=2, get=True))
+                self.data[__opmode(pointer, param, offset=3)] = int(
+                    __opmode(pointer, param, offset=1, get=True)
+                    == __opmode(pointer, param, offset=2, get=True)
+                )
             elif instruct == 99:
-                return self.data 
+                return self.data
             else:
-                raise RuntimeError(f'ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}')
+                raise RuntimeError(
+                    f"ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}"
+                )
                 break
             pointer += inc[instruct]
-    
+
     def answer(self, num=None, v=False) -> str:
         if not num == None:
             self.result = num
@@ -146,8 +163,9 @@ class Day:
             print(s)
         return s
 
+
 if __name__ == "__main__":
-    day = Day(1,1)
+    day = Day(1, 1)
 
     print("Day is:", day.day)
     print("Part is:", day.part)

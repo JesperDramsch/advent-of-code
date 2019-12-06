@@ -2,9 +2,10 @@ def description(day: int, part: int):
     """Just a lazy function to return the description
     Don't want this to be in the nice code but need a data structure
     """
-    description = {k: None for k in range(1,24+1)}
+    description = {k: None for k in range(1, 24 + 1)}
 
-    description[6] = ["""
+    description[6] = [
+        """
 --- Day 6: Universal Orbit Map ---
 You've landed at the Universal Orbit Map facility on Mercury. Because navigation in space often involves transferring between orbits, the orbit maps here are useful for finding efficient routes between, for example, you and Santa. You download a map of the local orbits (your puzzle input).
 
@@ -55,7 +56,8 @@ COM orbits nothing.
 The total number of direct and indirect orbits in this example is 42.
 
 What is the total number of direct and indirect orbits in your map data?    
-""","""
+""",
+        """
 --- Part Two ---
 Now, you just need to figure out how many orbital transfers you (YOU) need to take to get to Santa (SAN).
 
@@ -101,9 +103,11 @@ COM - B - C - D - E - F
                  \
                   YOU
 What is the minimum number of orbital transfers required to move from the object YOU are orbiting to the object SAN is orbiting? (Between the objects they are orbiting - not between YOU and SAN.)
-"""]
+""",
+    ]
 
-    description[5] = ["""
+    description[5] = [
+        """
 --- Day 5: Sunny with a Chance of Asteroids ---
 You're starting to sweat as the ship makes its way toward Mercury. The Elves suggest that you get the air conditioner working by upgrading your ship computer to support the Thermal Environment Supervision Terminal.
 
@@ -150,7 +154,8 @@ It will then perform a series of diagnostic tests confirming that various parts 
 Finally, the program will output a diagnostic code and immediately halt. This final output isn't an error; an output followed immediately by a halt means the program finished. If all outputs were zero except the diagnostic code, the diagnostic program ran successfully.
 
 After providing 1 to the only input instruction and passing all the tests, what diagnostic code does the program produce?
-""","""
+""",
+        """
 --- Part Two ---
 The air conditioner comes online! Its cold air feels good for a while, but then the TEST alarms start to go off. Since the air conditioner can't vent its heat anywhere but back into the spacecraft, it's actually making the air inside the ship warmer.
 
@@ -186,9 +191,11 @@ The above example program uses an input instruction to ask for a single number. 
 This time, when the TEST diagnostic program runs its input instruction to get the ID of the system to test, provide it 5, the ID for the ship's thermal radiator controller. This diagnostic test suite only outputs one number, the diagnostic code.
 
 What is the diagnostic code for system ID 5?
-"""]
+""",
+    ]
 
-    description[4] = ["""
+    description[4] = [
+        """
     --- Day 4: Secure Container ---
 You arrive at the Venus fuel depot only to discover it's protected by a password. The Elves had written the password on a sticky note, but someone threw it out.
 
@@ -204,7 +211,8 @@ Other than the range rule, the following are true:
 223450 does not meet these criteria (decreasing pair of digits 50).
 123789 does not meet these criteria (no double).
 How many different passwords within the range given in your puzzle input meet these criteria?
-""","""
+""",
+        """
 --- Part Two ---
 An Elf just remembered one more important detail: the two adjacent matching digits are not part of a larger group of matching digits.
 
@@ -214,9 +222,11 @@ Given this additional criterion, but still ignoring the range rule, the followin
 123444 no longer meets the criteria (the repeated 44 is part of a larger group of 444).
 111122 meets the criteria (even though 1 is repeated more than twice, it still contains a double 22).
 How many different passwords within the range given in your puzzle input meet all of the criteria?
-"""]
+""",
+    ]
 
-    description[3] = ["""
+    description[3] = [
+        """
     --- Day 3: Crossed Wires ---
 The gravity assist was successful, and you're well on your way to the Venus refuelling station. During the rush back on Earth, the fuel management system wasn't completely installed, so that's next on the priority list.
 
@@ -257,7 +267,8 @@ U62,R66,U55,R34,D71,R55,D58,R83 = distance 159
 R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51
 U98,R91,D20,R16,D67,R40,U7,R15,U6,R7 = distance 135
 What is the Manhattan distance from the central port to the closest intersection?
-""","""
+""",
+        """
 --- Part Two ---
 It turns out that this circuit is very timing-sensitive; you actually need to minimize the signal delay.
 
@@ -286,10 +297,11 @@ U62,R66,U55,R34,D71,R55,D58,R83 = 610 steps
 R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51
 U98,R91,D20,R16,D67,R40,U7,R15,U6,R7 = 410 steps
 What is the fewest combined steps the wires must take to reach an intersection?
-"""]
+""",
+    ]
 
     description[2] = [
-    """
+        """
 --- Day 2: 1202 Program Alarm ---
 On the way to your gravity assist around the Moon, your ship computer beeps angrily about a "1202 program alarm". On the radio, an Elf is already explaining how to handle the situation: "Don't worry, that's perfectly norma--" The ship computer bursts into flames.
 
@@ -335,7 +347,8 @@ Here are the initial and final states of a few more small programs:
 2,4,4,5,99,0 becomes 2,4,4,5,99,9801 (99 * 99 = 9801).
 1,1,1,4,99,5,6,0,99 becomes 30,1,1,4,2,5,6,0,99.
 Once you have a working computer, the first step is to restore the gravity assist program (your puzzle input) to the "1202 program alarm" state it had just before the last computer caught fire. To do this, before running the program, replace position 1 with the value 12 and replace position 2 with the value 2. What value is left at position 0 after the program halts?
-""","""
+""",
+        """
 --- Part Two ---
 "Good, the new computer seems to be working correctly! Keep it nearby during this mission - you'll probably use it again. Real Intcode computers support many more features than your new one, but we'll let you know what they are as you need them."
 
@@ -354,11 +367,11 @@ The inputs should still be provided to the program by replacing the values at ad
 Once the program has halted, its output is available at address 0, also just like before. Each time you try a pair of inputs, make sure you first reset the computer's memory to the values in the program (your puzzle input) - in other words, don't reuse memory from a previous attempt.
 
 Find the input noun and verb that cause the program to produce the output 19690720. What is 100 * noun + verb? (For example, if noun=12 and verb=2, the answer would be 1202.)
-"""
+""",
     ]
 
     description[1] = [
-    """
+        """
 --- Day 1: The Tyranny of the Rocket Equation ---
 Santa has become stranded at the edge of the Solar System while delivering presents to other planets! To accurately calculate his position in space, safely align his warp drive, and return to Earth in time to save Christmas, he needs you to bring him measurements from fifty stars.
 
@@ -380,7 +393,7 @@ The Fuel Counter-Upper needs to know the total fuel requirement. To find it, ind
 
 What is the sum of the fuel requirements for all of the modules on your spacecraft?
 """,
-"""
+        """
 --- Part Two ---
 During the second Go / No Go poll, the Elf in charge of the Rocket Equation Double-Checker stops the launch sequence. Apparently, you forgot to include additional fuel for the fuel you just added.
 
@@ -393,6 +406,6 @@ At first, a module of mass 1969 requires 654 fuel. Then, this fuel requires 216 
 The fuel required by a module of mass 100756 and its fuel is: 33583 + 11192 + 3728 + 1240 + 411 + 135 + 43 + 12 + 2 = 50346.
 What is the sum of the fuel requirements for all of the modules on your spacecraft when also taking into account the mass of the added fuel? (Calculate the fuel requirements for each module separately, then add them all up at the end.)
 """,
-]
+    ]
 
-    return description[day][part-1]
+    return description[day][part - 1]
