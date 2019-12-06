@@ -35,4 +35,3 @@ def test_opcode_three_in_2():
     day.execute_opcode(three_in=1)
 
     assert day.diagnostic == 7692125
-    
