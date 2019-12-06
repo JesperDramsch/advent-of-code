@@ -74,5 +74,6 @@ def test_opcode_three_in_2():
 
     assert day.diagnostic == 7692125
 
+
 if __name__ == "__main__":
     test_summary()
