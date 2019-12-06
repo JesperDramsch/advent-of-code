@@ -7,7 +7,6 @@ from day01 import *
 
 
 def test_part1():
-    newvariable169 = 1, 1
     part1 = Day(1, 1)
     part1.load(typing=int)
     assert sum(part1.apply(fuel)) == 3279287
