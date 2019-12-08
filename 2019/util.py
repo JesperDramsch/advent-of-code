@@ -177,9 +177,7 @@ class Day:
             elif instruct == 3:
                 # Input
                 if not getattr(self, "input_queue"):
-                    self.data[__opmode(pointer, param, offset=1)] = int(
-                        input("Please provide input: ")
-                    )
+                    self.data[__opmode(pointer, param, offset=1)] = int(input("Provide input: "))
                 elif type(self.input_queue) == list:
                     self.data[__opmode(pointer, param, offset=1)] = int(self.input_queue.pop(0))
             elif instruct == 4:
