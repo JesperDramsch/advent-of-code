@@ -2,7 +2,6 @@ from util import Day
 
 import numpy as np
 import matplotlib.pyplot as plt
-import numpy.lib.index_tricks as ndi
 
 
 def shaper(data, wide, tall):
