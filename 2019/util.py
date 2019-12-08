@@ -50,9 +50,7 @@ class Day:
             return self.data == other
 
     def __add__(self, other):
-        from collections.abc import Iterable
-
-        if isinstance(other, Iterable):
+        if isinstance(other, list):
             self.data.extend(other)
         else:
             self.data.append(other)
@@ -69,7 +67,6 @@ class Day:
             self.answer(v=1)
         except:
             pass
-        
 
     def copy(self, deep=False):
         import copy

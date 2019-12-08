@@ -77,5 +77,47 @@ def test_opcode_three_in_2():
     assert day.diagnostic == 7692125
 
 
+def test_copy():
+    day = Day(1, 1)
+
+    doy = day.copy()
+
+    diy = doy.copy(deep=True)
+
+
+def test_iter():
+    diy = Day(1, 1)
+
+    diy.load([0, 1, 2])
+
+    assert diy[1:] == [1, 2]
+
+    assert len(diy) == 3
+
+
+def test_eq_add():
+    day = Day(1, 1)
+
+    doy = day.copy()
+
+    diy = doy.copy(deep=True)
+
+    assert day == doy
+    assert day == diy
+
+    assert (day == 5) == False
+
+    day += 5
+    assert day == [5]
+
+    day = day + [1, 2]
+    assert day == [5, 1, 2]
+
+
+def test_call():
+    day = Day(1, 1)
+    day()
+
+
 if __name__ == "__main__":
     test_summary()
