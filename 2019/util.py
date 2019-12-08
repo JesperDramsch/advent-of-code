@@ -43,6 +43,12 @@ class Day:
     def __getitem__(self, position):
         return self.data[position]
 
+    def __eq__(self, other):
+        if type(other) == type(self):
+            return self.data == other.data
+        else:
+            return self.data == other
+
     def copy(self, deep=False):
         import copy
         if deep is True:
