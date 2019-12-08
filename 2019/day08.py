@@ -23,7 +23,7 @@ def sif_decode(data):
 if __name__ == "__main__":
     # Part 1
     part1 = Day(8, 1)
-    part1.load(typing=str, sep=",")
+    part1.load(typing=str)
 
     part1.data = shaper(part1.data, 25, 6)
     part1.bake()
