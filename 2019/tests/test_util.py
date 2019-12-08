@@ -61,7 +61,9 @@ def test_opcode_three_in_1():
     day = Day(5, 2)
     day.load(typing=int, sep=",")
 
-    day.execute_opcode(three_in=5)
+    day.input(5)
+
+    day.execute_opcode()
 
     assert day.diagnostic == 14340395
 
@@ -69,8 +71,8 @@ def test_opcode_three_in_1():
 def test_opcode_three_in_2():
     day = Day(5, 1)
     day.load(typing=int, sep=",")
-
-    day.execute_opcode(three_in=1)
+    day.input(1)
+    day.execute_opcode()
 
     assert day.diagnostic == 7692125
 
