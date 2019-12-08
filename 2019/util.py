@@ -48,13 +48,21 @@ class Day:
         return self
 
     def input(self, data):
-        """Input data
+        """Input data to queue
         """
         self.op_input.append(data)
         return self
 
     def reset(self, step=None):
-        """Reset Data to original
+        """Reset Opcode class
+
+        Resets data, and pointer.
+        Flushes input queue.
+        
+        Can restore specific data from history
+
+        Keyword Arguments:
+            step {[int]} -- restoration point (default: {Last})
         """
         if step is None:
             step = len(self.raw_data) - 1
@@ -208,7 +216,7 @@ class Day:
                 )
                 self.pointer += inc[instruct]
             elif instruct == 99:
-                self.op_input = [] # Flush inputs
+                self.op_input = []  # Flush inputs
                 return None
             else:
                 raise RuntimeError(
@@ -217,6 +225,17 @@ class Day:
                 break
 
     def answer(self, num=None, v=False) -> str:
+        """Produce answer string
+        
+        Saves number in result attribute and returns a nice string
+
+        Keyword Arguments:
+            num {int} -- Input result (default: {None})
+            v {bool} -- Verbesity (default: {False})
+        
+        Returns:
+            str -- Answer string
+        """
         if num is not None:
             self.result = num
         s = f"The Solution on Day {self.day} for Part {self.part} is: {self.result}"
