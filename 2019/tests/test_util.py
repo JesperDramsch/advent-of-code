@@ -23,16 +23,16 @@ def test_bake():
     day = Day(1, 1)
     day.load([1, 2, 3])
 
-    day.data = 0
+    day.data = [0]
 
-    assert day.data == 0
+    assert day.data == [0]
     day.bake()
     assert len(day.raw_data) == 2
 
-    day.data = 1
-    assert day.data == 1
+    day.data = [1]
+    assert day.data == [1]
     day.reset()
-    assert day.data == 0
+    assert day.data == [0]
     day.hist()
     day.reset(0)
     assert len(day.raw_data) == 1
