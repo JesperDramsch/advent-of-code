@@ -9,6 +9,7 @@ class Day:
         self.part = part
         self.desc = description(day, part)
         self.task = self.desc.strip().split("\n")[-1].strip()
+        self.data = []
 
         self.pointer = 0
         self.debug = False
@@ -35,6 +36,12 @@ class Day:
         for k, v in self.__dict__.items():
             setattr(result, k, copy.deepcopy(v, memo))
         return result
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, position):
+        return self.data[position]
 
     def copy(self, deep=False):
         import copy
