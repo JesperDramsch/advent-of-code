@@ -49,6 +49,28 @@ class Day:
         else:
             return self.data == other
 
+    def __add__(self, other):
+        from collections.abc import Iterable
+
+        if isinstance(other, Iterable):
+            self.data.extend(other)
+        else:
+            self.data.append(other)
+        return self.data
+
+    def __call__(self):
+        print(self)
+        print(self.desc)
+        try:
+            self.hist()
+        except:
+            pass
+        try:
+            self.answer(v=1)
+        except:
+            pass
+        
+
     def copy(self, deep=False):
         import copy
         if deep is True:
@@ -277,6 +299,4 @@ class Day:
 if __name__ == "__main__":
     day = Day(1, 1)
 
-    print("Day is:", day.day)
-    print("Part is:", day.part)
-    print("Description is:", day.desc)
+    day()
