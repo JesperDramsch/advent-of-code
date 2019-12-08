@@ -109,7 +109,7 @@ class Day:
         self.data = list(map(mapfunc, self.data))
         return self.data
 
-    def execute_opcode(self, three_in=None, reset_pointer=True) -> list:
+    def execute_opcode(self, reset_pointer=True) -> list:
         """Execute OpCode operation
 
         1:  Add
