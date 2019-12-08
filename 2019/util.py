@@ -34,9 +34,7 @@ class Day:
             self.data = data
         else:
             with open(path) as f:
-                data = f.read().split(sep)
-            if "" in data:
-                data.remove("")
+                data = f.read().strip().split(sep)
             self.data = list(map(typing, data))
         self.raw_data = [self.data.copy()]
         return self
