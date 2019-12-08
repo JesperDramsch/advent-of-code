@@ -3,6 +3,14 @@ from itertools import permutations
 
 
 def load_all(objs, data=None):
+    """Load data into all provided objects
+    
+    Arguments:
+        objs {Day class} -- Day class containing OpCode iterator
+    
+    Keyword Arguments:
+        data {list} -- Data to load, None loads input file (default: {None})
+    """
     for obj in objs:
         obj.load(data=data, typing=int, sep=",")
         obj.apply(int)
@@ -10,6 +18,24 @@ def load_all(objs, data=None):
 
 
 def amp_chain(objs, phases, volt=0):
+    """Chain objects of Day class
+
+    Problem statement asks for several OpCode instances to be chained together
+    
+        O-------O  O-------O  O-------O  O-------O  O-------O
+    0 ->| Amp A |->| Amp B |->| Amp C |->| Amp D |->| Amp E |-> (to thrusters)
+        O-------O  O-------O  O-------O  O-------O  O-------O
+
+    Arguments:
+        objs {Day.class} -- OpCode iterator class
+        phases {list(int)} -- Phase setting to change amplifier seed
+    
+    Keyword Arguments:
+        volt {int} -- Start voltage for first run of Amp chain (default: {0})
+    
+    Returns:
+        {int}, {int} -- Returns output of last amp and the state value
+    """
     if volt == 0:
         for k, obj in enumerate(objs):
             out = obj.input(phases[k]).input(volt).execute_opcode()
@@ -18,21 +44,40 @@ def amp_chain(objs, phases, volt=0):
     else:
         for obj in objs:
             out = obj.input(volt).execute_opcode(reset_pointer=False)
-            volt = obj.diagnostic
             obj.bake()
+            volt = obj.diagnostic
     return volt, out
 
 
-def feedback(amps, phases):
-    volt = 0
-    for k, obj in enumerate(amps):
-        volt = obj.input(phases[k]).input(volt).execute_opcode()
-        obj.bake()
+def feedback(amps, phases, volt=0):
+    """Feedback loop of amp chain
+
+    Reruns chain of amplifiers until "halt" is reached in last amplifier
+    Feeds last output to input of next run
+    Phases are provided once at first input and not changed after
+
+          O-------O  O-------O  O-------O  O-------O  O-------O
+    0 -+->| Amp A |->| Amp B |->| Amp C |->| Amp D |->| Amp E |-.
+       |  O-------O  O-------O  O-------O  O-------O  O-------O |
+       |                                                        |
+       '--------------------------------------------------------+
+                                                                |
+                                                                v
+                                                        (to thrusters)
+
+    Arguments:
+        amps {Day.class} -- Amplifiers in Feedback loop of amp chain
+        phases {list(int)} -- Phase settings to seed operation of amp chain
+
+    Keyword Arguments:
+        volt {int} -- Input voltage to amplifier at first amp for first iteration (default: {0})
+
+    Returns:
+        int -- Output voltage after feedback loop
+    """
     while True:
-        for obj in amps:
-            volt = obj.input(volt).execute_opcode(reset_pointer=False)
-            #obj.bake()
-        if volt is None:
+        volt, out = amp_chain(amps, phases, volt)
+        if out is None:
             break
     return amps[-1].diagnostic
 
@@ -103,7 +148,7 @@ if __name__ == "__main__":
     # amps = [amp_a, amp_b, amp_c, amp_d, amp_e]
 
     for amp in amps:
-        amp.reset(1)
+        amp.reset(1) # Reset all amps to state after loading and int conversion
         amp.debug = False
         amp.concurrent = True
 
