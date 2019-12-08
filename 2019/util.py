@@ -21,10 +21,10 @@ class Day:
         Returns data and makes it available as attribte "data"
 
         Keyword Arguments:
-            data {[list]} -- Load computed data not from file (default: {None})
-            typing {[type]} -- Type of data in list (default: {str})
-            sep {[str]} -- Separator in input data (default: {"\n"})
-        
+            data {list} -- Load computed data not from file (default: {None})
+            typing {type} -- Type of data in list (default: {str})
+            sep {str} -- Separator in input data (default: {"\n"})
+
         Returns:
             list -- Data for Problem
         """
@@ -58,7 +58,7 @@ class Day:
 
         Resets data, and pointer.
         Flushes input queue.
-        
+
         Can restore specific data from history
 
         Keyword Arguments:
@@ -103,7 +103,7 @@ class Day:
 
         Arguments:
             func {function} -- Function to apply to every element in input
-        
+
         Returns:
             list -- Function applied to every element in input
         """
@@ -113,7 +113,7 @@ class Day:
 
     def execute_opcode(self, three_in=None, reset_pointer=True) -> list:
         """Execute OpCode operation
-        
+
         1:  Add
         2:  Multiply
         3:  Input
@@ -141,8 +141,7 @@ class Day:
             else:
                 return position
 
-        def __instructor(code: int):
-            mode = f"{code:05d}"
+        def __pointer_move(instruction: int):
             step_size = {
                 1: 4,
                 2: 4,
@@ -154,84 +153,80 @@ class Day:
                 8: 4,
                 99: 0,
             }
-            return int(mode[3:]), (mode[2], mode[1], mode[0]), step_size[int(mode[3:])]
+            self.pointer += step_size[instruction]
 
-        while self.pointer < len(self.data):
-            instruct, param, inc = __instructor(self.data[self.pointer])
+        def __instructor(code: int):
+            mode = f"{code:05d}"
+            out_pointer = self.pointer
+            instruct = int(mode[3:])
+            __pointer_move(instruct)
+            return instruct, (mode[2], mode[1], mode[0]), out_pointer
+
+        while True:
+            instruct, param, pointer = __instructor(self.data[self.pointer])
             if self.debug is True:
                 print(instruct, end="")
             if instruct == 1:
                 # Multiply
-                self.data[__opmode(self.pointer, param, offset=3)] = __opmode(
-                    self.pointer, param, offset=1, get=True
-                ) + __opmode(self.pointer, param, offset=2, get=True)
-                self.pointer += inc
+                self.data[__opmode(pointer, param, offset=3)] = __opmode(
+                    pointer, param, offset=1, get=True
+                ) + __opmode(pointer, param, offset=2, get=True)
             elif instruct == 2:
                 # Add
-                self.data[__opmode(self.pointer, param, offset=3)] = __opmode(
-                    self.pointer, param, offset=1, get=True
-                ) * __opmode(self.pointer, param, offset=2, get=True)
-                self.pointer += inc
+                self.data[__opmode(pointer, param, offset=3)] = __opmode(
+                    pointer, param, offset=1, get=True
+                ) * __opmode(pointer, param, offset=2, get=True)
             elif instruct == 3:
                 # Input
                 if not getattr(self, "input_queue"):
-                    self.data[__opmode(self.pointer, param, offset=1)] = int(
+                    self.data[__opmode(pointer, param, offset=1)] = int(
                         input("Please provide input: ")
                     )
                 elif type(self.input_queue) == list:
-                    self.data[__opmode(self.pointer, param, offset=1)] = int(self.input_queue.pop(0))
-                self.pointer += inc
+                    self.data[__opmode(pointer, param, offset=1)] = int(self.input_queue.pop(0))
             elif instruct == 4:
                 # Output
-                self.diagnostic = __opmode(self.pointer, param, offset=1, get=True)
-                self.result = self.diagnostic  # Save as result
-                self.pointer += inc
+                self.result = self.diagnostic = __opmode(pointer, param, offset=1, get=True)
                 if self.concurrent is True:
                     return self.diagnostic
             elif instruct == 5:
                 # Jump If True
-                if __opmode(self.pointer, param, offset=1, get=True) != 0:
-                    self.pointer = __opmode(self.pointer, param, offset=2, get=True)
-                else:
-                    self.pointer += inc
+                if __opmode(pointer, param, offset=1, get=True) != 0:
+                    self.pointer = __opmode(pointer, param, offset=2, get=True)
             elif instruct == 6:
                 # Jump If False
-                if __opmode(self.pointer, param, offset=1, get=True) == 0:
-                    self.pointer = __opmode(self.pointer, param, offset=2, get=True)
-                else:
-                    self.pointer += inc
+                if __opmode(pointer, param, offset=1, get=True) == 0:
+                    self.pointer = __opmode(pointer, param, offset=2, get=True)
             elif instruct == 7:
                 # Less Than
-                self.data[__opmode(self.pointer, param, offset=3)] = int(
-                    __opmode(self.pointer, param, offset=1, get=True)
-                    < __opmode(self.pointer, param, offset=2, get=True)
+                self.data[__opmode(pointer, param, offset=3)] = int(
+                    __opmode(pointer, param, offset=1, get=True)
+                    < __opmode(pointer, param, offset=2, get=True)
                 )
-                self.pointer += inc
             elif instruct == 8:
                 # Equals
-                self.data[__opmode(self.pointer, param, offset=3)] = int(
-                    __opmode(self.pointer, param, offset=1, get=True)
-                    == __opmode(self.pointer, param, offset=2, get=True)
+                self.data[__opmode(pointer, param, offset=3)] = int(
+                    __opmode(pointer, param, offset=1, get=True)
+                    == __opmode(pointer, param, offset=2, get=True)
                 )
-                self.pointer += inc
             elif instruct == 99:
                 self.input_queue = []  # Flush inputs
                 return None
             else:
                 raise RuntimeError(
-                    f"ERR {instruct}: \n Data Dump: {self.data[self.pointer]} Index:{self.pointer}"
+                    f"ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}"
                 )
                 break
 
     def answer(self, num=None, v=False) -> str:
         """Produce answer string
-        
+
         Saves number in result attribute and returns a nice string
 
         Keyword Arguments:
             num {int} -- Input result (default: {None})
             v {bool} -- Verbesity (default: {False})
-        
+
         Returns:
             str -- Answer string
         """
