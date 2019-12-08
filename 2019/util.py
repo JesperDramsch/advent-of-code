@@ -15,6 +15,9 @@ class Day:
         self.concurrent = False
         self.input_queue = []
 
+    def __repr__(self):
+        return f"Advent of Code class for Day {self.day}: Part {self.part}."
+
     def load(self, data=None, typing=str, sep="\n", path="") -> list:
         """Loads Data for Problem
         File _must_ be named dayXX.txt
