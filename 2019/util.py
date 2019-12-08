@@ -16,7 +16,31 @@ class Day:
         self.input_queue = []
 
     def __repr__(self):
+        return f"Day({self.day,self.part}): Pointer:{self.pointer}"
+
+    def __str__(self):
         return f"Advent of Code class for Day {self.day}: Part {self.part}."
+    
+    def __copy__(self):
+        cls = self.__class__
+        result = cls.__new__(cls)
+        result.__dict__.update(self.__dict__)
+        return result
+
+    def __deepcopy__(self, memo):
+        import copy
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+        for k, v in self.__dict__.items():
+            setattr(result, k, copy.deepcopy(v, memo))
+        return result
+
+    def copy(self, deep=False):
+        import copy
+        if deep is True:
+            return copy.deepcopy(self)
+        return copy.copy(self)
 
     def load(self, data=None, typing=str, sep="\n", path="") -> list:
         """Loads Data for Problem
