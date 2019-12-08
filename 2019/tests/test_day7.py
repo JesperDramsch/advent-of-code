@@ -59,6 +59,7 @@ def test_given_2():
     feedback(amps, [9, 8, 7, 6, 5])
     assert amp_e.result == 139629729
 
+    # Having these together guarantees good reset
 
     for amp in amps:
         amp.reset(1)
