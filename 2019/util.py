@@ -24,7 +24,7 @@ class Day:
 
     def __str__(self):
         return f"Advent of Code class for Day {self.day}: Part {self.part}."
-    
+
     def __copy__(self):
         cls = self.__class__
         result = cls.__new__(cls)
@@ -33,6 +33,7 @@ class Day:
 
     def __deepcopy__(self, memo):
         import copy
+
         cls = self.__class__
         result = cls.__new__(cls)
         memo[id(self)] = result
@@ -64,15 +65,16 @@ class Day:
         print(self.desc)
         try:
             self.hist()
-        except:
+        except AttributeError:
             pass
         try:
             self.answer(v=1)
-        except:
+        except AttributeError:
             pass
 
     def copy(self, deep=False):
         import copy
+
         if deep is True:
             return copy.deepcopy(self)
         return copy.copy(self)
@@ -116,14 +118,14 @@ class Day:
 
     def mem_dump(self, extend=False):
         """Dumps opcode memory into data
-        
+
         Keyword Arguments:
             extend {bool} -- Extend data by maximum memory (default: {False})
         """
         for k, v in self.memory.items():
             if k > len(self.data):
                 if extend is True:
-                    self.data.extend([0]*(k-len(self.data)+2))
+                    self.data.extend([0] * (k - len(self.data) + 2))
                 else:
                     continue
             self.data[k] = v
@@ -158,27 +160,6 @@ class Day:
         self.mem_load()
         return self
 
-    def hist(self):
-        """Produce data history
-        """
-        length = len(self.raw_data)
-        ends = ("y", "ies")
-        print(f"{length} histor{ends[length != 1]} saved")
-        print("=" * 15)
-        for hist in self.raw_data:
-            s = f"{hist}"
-            print(s[:70] + " . . ." * (70 < len(s)))
-
-    def summary(self):
-        """Produce Task Summary
-        """
-        s = f"The problem for Day {self.day} and part {self.part}:\n{self.task}"
-        if hasattr(self, "result"):
-            print(s)
-            self.answer(v=True)
-        else:
-            print(s)
-
     def sum(self) -> float:
         return sum(self.data)
 
@@ -196,9 +177,10 @@ class Day:
         self.data = list(map(mapfunc, self.data))
         self.mem_load()
         return self
-    
+
     def time(self):
         from time import time
+
         if self.exec_time == -1:
             self.exec_time = time()
         else:
@@ -239,13 +221,11 @@ class Day:
                 # Relative Mode
                 position = self.memory[pointer + offset] + self.rel_base
             else:
-                raise RuntimeError(
-                    f"ERR: \n Exec Mode: {exec_mode} not understood"
-                )
-            
+                raise RuntimeError(f"ERR: \n Exec Mode: {exec_mode} not understood")
+
             if position < 0:
                 raise RuntimeError(
-                    f"ERR: \n Memory Access Error: {position} accessed. No Negative Memory Adresses!"
+                    f"ERR: \n Memory Access Error: {position} accessed. No Negative Memory Adress!"
                 )
 
             if get:
@@ -332,6 +312,27 @@ class Day:
                     f"ERR {instruct}: \n Data Dump: {self.memory[pointer]} Index:{pointer}"
                 )
                 break
+
+    def hist(self):
+        """Produce data history
+        """
+        length = len(self.raw_data)
+        ends = ("y", "ies")
+        print(f"{length} histor{ends[length != 1]} saved")
+        print("=" * 15)
+        for hist in self.raw_data:
+            s = f"{hist}"
+            print(s[:70] + " . . ." * (70 < len(s)))
+
+    def summary(self):
+        """Produce Task Summary
+        """
+        s = f"The problem for Day {self.day} and part {self.part}:\n{self.task}"
+        if hasattr(self, "result"):
+            print(s)
+            self.answer(v=True)
+        else:
+            print(s)
 
     def answer(self, num=None, v=False) -> str:
         """Produce answer string
