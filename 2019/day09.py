@@ -7,7 +7,8 @@ if __name__ == "__main__":
 
     in_l = len(part1)
     part1.input(1)
-    part1.execute_opcode()
+    part1.time().execute_opcode()
+    part1.time()
     part1.answer(v=1)
 
     #print(part1[:in_l])
@@ -18,7 +19,8 @@ if __name__ == "__main__":
 
     in_l = len(part2)
     part2.input(2)
-    part2.execute_opcode()
+    part2.time().execute_opcode()
+    part2.time()
     part2.answer(v=1)
 
     #print(part2[:in_l])

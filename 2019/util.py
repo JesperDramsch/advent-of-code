@@ -14,6 +14,7 @@ class Day:
 
         self.pointer = 0
         self.rel_base = 0
+        self.exec_time = -1
         self.debug = False
         self.concurrent = False
         self.input_queue = []
@@ -194,6 +195,15 @@ class Day:
         mapfunc = partial(func, *args, **kwargs)
         self.data = list(map(mapfunc, self.data))
         self.mem_load()
+        return self
+    
+    def time(self):
+        from time import time
+        if self.exec_time == -1:
+            self.exec_time = time()
+        else:
+            print(f"Execution time was {time()-self.exec_time:.2f} seconds.")
+            self.exec_time = -1
         return self
 
     def execute_opcode(self, reset_pointer=True) -> list:
