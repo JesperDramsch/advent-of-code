@@ -243,6 +243,11 @@ class Day:
                     f"ERR: \n Exec Mode: {exec_mode} not understood"
                 )
             
+            if position < 0:
+                raise RuntimeError(
+                    f"ERR: \n Memory Access Error: {position} accessed. No Negative Memory Adresses!"
+                )
+
             if get:
                 return self.memory.get(position, 0)
             else:
