@@ -10,8 +10,10 @@ class Day:
         self.desc = description(day, part)
         self.task = self.desc.strip().split("\n")[-1].strip()
         self.data = []
+        self.memory = {}
 
         self.pointer = 0
+        self.rel_base = 0
         self.debug = False
         self.concurrent = False
         self.input_queue = []
@@ -96,6 +98,7 @@ class Day:
                 data = f.read().strip().split(sep)
             self.data = list(map(typing, data))
         self.raw_data = [self.data.copy()]
+        self.mem_dump()
         return self
 
     def bake(self):
@@ -103,6 +106,9 @@ class Day:
         """
         self.raw_data.append(self.data.copy())
         return self
+
+    def mem_dump(self):
+        self.memory = {i: el for i, el in enumerate(self.data)}
 
     def input(self, data):
         """Input data to queue
@@ -122,12 +128,15 @@ class Day:
             hist_step {[int]} -- restoration point (default: {Last})
         """
         self.pointer = 0
+        self.rel_base = 0
         self.input_queue = []
+        self.memory = {}
 
         if hist_step is None:
             hist_step = len(self.raw_data) - 1
         self.data = self.raw_data[hist_step].copy()
         self.raw_data = [x.copy() for x in self.raw_data[: hist_step + 1]]
+        self.mem_dump()        
         return self
 
     def hist(self):
@@ -166,6 +175,7 @@ class Day:
         """
         mapfunc = partial(func, *args, **kwargs)
         self.data = list(map(mapfunc, self.data))
+        self.mem_dump()
         return self.data
 
     def execute_opcode(self, reset_pointer=True) -> list:
@@ -179,6 +189,7 @@ class Day:
         6:  Jump If False
         7:  Less Than
         8:  Equals
+        9:  Rel Base Update
         99: Exit
 
         Returns:
@@ -189,12 +200,23 @@ class Day:
             self.pointer = 0
 
         def __opmode(pointer: int, mode: tuple, offset: int, get=False) -> int:
-            if int(mode[offset - 1]) == 0:
-                position = self.data[pointer + offset]
-            else:
+            exec_mode = int(mode[offset - 1])
+            if exec_mode == 0:
+                # Position Mode
+                position = self.memory[pointer + offset]
+            elif exec_mode == 1:
+                # Immediate Mode
                 position = pointer + offset
+            elif exec_mode == 2:
+                # Relative Mode
+                position = self.memory[pointer + offset] + self.rel_base
+            else:
+                raise RuntimeError(
+                    f"ERR: \n Exec Mode: {exec_mode} not understood"
+                )
+            
             if get:
-                return self.data[position]
+                return self.memory.get(position, 0)
             else:
                 return position
 
@@ -208,6 +230,7 @@ class Day:
                 6: 3,
                 7: 4,
                 8: 4,
+                9: 2,
                 99: 0,
             }
             self.pointer += step_size[instruction]
@@ -220,28 +243,28 @@ class Day:
             return instruct, (mode[2], mode[1], mode[0]), out_pointer
 
         while True:
-            instruct, param, pointer = __instructor(self.data[self.pointer])
-            if self.debug is True:
-                print(instruct, end="")
+            instruct, param, pointer = __instructor(self.memory[self.pointer])
             if instruct == 1:
                 # Multiply
-                self.data[__opmode(pointer, param, offset=3)] = __opmode(
+                self.memory[__opmode(pointer, param, offset=3)] = __opmode(
                     pointer, param, offset=1, get=True
                 ) + __opmode(pointer, param, offset=2, get=True)
             elif instruct == 2:
                 # Add
-                self.data[__opmode(pointer, param, offset=3)] = __opmode(
+                self.memory[__opmode(pointer, param, offset=3)] = __opmode(
                     pointer, param, offset=1, get=True
                 ) * __opmode(pointer, param, offset=2, get=True)
             elif instruct == 3:
                 # Input
                 if not getattr(self, "input_queue"):
-                    self.data[__opmode(pointer, param, offset=1)] = int(input("Provide input: "))
-                elif type(self.input_queue) == list:
-                    self.data[__opmode(pointer, param, offset=1)] = int(self.input_queue.pop(0))
+                    self.memory[__opmode(pointer, param, offset=1)] = int(input("Provide input: "))
+                elif isinstance(self.input_queue, list):
+                    self.memory[__opmode(pointer, param, offset=1)] = int(self.input_queue.pop(0))
             elif instruct == 4:
                 # Output
                 self.result = self.diagnostic = __opmode(pointer, param, offset=1, get=True)
+                if self.debug is True:
+                    print(self.diagnostic)
                 if self.concurrent is True:
                     return self.diagnostic
             elif instruct == 5:
@@ -254,22 +277,30 @@ class Day:
                     self.pointer = __opmode(pointer, param, offset=2, get=True)
             elif instruct == 7:
                 # Less Than
-                self.data[__opmode(pointer, param, offset=3)] = int(
+                self.memory[__opmode(pointer, param, offset=3)] = int(
                     __opmode(pointer, param, offset=1, get=True)
                     < __opmode(pointer, param, offset=2, get=True)
                 )
             elif instruct == 8:
                 # Equals
-                self.data[__opmode(pointer, param, offset=3)] = int(
+                self.memory[__opmode(pointer, param, offset=3)] = int(
                     __opmode(pointer, param, offset=1, get=True)
                     == __opmode(pointer, param, offset=2, get=True)
                 )
+            elif instruct == 9:
+                # Relative Base Adjust
+                self.rel_base += int(__opmode(pointer, param, offset=1, get=True))
             elif instruct == 99:
                 self.input_queue = []  # Flush inputs
-                return None
+                for k, v in self.memory.items():
+                    try:
+                        self.data[k] = v
+                    except:
+                        pass
+                return self.data
             else:
                 raise RuntimeError(
-                    f"ERR {instruct}: \n Data Dump: {self.data[pointer]} Index:{pointer}"
+                    f"ERR {instruct}: \n Data Dump: {self.memory[pointer]} Index:{pointer}"
                 )
                 break
 
