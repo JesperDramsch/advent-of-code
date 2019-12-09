@@ -98,7 +98,7 @@ class Day:
                 data = f.read().strip().split(sep)
             self.data = list(map(typing, data))
         self.raw_data = [self.data.copy()]
-        self.mem_dump()
+        self.mem_load()
         return self
 
     def bake(self):
@@ -107,8 +107,26 @@ class Day:
         self.raw_data.append(self.data.copy())
         return self
 
-    def mem_dump(self):
+    def mem_load(self):
+        """Loads data into opcode memory
+        """
         self.memory = {i: el for i, el in enumerate(self.data)}
+        return self
+
+    def mem_dump(self, extend=False):
+        """Dumps opcode memory into data
+        
+        Keyword Arguments:
+            extend {bool} -- Extend data by maximum memory (default: {False})
+        """
+        for k, v in self.memory.items():
+            if k > len(self.data):
+                if extend is True:
+                    self.data.extend([0]*(k-len(self.data)+2))
+                else:
+                    continue
+            self.data[k] = v
+        return self
 
     def input(self, data):
         """Input data to queue
@@ -136,7 +154,7 @@ class Day:
             hist_step = len(self.raw_data) - 1
         self.data = self.raw_data[hist_step].copy()
         self.raw_data = [x.copy() for x in self.raw_data[: hist_step + 1]]
-        self.mem_dump()        
+        self.mem_load()
         return self
 
     def hist(self):
@@ -175,8 +193,8 @@ class Day:
         """
         mapfunc = partial(func, *args, **kwargs)
         self.data = list(map(mapfunc, self.data))
-        self.mem_dump()
-        return self.data
+        self.mem_load()
+        return self
 
     def execute_opcode(self, reset_pointer=True) -> list:
         """Execute OpCode operation
@@ -292,11 +310,7 @@ class Day:
                 self.rel_base += int(__opmode(pointer, param, offset=1, get=True))
             elif instruct == 99:
                 self.input_queue = []  # Flush inputs
-                for k, v in self.memory.items():
-                    try:
-                        self.data[k] = v
-                    except:
-                        pass
+                self.mem_dump(extend=True)
                 return self.data
             else:
                 raise RuntimeError(
