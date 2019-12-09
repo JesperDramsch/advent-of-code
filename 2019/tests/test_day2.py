@@ -24,19 +24,7 @@ def test_part2():
     assert compute(part2.data)[0] == 19690720
 
 
-def test_obj():
-    part1_obj = Day(2, 1)
-    part1_obj.load(typing=int, sep=",")
 
-    part1_obj.data[1:3] = [12, 2]
-    part1_obj.execute_opcode()
-    assert part1_obj.data[0] == 3101878
-
-    part1_obj.reset()
-
-    part1_obj.data[1:3] = [84, 44]
-    part1_obj.execute_opcode()
-    assert part1_obj.data[0] == 19690720
 
 
 def test_given():
