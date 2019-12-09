@@ -77,7 +77,7 @@ def feedback(amps, phases, volt=0):
     """
     while True:
         volt, out = amp_chain(amps, phases, volt)
-        if out is None:
+        if isinstance(out, list):
             break
     return amps[-1].diagnostic
 
