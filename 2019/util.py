@@ -321,7 +321,7 @@ class Day:
             elif instruct == 99:
                 self.input_queue = []  # Flush inputs
                 self.mem_dump(extend=True)
-                return self.data
+                return self
             else:
                 raise RuntimeError(
                     f"ERR {instruct}: \n Data Dump: {self.memory[pointer]} Index:{pointer}"
