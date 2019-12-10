@@ -6,36 +6,36 @@ from util import Day
 from day10 import *
 
 
-@pytest.mark.parametrize(
-    "center,obj,mask",
-    [
-        ([3, 2], [3, 2], [(3, 2)]),
-        ([1, 2], [2, 2], [(3, 2), (4, 2)]),
-        ([0, 0], [1, 1], [(2, 2), (3, 3), (4, 4)]),
-        ([0, 0], [3, 3], [(4, 4)]),
-        ([0, 0], [2, 2], [(3, 3), (4, 4)]),
-        ([2, 2], [1, 1], [(0, 0)]),
-        ([4, 4], [3, 2], [(2, 0)]),
-    ],
-)
-def test_shadow_masks(center, obj, mask):
-    part1 = Day(10, 1)
+# @pytest.mark.parametrize(
+#     "center,obj,mask",
+#     [
+#         ([3, 2], [3, 2], [(3, 2)]),
+#         ([1, 2], [2, 2], [(3, 2), (4, 2)]),
+#         ([0, 0], [1, 1], [(2, 2), (3, 3), (4, 4)]),
+#         ([0, 0], [3, 3], [(4, 4)]),
+#         ([0, 0], [2, 2], [(3, 3), (4, 4)]),
+#         ([2, 2], [1, 1], [(0, 0)]),
+#         ([4, 4], [3, 2], [(2, 0)]),
+#     ],
+# )
+# def test_shadow_masks(center, obj, mask):
+#     part1 = Day(10, 1)
 
-    raw_data = """.#..#
-.....
-#####
-....#
-...##""".split()
+#     raw_data = """.#..#
+# .....
+# #####
+# ....#
+# ...##""".split()
 
-    part1.load(raw_data, sep="\n")
+#     part1.load(raw_data, sep="\n")
 
-    part1.data = process_map(part1.data)
+#     part1.data = process_map(part1.data)
 
-    comp_data = part1.data.copy()
-    for keys in mask:
-        comp_data.pop(keys, None)
+#     comp_data = part1.data.copy()
+#     for keys in mask:
+#         comp_data.pop(keys, None)
 
-    assert comp_data == shadow(part1.data, center, obj)
+#     assert comp_data == shadow(part1.data, center, obj)
 
 
 @pytest.mark.parametrize(
@@ -57,7 +57,7 @@ def test_shadow_all(center, obj, mask):
 
     comp_data = part1.data.copy()
     for keys in mask:
-        comp_data.pop(keys, None)
+        comp_data.discard(keys)
     assert comp_data == all_shadows(part1.data, center, obj)
 
 
