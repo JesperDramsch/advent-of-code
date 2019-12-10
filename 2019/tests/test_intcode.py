@@ -16,14 +16,11 @@ import pytest
 def test_others(data, part1, part2):
     
     day = Day(9, 1)
-    day.load(data)
+    day.load(data, typing=int, sep=",")
 
-    day.input(1)
-    day.execute_opcode()
+    day.input(1).execute_opcode()
     assert day.result == part1
-    day.reset(0)
-    day.input(2)
-    day.execute_opcode()
+    day.reset().input(2).execute_opcode()
     assert day.result == part2
 
 
