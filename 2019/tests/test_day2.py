@@ -1,5 +1,6 @@
 # Test Working solutions to Build a nice Day Class
 import sys
+import pytest
 
 sys.path.insert(0, ".")
 from util import Day
@@ -24,31 +25,18 @@ def test_part2():
     assert compute(part2.data)[0] == 19690720
 
 
-
-
-
-def test_given():
+@pytest.mark.parametrize(
+    "data,index,result",
+    [
+        ([1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50], 0, 3500),
+        ([1, 0, 0, 0, 99, 0, 0, 0, 99], 0, 2),
+        ([2, 4, 4, 5, 99, 0], 5, 9801),
+        ([1, 1, 1, 4, 99, 5, 6, 0, 99], 0, 30),
+    ],
+)
+def test_given(data, index, result):
     part1_obj = Day(2, 1)
-    part1_obj.load([1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50])
+    part1_obj.load(data)
     part1_obj.execute_opcode()
-    print(part1_obj.answer(part1_obj.data[0]))
-    assert part1_obj.result == 3500
-
-    part1_obj = Day(2, 1)
-    part1_obj.load([1, 0, 0, 0, 99, 0, 0, 0, 99])
-    part1_obj.execute_opcode()
-    print(part1_obj.answer(part1_obj.data[0]))
-    assert part1_obj.result == 2
-
-    part1_obj = Day(2, 1)
-    part1_obj.load([2, 4, 4, 5, 99, 0])
-    part1_obj.execute_opcode()
-    print(part1_obj.answer(part1_obj.data[5]))
-    assert part1_obj.result == 9801
-
-    part1_obj = Day(2, 1)
-    part1_obj.load([1, 1, 1, 4, 99, 5, 6, 0, 99])
-    part1_obj.execute_opcode()
-    print(part1_obj.answer(part1_obj.data[0]))
-    assert part1_obj.result == 30
-
+    print(part1_obj.answer(part1_obj.data[index]))
+    assert part1_obj.result == result

@@ -1,11 +1,12 @@
 import sys
+import pytest
 
 sys.path.insert(0, ".")
 from util import Day
 from day05 import *
 
 
-def test_given_1():
+def test_given_0():
     test = Day(4, 1)
     test.load([1002, 4, 3, 4, 33], sep=",")
 
@@ -21,86 +22,59 @@ def test_part1(monkeypatch):
     monkeypatch.setattr("builtins.input", lambda x: "1")
 
     part1 = Day(5, 1)
-    part1.load(typing=int, sep=",")
-
-    out = part1.execute_opcode()
+    part1.load(typing=int, sep=",").execute_opcode()
 
     assert part1.diagnostic == 7692125
 
 
-def test_given_jump(monkeypatch):
+@pytest.mark.parametrize(
+    "part1_in,part2_in,data",
+    [
+        ("8", "11", [3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8]),
+        ("-1", "8", [3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8]),
+        ("8", "88", [3, 3, 1108, -1, 8, 3, 4, 3, 99]),
+        ("7", "8", [3, 3, 1107, -1, 8, 3, 4, 3, 99]),
+    ],
+)
+def test_given_jump(monkeypatch, data, part1_in, part2_in):
     part1 = Day(5, 2)
-    part1.load([3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8], sep=",")
+    part1.load(data, sep=",")
 
-    monkeypatch.setattr("builtins.input", lambda x: "8")
-    out = part1.execute_opcode()
+    monkeypatch.setattr("builtins.input", lambda x: part1_in)
+    part1.execute_opcode()
     assert part1.diagnostic == 1
 
     part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "11")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 0
-
-    part1.load([3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8], sep=",")
-
-    monkeypatch.setattr("builtins.input", lambda x: "8")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 0
-
-    part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "-1")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 1
-
-    part1.load([3, 3, 1108, -1, 8, 3, 4, 3, 99], sep=",")
-
-    monkeypatch.setattr("builtins.input", lambda x: "8")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 1
-
-    part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "88")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 0
-
-    part1.load([3, 3, 1107, -1, 8, 3, 4, 3, 99], sep=",")
-
-    monkeypatch.setattr("builtins.input", lambda x: "7")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 1
-
-    part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "8")
-    out = part1.execute_opcode()
+    monkeypatch.setattr("builtins.input", lambda x: part2_in)
+    part1.execute_opcode()
     assert part1.diagnostic == 0
 
 
-def test_given_1(monkeypatch):
+@pytest.mark.parametrize(
+    "part1_in,part2_in,data",
+    [
+        ("0", "1", [3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9]),
+        ("0", "1", [3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1]),
+    ],
+)
+def test_given_1(monkeypatch, data, part1_in, part2_in):
     part1 = Day(5, 2)
-    part1.load([3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9], sep=",")
+    part1.load(data, sep=",")
 
-    monkeypatch.setattr("builtins.input", lambda x: "0")
-    out = part1.execute_opcode()
+    monkeypatch.setattr("builtins.input", lambda x: part1_in)
+    part1.execute_opcode()
     assert part1.diagnostic == 0
 
     part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "1")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 1
-
-    part1.load([3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1], sep=",")
-
-    monkeypatch.setattr("builtins.input", lambda x: "0")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 0
-
-    part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "1")
-    out = part1.execute_opcode()
+    monkeypatch.setattr("builtins.input", lambda x: part2_in)
+    part1.execute_opcode()
     assert part1.diagnostic == 1
 
 
-def test_given_long(monkeypatch):
+@pytest.mark.parametrize(
+    "type_in,result", [("0", 999), ("8", 1000), ("9", 1001),],
+)
+def test_given_long(monkeypatch, type_in, result):
     part1 = Day(5, 2)
     part1.load(
         [
@@ -155,19 +129,9 @@ def test_given_long(monkeypatch):
         sep=",",
     )
 
-    monkeypatch.setattr("builtins.input", lambda x: "0")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 999
-
-    part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "8")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 1000
-
-    part1.reset()
-    monkeypatch.setattr("builtins.input", lambda x: "9")
-    out = part1.execute_opcode()
-    assert part1.diagnostic == 1001
+    monkeypatch.setattr("builtins.input", lambda x: type_in)
+    part1.execute_opcode()
+    assert part1.diagnostic == result
 
 
 def test_part2(monkeypatch):
@@ -177,8 +141,6 @@ def test_part2(monkeypatch):
     monkeypatch.setattr("builtins.input", lambda x: "5")
 
     part2 = Day(5, 2)
-    part2.load(typing=int, sep=",")
-
-    out = part2.execute_opcode()
+    part2.load(typing=int, sep=",").execute_opcode()
 
     assert part2.diagnostic == 14340395

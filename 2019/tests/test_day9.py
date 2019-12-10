@@ -1,9 +1,9 @@
 import sys
+import pytest
 
 sys.path.insert(0, ".")
 from util import Day
 from day08 import *
-
 
 def test_given_1():
     part1 = Day(9, 1)
@@ -31,19 +31,17 @@ def test_given_3():
 
     assert middle[1] == part1.result
 
-def test_part_1():
-    part1 = Day(9, 1)
-    part1.load(typing=int, sep=",")
+@pytest.mark.parametrize(
+    "tty,result",
+    [
+        (1,3989758265),
+        (2,76791),
+    ],
+)
+def test_parts(tty, result):
+    day = Day(9, 1)
+    day.load(typing=int, sep=",")
 
-    part1.input(1)
-    part1.execute_opcode()
-    assert part1.result == 3989758265
-
-
-def test_part_2():
-    part1 = Day(9, 2)
-    part1.load(typing=int, sep=",")
-
-    part1.input(2)
-    part1.execute_opcode()
-    assert part1.result == 76791
+    day.input(tty)
+    day.execute_opcode()
+    assert day.result == result
