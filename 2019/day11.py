@@ -4,7 +4,7 @@ if __name__ == "__main__":
     part1 = Robot(11, 1)
     part1.load(typing=int, sep=",")
 
-    part1.run()
+    part1.time().run().time()
     print("Caution Wet Paint: ", len(part1.painted))
 
     part2 = Robot(11, 2)
@@ -12,4 +12,4 @@ if __name__ == "__main__":
 
     part2.path[(0,0)] = 1 # Set robot to initial white location
 
-    part2.run().visualize()
+    part2.time().run().visualize().time()

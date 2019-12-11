@@ -359,7 +359,7 @@ class Robot(Day):
     def __init__(self, day, part):
         super().__init__(day, part)
         self.concurrent = True
-        self.location = (0,0)
+        self.location = (0, 0)
         self.path = {self.location: 0}
         self.direction = 0
         self.painted = set()
@@ -374,17 +374,9 @@ class Robot(Day):
     def turn(self, direction):
         # left  0 right 1 
         if direction == 0:
-            self.turn_left()
+            self.direction = (self.direction - 1) % 4
         elif direction == 1:
-            self.turn_right()
-        return self
-
-    def turn_right(self, turns=1):
-        self.direction = (self.direction + turns) % 4
-        return self.walk()
-
-    def turn_left(self, turns=1):
-        self.direction = (self.direction - turns ) % 4
+            self.direction = (self.direction + 1) % 4
         return self.walk()
     
     def walk(self):
@@ -424,8 +416,9 @@ class Robot(Day):
         painting = {0: ".", 1: "#"}
         for j in range(max(y)+1, min(y)-2, -1):
             for i in range(min(x), max(x)+1):
-                print(painting[self.path.get((i,j), 0)], end=" ")
+                print(painting[self.path.get((i, j), 0)], end=" ")
             print()
+        return self
 
 if __name__ == "__main__":
     day = Day(1, 1)
