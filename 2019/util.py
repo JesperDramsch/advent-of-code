@@ -271,6 +271,8 @@ class Day:
                 # Input
                 if not getattr(self, "input_queue"):
                     self.memory[__opmode(pointer, param, offset=1)] = int(input("Provide input: "))
+                elif isinstance(self.input_queue, int):
+                    self.memory[__opmode(pointer, param, offset=1)] = self.input_queue
                 elif isinstance(self.input_queue, list):
                     self.memory[__opmode(pointer, param, offset=1)] = int(self.input_queue.pop(0))
             elif instruct == 4:
@@ -305,7 +307,7 @@ class Day:
                 self.rel_base += int(__opmode(pointer, param, offset=1, get=True))
             elif instruct == 99:
                 self.input_queue = []  # Flush inputs
-                self.mem_dump(extend=True)
+                #self.mem_dump(extend=True)
                 return self
             else:
                 raise RuntimeError(
