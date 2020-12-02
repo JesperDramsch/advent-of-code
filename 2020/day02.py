@@ -1,11 +1,9 @@
 from util import Day
-
+import re
 
 def split_input(row):
-    req, data = row.split(": ")
-    num, char = req.split(" ")
-    lower, upper = num.split("-")
-    return data, char, int(lower), int(upper)
+    m = re.match(r'(?P<lower>[0-9]*)-(?P<upper>[0-9]*) (?P<char>[a-z]*): (?P<data>[a-z]*)', row)
+    return m.group('data'), m.group('char'), int(m.group('lower')), int(m.group('upper'))
 
 
 def pw_check(row):
