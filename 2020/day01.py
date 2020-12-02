@@ -11,7 +11,7 @@ def combine(data: list, r: int = 2) -> int:
 
 if __name__ == "__main__":
     day1 = Day(1)
-    day1.load()
+    day1.load(typing=int)
 
     print(combine(day1.data))
     print(combine(day1.data, 3))
