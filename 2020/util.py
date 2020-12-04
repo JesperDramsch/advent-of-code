@@ -69,11 +69,11 @@ def create_dirs(number):
         with open(there, "w") as fp:
             if "tests" == d:
                 fp.write(
-                    f'import sys\nimport pytest\n\nsys.path.insert(0, ".")\nfrom util import Day\nfrom day{number:02d} import *\n\n@pytest.fixture(scope="function")\ndef day():\n    day = Day({number})\n    day.load()\n    return day\n\ndef test_example(day):\n    main(day, part=1)\n\ndef test_part1(day):\n    assert False\n\ndef test_part2(day):\n    assert False\n'
+                    f'import sys\nimport pytest\n\nsys.path.insert(0, ".")\nfrom util import Day\nfrom day{number:02d} import *\n\n@pytest.fixture(scope="function")\ndef day():\n    day = Day({number})\n    day.load()\n    return day\n\ndef test_example(day):\n    main(day, part=1)\n\ndef test_example_p2(day):\n    main(day, part=2)\n\ndef test_part1(day):\n    assert False\n\ndef test_part2(day):\n    assert False\n'
                 )
             elif "." == d:
                 fp.write(
-                    f'from util import Day\n\ndef main(day):\n    pass\n\nif __name__ == "__main__":\n    day = Day({number})\n    day.load()\n    print(main(day))\n'
+                    f'from util import Day\n\ndef main(day, part=1):\n    pass\n\nif __name__ == "__main__":\n    day = Day({number})\n    day.load()\n    print(main(day))\n    day.load()\n    print(main(day, part=2))\n'
                 )
             else:
                 pass
