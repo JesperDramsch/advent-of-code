@@ -23,9 +23,9 @@ def validate(row):
             2020 <= int(row.get("eyr", 0)) <= 2030,
             ((row.get("hgt", "")[-2:] in "cm") and (150 <= int(row.get("hgt", 0)[:-2]) <= 193))
             or ((row.get("hgt", "")[-2:] in "in") and (59 <= int(row.get("hgt", 0)[:-2]) <= 76)),
-            bool(re.match("#[0-9a-f]{6}", row.get("hcl", ""))),
+            bool(re.match(r"#[0-9a-f]{6}", row.get("hcl", ""))),
             row.get("ecl") in "amb blu brn gry grn hzl oth".split(),
-            bool(re.match("^\d{9}$", row.get("pid", ""))),
+            bool(re.match(r"^\d{9}$", row.get("pid", ""))),
         ]
     )
 
