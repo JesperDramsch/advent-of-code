@@ -6,6 +6,18 @@ Each day we get to open a door with a puzzle to solve by code.
 
 https://adventofcode.com
 
+## Goals
+Improve Python and explore the Python ecosystem (especially the [datascience stack](http://pydata.org/)) and improve understanding of the inner workings of Python. Exchange ideas on the [subreddit](https://www.reddit.com/r/adventofcode) and learn from other approaches as well.
+
+### 2020
+Finish AOC without restrictions. Consistency is key. Have fun while doing it. Don't aim for the leaderboard, it opens 5am and people are crazy fast anyways. Tinker with the Day class and possibly add some nifty utilities to make each day a little easier.
+
+### 2019
+Learn some OOP and build a reusable class for each day. Build tests with [Pytest](https://docs.pytest.org/en/stable/), ideally trying some TDD to solve the problems. The examples give a great basis for small-scale tests and the input-file serve larger tests which can be added after the right solution was found.
+
+### 2018
+Get acquainted with Advent of Code and solve some of the puzzles in Python.
+
 ## Completion status
 
 ### [2020](./2020/)
