@@ -2,27 +2,25 @@ from util import Day
 
 
 def preprocess(data):
-    out = []
-    for dat in data.replace("\n\n", "\t").replace("\n", " ").strip().split("\t"):
-        out.append(set(dat.replace(" ", "")))
-    return out
+    return data.replace("\n\n", "\t").replace("\n", " ").strip().split("\t")
 
 
-def preprocess2(data):
-    out = []
-    for dat in data.replace("\n\n", "\t").replace("\n", " ").strip().split("\t"):
-        x = [set(y) for y in dat.split(" ")]
-        out.append(set.intersection(*x))
-    return out
+def part1(row):
+    return len(set(row.replace(" ", "")))
+
+
+def part2(row):
+    return len(set.intersection(*[set(y) for y in row.split(" ")]))
 
 
 def main(day, part=1):
+    day.data = preprocess(day.data)
     if part == 1:
-        day.data = preprocess(day.data)
-        out = sum(len(x) for x in day.data)
+        day.apply(part1)
+        out = sum(day.data)
     if part == 2:
-        day.data = preprocess2(day.data)
-        out = sum(len(x) for x in day.data)
+        day.apply(part2)
+        out = sum(day.data)
     return out
 
 
