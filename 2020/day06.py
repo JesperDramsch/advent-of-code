@@ -10,7 +10,7 @@ def part1(row):
 
 
 def part2(row):
-    return len(set.intersection(*[set(y) for y in row.split(" ")]))
+    return len(set.intersection(*map(set, row.split(" "))))
 
 
 def main(day, part=1):
