@@ -7,6 +7,7 @@ def preprocess(data):
         out.append(set(dat.replace(" ", "")))
     return out
 
+
 def preprocess2(data):
     out = []
     for dat in data.replace("\n\n", "\t").replace("\n", " ").strip().split("\t"):
@@ -14,18 +15,16 @@ def preprocess2(data):
         out.append(set.intersection(*x))
     return out
 
+
 def main(day, part=1):
     if part == 1:
         day.data = preprocess(day.data)
-        out = 0
-        for x in day.data:
-            out += len(x)
+        out = sum(len(x) for x in day.data)
     if part == 2:
         day.data = preprocess2(day.data)
-        out = 0
-        for x in day.data:
-            out += len(x)
+        out = sum(len(x) for x in day.data)
     return out
+
 
 if __name__ == "__main__":
     day = Day(6)
