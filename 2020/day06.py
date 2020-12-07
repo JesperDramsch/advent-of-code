@@ -1,5 +1,5 @@
 from util import Day
-
+from aocd import submit
 
 def preprocess(data):
     return data.replace("\n\n", "\t").replace("\n", " ").strip().split("\t")
@@ -26,7 +26,13 @@ def main(day, part=1):
 
 if __name__ == "__main__":
     day = Day(6)
+    day.download()
     day.load(typing=str, process=False)
-    print(main(day))
+    p1 = main(day)
+    print(p1)
+    submit(p1, part="a", day=6, year=2020)
     day.load(typing=str, process=False)
-    print(main(day, part=2))
+    p2 = main(day, part=2)
+    print(p2)
+    submit(p2, part="b", day=6, year=2020)
+    
