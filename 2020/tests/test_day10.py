@@ -5,11 +5,13 @@ sys.path.insert(0, ".")
 from util import Day
 from day10 import *
 
+
 @pytest.fixture(scope="function")
 def day():
     day = Day(10)
     day.load()
     return day
+
 
 def test_example(day):
     data = """16
@@ -60,8 +62,9 @@ def test_example(day):
     day.load(data)
     assert main(day, part=1) == 220
 
+
 def test_example_p2(day):
-    
+
     data = """28
 33
 18
@@ -96,8 +99,10 @@ def test_example_p2(day):
     day.load(data)
     assert main(day, part=2) == 19208
 
+
 def test_part1(day):
     assert main(day, part=1) == 1917
+
 
 def test_part2(day):
     assert main(day, part=2) == 113387824750592
