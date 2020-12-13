@@ -24,14 +24,18 @@ F11"""
 
 
 def test_example_p2(day):
-    data = ""
+    data = """F10
+N3
+F7
+R90
+F11"""
     day.load(data, typing=str)
-    assert main(day, part=2) == False
+    assert main(day, part=2) == 286
 
 
 def test_part1(day):
-    assert main(day, part=1) == False
+    assert main(day, part=1) == 636
 
 
 def test_part2(day):
-    assert main(day, part=2) == False
+    assert main(day, part=2) == 26841
