@@ -2,7 +2,7 @@ from util import Day
 from aocd import submit
 import re
 import numpy as np
-
+from functools import partial
 
 def process_my_ticket(my_ticket):
     return list(map(int, my_ticket.split(":")[1].strip().split(",")))
@@ -50,10 +50,9 @@ def validate_v1(rules, neighbours):
 def search_field(rules, neighbours):
     counter = np.zeros((len(rules), len(neighbours[0])))
     for j, (_, v) in enumerate(rules.items()):
+        mapfunc = partial(validate_rule, v)
         for neighbour in neighbours:
-            for i, n in enumerate(neighbour):
-                if validate_rule(v, n):
-                    counter[j, i] += 1
+            counter[j, :] += tuple(map(mapfunc, neighbour))
 
     max_counter = counter == np.max(counter, axis=1)
     # This is probably really stupid but it'll sieve
