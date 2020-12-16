@@ -61,7 +61,7 @@ def search_field(rules, neighbours):
     i = 0
     # Create a prototype all true mask to copy
     mask_prototype = np.ones_like(max_counter).astype(bool)
-    while any(np.sum(max_counter, axis=1) > 1):
+    while any(np.sum(max_counter, axis=1) != 1):
         row = max_counter[i, :]
         # All true mask
         mask = mask_prototype.copy()
