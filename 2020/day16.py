@@ -4,13 +4,14 @@ import re
 import numpy as np
 from functools import partial
 
+
 def process_my_ticket(my_ticket):
-    return list(map(int, my_ticket.split(":")[1].strip().split(",")))
+    return tuple(map(int, my_ticket.split(":")[1].strip().split(",")))
 
 
 def process_neighbours(neighbours):
     nums = neighbours.split(":")[1].strip()
-    return [list(map(int, x.split(","))) for x in nums.split()]
+    return [tuple(map(int, x.split(","))) for x in nums.split()]
 
 
 def process_rules(rules):
@@ -63,7 +64,7 @@ def search_field(rules, neighbours):
         # All true mask
         mask = mask_prototype.copy()
         # Find rows with single Maximum value
-        rows = (np.sum(max_counter, axis=1) == 1)
+        rows = np.sum(max_counter, axis=1) == 1
         # Set the mask column of the single maximum rows to false
         mask = mask * ~np.sum(max_counter[rows, :], axis=0)
         # Except for those rows with value of our row
@@ -87,21 +88,15 @@ def preprocess(data):
 def main(day, part=1):
     rules, my, neighb = preprocess(day.data)
     if part == 1:
-        out = 0
-        for n in neighb:
-            out += sum(validate_v1(rules, n))
-    if part == 2:
-        # Filter tickets for valids
+        out = sum(sum(validate_v1(rules, n)) for n in neighb)
+    if part == 2:  # Filter tickets for valids
         valid_neighb = [n for n in neighb if not validate_v1(rules, n)]
         # Get the ticket fields
         fields = search_field(rules, valid_neighb)
-        out = 1
         # print once, because it's awesome
         print(fields)
-        # go through fields and only take the ones that have departure
-        for k, v in fields.items():
-            if "departure" in k:
-                out *= my[v]
+        # go through fields and only take the ones that have departure. Numpy is C, so we need types
+        out = np.prod([my[v] for k, v in fields.items() if "departure" in k], dtype=np.int64)
     return out
 
 
