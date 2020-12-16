@@ -2,7 +2,6 @@ from util import Day
 from aocd import submit
 import re
 import numpy as np
-from scipy.stats import rankdata
 
 
 def process_my_ticket(my_ticket):
@@ -58,23 +57,20 @@ def search_field(rules, neighbours):
 
     max_counter = counter == np.max(counter, axis=1)
     # This is probably really stupid but it'll sieve
-    i = 0
+    # Correction. I made it sieve as a vector!
     # Create a prototype all true mask to copy
     mask_prototype = np.ones_like(max_counter).astype(bool)
     while any(np.sum(max_counter, axis=1) != 1):
-        row = max_counter[i, :]
         # All true mask
         mask = mask_prototype.copy()
-        # If this row has a single Maximum value
-        if sum(row) == 1:
-            # Set the mask column of the single maximum value to false
-            mask = mask * ~row
-            # Except for that one value of our row
-            mask[i, :] += row
-            # mask the max_counter
-            max_counter *= mask
-        # Wrap around the counter
-        i = (i + 1) % max_counter.shape[0]
+        # Find rows with single Maximum value
+        rows = (np.sum(max_counter, axis=1) == 1)
+        # Set the mask column of the single maximum rows to false
+        mask = mask * ~np.sum(max_counter[rows, :], axis=0)
+        # Except for those rows with value of our row
+        mask[rows, :] += max_counter[rows, :]
+        # mask the max_counter
+        max_counter = mask * max_counter
 
     # Build a dictionary that has our index values for each rule key
     likely_column = {k: np.argmax(max_counter[i, :]) for i, (k, _) in enumerate(rules.items())}
