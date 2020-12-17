@@ -3,6 +3,7 @@ from aocd import submit
 import re
 import numpy as np
 from functools import partial
+import matplotlib.pyplot as plt
 
 
 def process_my_ticket(my_ticket):
@@ -48,6 +49,17 @@ def validate_v1(rules, neighbours):
     return not_ok
 
 
+def plot(max_counter, rules, i=0):
+    fig, ax = plt.subplots()
+    cax = ax.matshow(max_counter, cmap="gray_r")
+    cbar = fig.colorbar(cax, ticks=[1, 0])
+    cbar.ax.set_yticklabels(["True", "False"])
+    plt.title("Rule Index Sieving")
+    plt.yticks(range(len(rules)), [x for x, _ in rules.items()])
+    fig.savefig(f"day16_{i:01d}.png", bbox_inches="tight")
+    plt.close()
+
+
 def search_field(rules, neighbours):
     counter = np.zeros((len(rules), len(neighbours[0])))
     for j, (_, v) in enumerate(rules.items()):
@@ -56,21 +68,28 @@ def search_field(rules, neighbours):
             counter[j, :] += tuple(map(mapfunc, neighbour))
 
     max_counter = counter == np.max(counter, axis=1)
+    plot(max_counter, rules)
+
+    i = 0
     # This is probably really stupid but it'll sieve
     # Correction. I made it sieve as a vector!
     # Create a prototype all true mask to copy
     mask_prototype = np.ones_like(max_counter).astype(bool)
+
     while any(np.sum(max_counter, axis=1) != 1):
         # All true mask
+
         mask = mask_prototype.copy()
         # Find rows with single Maximum value
         rows = np.sum(max_counter, axis=1) == 1
         # Set the mask column of the single maximum rows to false
-        mask = mask * ~np.sum(max_counter[rows, :], axis=0)
+        mask = mask * ~np.sum(max_counter[rows, :], axis=0, dtype=bool)
         # Except for those rows with value of our row
         mask[rows, :] += max_counter[rows, :]
         # mask the max_counter
         max_counter = mask * max_counter
+        i += 1
+        plot(max_counter, rules, i)
 
     # Build a dictionary that has our index values for each rule key
     likely_column = {k: np.argmax(max_counter[i, :]) for i, (k, _) in enumerate(rules.items())}
