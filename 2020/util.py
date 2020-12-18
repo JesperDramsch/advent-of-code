@@ -76,11 +76,11 @@ def create_dirs(number):
         with open(there, "w") as fp:
             if "tests" == d:
                 fp.write(
-                    f'import sys\nimport pytest\n\nsys.path.insert(0, ".")\nfrom util import Day\nfrom day{number:02d} import *\n\n@pytest.fixture(scope="function")\ndef day():\n    day = Day({number})\n    day.load(typing=str)\n    return day\n\ndef test_example(day):\n    data = ""\n    day.load(data)\n    assert main(day, part=1) == False\n\ndef test_example_p2(day):\n    data = ""\n    day.load(data)\n    assert main(day, part=2) == False\n\ndef test_part1(day):\n    assert main(day, part=1) == False\n\ndef test_part2(day):\n    assert main(day, part=2) == False\n'
+                    f'import sys\nimport pytest\n\nsys.path.insert(0, ".")\nfrom util import Day\nfrom day{number:02d} import *\n\n@pytest.fixture(scope="function")\ndef example():\n    day = Day({number})\n    data = """"""\n\n    day.load(data, typing=str)\n    return day\n\n@pytest.fixture(scope="function")\ndef day():\n    day = Day({number})\n    day.load(typing=str)\n    return day\n\ndef test_example(example):\n    assert main(example, part=1) == False\n\ndef test_example_p2(example):\n    assert main(example, part=2) == False\n\ndef test_part1(day):\n    assert main(day, part=1) == False\n\ndef test_part2(day):\n    assert main(day, part=2) == False\n'
                 )
             elif "." == d:
                 fp.write(
-                    f'from util import Day\nfrom aocd import submit\n\ndef main(day, part=1):\n    if part == 1:\n        pass\n    if part == 2:\n        pass\n\nif __name__ == "__main__":\n    day = Day({number})\n    day.download()\n\n    day.load(typing=str)\n    p1 = main(day)\n    print(p1)\n    submit(p1, part="a", day={number}, year=2020)\n\n    # day.load(typing=str)\n    # 2 = main(day, part=2)\n    # print(p2)\n    # submit(p2, part="b", day={number}, year=2020)\n'
+                    f'from util import Day\nfrom aocd import submit\n\ndef main(day, part=1):\n    if part == 1:\n        pass\n    if part == 2:\n        pass\n\nif __name__ == "__main__":\n    day = Day({number})\n    day.download()\n\n    day.load(typing=str)\n    p1 = main(day)\n    print(p1)\n    # submit(p1, part="a", day={number}, year=2020)\n\n    # day.load(typing=str)\n    # p2 = main(day, part=2)\n    # print(p2)\n    # submit(p2, part="b", day={number}, year=2020)\n'
                 )
             else:
                 pass
