@@ -31,7 +31,7 @@ def make_regex(rules, start_num=0, depth=0):
                 out2 += make_regex(rules, val, depth + 1)
             if out2:
                 out.append(out2)
-        return "((" + ")|(".join(out) + "))"
+        return "(" + "|".join(out) + ")"
 
 
 def main(day, part=1):
