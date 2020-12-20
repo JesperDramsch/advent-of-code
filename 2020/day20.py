@@ -181,8 +181,6 @@ def find_snek(data):
         snek = snekies.pop()
         snek_y, snek_x = snek.shape
         for y, x in np.ndindex(data.shape):
-            x -= snek_x // 2 - 1
-            y -= snek_y // 2
             sub_arr = data[y : y + snek_y, x : x + snek_x].copy()
             if not sub_arr.shape == snek.shape:
                 continue
