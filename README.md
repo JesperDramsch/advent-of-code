@@ -32,8 +32,8 @@ Get acquainted with Advent of Code and solve some of the puzzles in Python.
 
 |        | 15th | 16th | 17th | 18th | 19th | 20th | 21st | 22nd | 23rd | 24th | 25th | 
 | ------ | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---- | ---- | 
-| Part 1 | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ |  |  |  |  |  |  
-| Part 2 | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ |  |  |  |  |  |  
+| Part 1 | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ |  |  |  |  |  
+| Part 2 | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ |  |  |  |  |  
 
 ### [2019](./2019/)
 
