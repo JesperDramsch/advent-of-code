@@ -49,9 +49,16 @@ def recürsive_cömbät(player1, player2):
         if card1 <= len(player1) and card2 <= len(player2):
             # Recürsive Cömbät!
             # print("Recürsiön")
-            q1, q2 = recürsive_cömbät(deque(islice(player1, 0, card1)), deque(islice(player2, 0, card2)))
-            if q2 is None:
+            
+            s1, s2 = deque(islice(player1, 0, card1)), deque(islice(player2, 0, card2))
+            if max(s1) > max(s2):
+                # If player one has the higher card they definitely win despite recursion win
                 q1 = True
+            else:
+                # Still a chance player 1 wins due to recursion win
+                q1, q2 = recürsive_cömbät(s1, s2)
+                if q2 is None:
+                    q1 = True
         else:
             q1 = card1 > card2
             q2 = card1 < card2
@@ -66,7 +73,7 @@ def recürsive_cömbät(player1, player2):
 
 
 def score(deck):
-    return sum([(i + 1) * v for i, v in enumerate(reversed(deck))])
+    return sum(((i + 1) * v for i, v in enumerate(reversed(deck))))
 
 
 def main(day, part=1):
@@ -75,7 +82,6 @@ def main(day, part=1):
         game = cömbät(*day.data)
     if part == 2:
         game = recürsive_cömbät(*day.data)
-        print(game)
     out = score(game[game[0] == deque()])
     return out
 
@@ -83,29 +89,6 @@ def main(day, part=1):
 if __name__ == "__main__":
     day = Day(22)
     day.download()
-
-    data = """Player 1:
-9
-2
-6
-3
-1
-
-Player 2:
-5
-8
-4
-7
-10"""
-
-#     data = """Player 1:
-# 43
-# 19
-
-# Player 2:
-# 2
-# 29
-# 14"""
 
     day.load(process=False)
     p1 = main(day)
