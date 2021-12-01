@@ -1,7 +1,6 @@
 from util import Day
 from aocd import submit
 
-
 def preprocess(data):
     data = [int(x) for x in data]
     data_max = len(data)
@@ -17,7 +16,6 @@ def show_cups(cups, start):
     for _ in cups.items():
         show_cups.append(cups[show_cups[-1]])
     return "".join(map(str, show_cups))
-
 
 def cüps(cups, moves=10, verbose=None):
     out, current = (cups, next(iter(cups.keys())))

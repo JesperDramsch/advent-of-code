@@ -11,14 +11,14 @@ def example():
     day = Day(25)
     data = "5764801\n17807724"
 
-    day.load(data, typing=str)
+    day.load(data, typing=int)
     return day
 
 
 @pytest.fixture(scope="function")
 def day():
     day = Day(25)
-    day.load(typing=str)
+    day.load(typing=int)
     return day
 
 
