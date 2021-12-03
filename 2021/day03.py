@@ -35,8 +35,8 @@ def life_support_rating(data):
 
     # Initial split of data
     gamma_rate, epsilon_rate = power_consumption(data)
-    o2_data = list(filter(lambda c: c.startswith(gamma_rate[0]), data))
-    co2_data = list(filter(lambda c: c.startswith(epsilon_rate[0]), data))
+    o2_data = tuple(filter(lambda c: c.startswith(gamma_rate[0]), data))
+    co2_data = tuple(filter(lambda c: c.startswith(epsilon_rate[0]), data))
 
     # Loop through each digit in the data after the first digit
     for i in range(1, len(gamma_rate)):
@@ -47,12 +47,12 @@ def life_support_rating(data):
             # Find current power consumption
             gamma_rate, _ = power_consumption(o2_data)
             # Filter data to only include max power consumption
-            o2_data = list(filter(lambda c: c.startswith(gamma_rate[: i + 1]), o2_data))
+            o2_data = tuple(filter(lambda c: c.startswith(gamma_rate[: i + 1]), o2_data))
 
         if len(co2_data) > 0 and not co2_flag:
             co2_scrubber_rating = co2_data[-1]
             _, epsilon_rate = power_consumption(co2_data)
-            co2_data = list(filter(lambda c: c.startswith(co2_data[0][:i] + epsilon_rate[i]), co2_data))
+            co2_data = tuple(filter(lambda c: c.startswith(co2_data[0][:i] + epsilon_rate[i]), co2_data))
 
         # If only one entry left, then we have found the best match
         if len(o2_data) == 1:
