@@ -2,12 +2,12 @@ from util import Day
 from aocd import submit
 from collections import Counter
 
+
 def power_consumption(data):
     epsilon_rate = gamma_rate = ""
 
-    # Make zero & one counters
+    # Make zero counters
     zeros = Counter()
-    ones = Counter()
 
     # Iterate through each entry
     for num in data:
@@ -15,16 +15,14 @@ def power_consumption(data):
         for i, digit in enumerate(num):
             if digit == "0":
                 zeros[i] += 1
-            else:
-                ones[i] += 1
 
     # Iterate through each digit append "0" or "1" to gamma_rate and epsilon_rate
     for i in range(len(data[0])):
-        if ones[i] >= zeros[i]:
+        if len(data) // 2 >= zeros[i]:
             gamma_rate += "1"
             epsilon_rate += "0"
 
-        elif zeros[i] > ones[i]:
+        elif zeros[i] > len(data) // 2:
             gamma_rate += "0"
             epsilon_rate += "1"
 
@@ -32,8 +30,6 @@ def power_consumption(data):
 
 
 def life_support_rating(data):
-
-    co2_scrubber_rating = ""
 
     o2_flag = co2_flag = False
 
