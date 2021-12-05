@@ -12,7 +12,6 @@ def parse_input(input_str):
         coords.append((complex(start_real, start_imag), complex(end_real, end_imag)))
     return coords
 
-# Spoiler for Advent of Code 2021 Day 05
 def fill_lines(coords, diagonal=False):
     vents = Counter()
     # Iterate over all coords
@@ -35,14 +34,14 @@ def fill_lines(coords, diagonal=False):
             continue
 
         # Iterate over steps and add to counter using increment
-        for i in range(steps):
-            vents[coord[0] + i * increment] += 1
+        vents.update((coord[0] + i * increment for i in range(steps)))
 
     return vents
 
 
 def get_intersections(lines):
     return {key: value for key, value in lines.items() if value > 1}
+
 
 
 def main(day, part=1):
