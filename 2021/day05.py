@@ -1,18 +1,18 @@
 from util import Day
 from aocd import submit
 from collections import Counter
-
+import re
 
 def parse_input(input_str):
     coords = []
     for line in input_str:
         # Split start and end
-        start, end = line.split(" -> ")
+        start_real, start_imag, end_real, end_imag = map(int, re.findall(r"\d+", line))
         # Append complex coords to list
-        coords.append((complex(start.replace(",", "+") + "j"), complex(end.replace(",", "+") + "j")))
+        coords.append((complex(start_real, start_imag), complex(end_real, end_imag)))
     return coords
 
-
+# Spoiler for Advent of Code 2021 Day 05
 def fill_lines(coords, diagonal=False):
     vents = Counter()
     # Iterate over all coords
