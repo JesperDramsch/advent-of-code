@@ -2,26 +2,37 @@ from util import Day
 from aocd import submit
 from collections import Counter
 
+
 def parse_input(data):
     template = data[0]
-
     instructions = dict(line.split(" -> ") for line in data[2:])
     return template, instructions
 
-def process_instructions(template, instructions):
-    new_template = []
-    for i, letter in enumerate(template[:-1]):
-        new_template.append(letter)
-        instruction = letter+template[i+1]
-        if instruction in instructions:
-            new_template.append(instructions[instruction])
-    new_template.append(template[-1])
-    return new_template
 
-def apply_steps(steps, template, instructions):
+def process_instructions(steps, template, instructions):
+
+    # Create Counters for pairs and letters
+    pairs = Counter([a + b for (a, b) in zip(template, template[1:])])
+    letters = Counter(template)
+
+    # Iterate through steps
     for _ in range(steps):
-        template = process_instructions(template, instructions)
-    return template
+        # Iterate through pair counts (copy to modify pair in loop)
+        for pair, count in pairs.copy().items():
+            # Check if pair is in instruction
+            c = instructions.get(pair)
+            if c is not None:
+                # Split pair into two letters
+                a, b = pair
+                # Remove pair from pairs
+                pairs[pair] -= count
+                # Add the two new pair to pairs
+                pairs[a + c] += count
+                pairs[c + b] += count
+                # Add new letter
+                letters[c] += count
+    return letters
+
 
 def main(day, part=1):
     day.data = parse_input(data=day.data)
@@ -29,9 +40,9 @@ def main(day, part=1):
         steps = 10
     if part == 2:
         steps = 40
-    template = apply_steps(steps, *day.data)
-    count = Counter(template).most_common()
+    count = process_instructions(steps, *day.data).most_common()
     return count[0][1] - count[-1][1]
+
 
 if __name__ == "__main__":
     day = Day(14)
@@ -42,7 +53,7 @@ if __name__ == "__main__":
     print(p1)
     submit(p1, part="a", day=14, year=2021)
 
-    # day.load(typing=str)
-    # p2 = main(day, part=2)
-    # print(p2)
-    # submit(p2, part="b", day=14, year=2021)
+    day.load(typing=str)
+    p2 = main(day, part=2)
+    print(p2)
+    submit(p2, part="b", day=14, year=2021)

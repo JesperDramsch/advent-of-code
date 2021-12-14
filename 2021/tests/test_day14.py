@@ -46,4 +46,4 @@ def test_part1(day):
     assert main(day, part=1) == 3411
 
 def test_part2(day):
-    assert main(day, part=2) == False
+    assert main(day, part=2) == 7477815755570
