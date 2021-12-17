@@ -21,9 +21,7 @@ def probe_trajectory(trajectory, target):
 
 
 def find_trajectories(target):
-    x_vel, y_vel = 0, 0
-    y_maxes = []
-    velocities = []
+    y_maxes, velocities = [] , []
     for y_vel in range(target[2], -target[2] + 1):
         for x_vel in range(target[1] + 1):
             hit_or_miss = probe_trajectory((x_vel, y_vel), target)
@@ -34,11 +32,9 @@ def find_trajectories(target):
 
 
 def parse_target(target):
-    x1, x2, y1, y2 = re.findall(r"(-*\d+)", target)
-    x_min, x_max = int(x1), int(x2)
-    x_min, x_max = min(x_min, x_max), max(x_min, x_max)
-    y_min, y_max = int(y1), int(y2)
-    y_min, y_max = min(y_min, y_max), max(y_min, y_max)
+    x1, x2, y1, y2 = map(int, re.findall(r"(-*\d+)", target))
+    x_min, x_max = min(x1, x2), max(x1, x2)
+    y_min, y_max = min(y1, y2), max(y1, y2)
     return x_min, x_max, y_min, y_max
 
 
@@ -56,10 +52,9 @@ if __name__ == "__main__":
     day.download()
 
     day.load(typing=str)
-    # day.load("target area: x=20..30, y=-10..-5", typing=str)
     p1 = main(day)
     print(p1)
-    # submit(p1, part="a", day=17, year=2021)
+    submit(p1, part="a", day=17, year=2021)
 
     day.load(typing=str)
     p2 = main(day, part=2)
