@@ -29,5 +29,5 @@ def test_example_p2(example):
 def test_part1(day):
     assert main(day, part=1) == 671580
 
-# def test_part2(day):
-#     assert main(day, part=2) == False
+def test_part2(day):
+    assert main(day, part=2) == 912857726749764
