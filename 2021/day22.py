@@ -30,7 +30,6 @@ def process_all_cubes(instructions):
             iy = max(y[0], y_next[0]), min(y[1], y_next[1])
             iz = max(z[0], z_next[0]), min(z[1], z_next[1])
 
-            
             # Remove empty cubes
             if val == 0:
                 cubes.pop((x, y, z))
