@@ -26,6 +26,7 @@ def process_all_cubes(instructions):
     cubes = Counter()
     for on_off, x_next, y_next, z_next in instructions:
         for (x, y, z), val in cubes.copy().items():
+            # Find intersection of values
             ix = max(x[0], x_next[0]), min(x[1], x_next[1])
             iy = max(y[0], y_next[0]), min(y[1], y_next[1])
             iz = max(z[0], z_next[0]), min(z[1], z_next[1])
