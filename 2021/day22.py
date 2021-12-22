@@ -46,7 +46,6 @@ def process_all_cubes(instructions):
                 and z_next[0] >= z[0]
                 and z_next[1] <= z[1]
             ):
-                cubes[x_next, y_next, z_next] = 0
                 break
             # Existing cube item is contained in new cube
             elif (
