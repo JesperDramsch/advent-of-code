@@ -57,7 +57,7 @@ def process_all_cubes(instructions):
                 and z[0] >= z_next[0]
                 and z[1] <= z_next[1]
             ):
-                cubes[(x, y, z)] -= val
+                cubes.pop((x, y, z))
 
             # Reset overlapping value 
             elif ix[0] <= ix[1] and iy[0] <= iy[1] and iz[0] <= iz[1]:
