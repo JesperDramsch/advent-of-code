@@ -12,6 +12,9 @@ https://adventofcode.com
 
 🖧 Exchange ideas on the [subreddit](https://www.reddit.com/r/adventofcode) and learn from other approaches as well.
 
+### 2021
+Keeping on Keeping on.
+
 ### 2020
 Finish AOC without restrictions. Consistency is key. Have fun while doing it. Don't aim for the leaderboard, it opens 5am and people are crazy fast anyways. Tinker with the Day class and possibly add some nifty utilities to make each day a little easier.
 
@@ -22,6 +25,18 @@ Learn some OOP and build a reusable class for each day. Build tests with [Pytest
 Get acquainted with Advent of Code and solve some of the puzzles in Python.
 
 ## 🌟 Completion Status 🌟
+
+### [2021](./2021/)
+
+|        | 1st | 2nd | 3rd | 4th | 5th | 6th | 7th | 8th | 9th | 10th | 11th | 12th | 13th | 14th |
+| ------ | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---- | ---- | ---- | ---- | ---- |
+| Part 1 | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐  | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ |
+| Part 2 | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ | ⭐ |
+
+|        | 15th | 16th | 17th | 18th | 19th | 20th | 21st | 22nd | 23rd | 24th | 25th | 
+| ------ | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---- | ---- | 
+| Part 1 | ⭐ | ⭐ | ⭐ | ⭐ |  | ⭐ | ⭐ | ⭐ |  |  |  |  
+| Part 2 | ⭐ | ⭐ | ⭐ | ⭐ |  | ⭐ | ⭐ | ⭐ |  |  |  |  
 
 ### [2020](./2020/)
 
