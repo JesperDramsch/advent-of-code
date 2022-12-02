@@ -16,9 +16,7 @@ def pytest_runtest_makereport(item, call):
     m = re.match(r"tests/test_day([0-9]{2})\.py::test_part([0-9])", item.nodeid)
     if m:
         day, part = m.groups()
-        if rep.failed:
-            print(f"Day {day} Part {part} Failed: {rep.longreprtext}")
-        else:
+        if rep.when == 'call' and rep.outcome == 'passed':
             with open(Path(Path(__file__).resolve().parent.parent.parent, "README.md"), "r+") as f:
                 
                 readme = f.read()
