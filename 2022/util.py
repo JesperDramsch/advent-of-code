@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 from functools import partial
+import os
 
 
 class Day:
@@ -69,8 +70,7 @@ def create_dirs(number):
     files = (filename + ".py", filename + ".txt", "test_" + filename + ".py")
     dirs = (".", "data", "tests")
 
-    for d in dirs:
-        Path(d).mkdir(exist_ok=True)
+    year = get_year()
 
     for d, f in zip(dirs, files):
         there = Path(d, f)
@@ -83,11 +83,13 @@ def create_dirs(number):
                 )
             elif "." == d:
                 fp.write(
-                    f'from util import Day\nfrom aocd import submit\n\ndef main(day, part=1):\n    if part == 1:\n        pass\n    if part == 2:\n        pass\n\nif __name__ == "__main__":\n    day = Day({number})\n    day.download()\n\n    day.load(typing=str)\n    p1 = main(day)\n    print(p1)\n    # submit(p1, part="a", day={number}, year=2021)\n\n    # day.load(typing=str)\n    # p2 = main(day, part=2)\n    # print(p2)\n    # submit(p2, part="b", day={number}, year=2021)\n'
+                    f'from util import Day\nfrom aocd import submit\n\ndef main(day, part=1):\n    if part == 1:\n        pass\n    if part == 2:\n        pass\n\nif __name__ == "__main__":\n    day = Day({number})\n    day.download()\n\n    day.load(typing=str)\n    p1 = main(day)\n    print(p1)\n    # submit(p1, part="a", day={number}, year={year})\n\n    # day.load(typing=str)\n    # p2 = main(day, part=2)\n    # print(p2)\n    # submit(p2, part="b", day={number}, year={year})\n'
                 )
             else:
                 pass
 
+def get_year():
+    return Path(__file__).resolve().parent.name
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create Files")
