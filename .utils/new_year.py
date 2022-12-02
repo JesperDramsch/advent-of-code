@@ -30,9 +30,9 @@ with open(Path(Path(__file__).resolve().parent.parent, "README.md"), "r+") as f:
 
     intro, goals = intro.split(goal_splitter)
 
-    new_goals = f"## {year}\n\n\n"
+    new_goals = f"\n### {year}\n\n\n"
 
-    new_year_head = f"### [{year}](./{year}/)"
+    new_year_head = f"\n### [{year}](./{year}/)"
 
     comment = " <!--{y}.{d:02d}.{p}--> |"
 
@@ -41,7 +41,7 @@ with open(Path(Path(__file__).resolve().parent.parent, "README.md"), "r+") as f:
                  "\n| Part 1 |" + "".join((comment.format(y=year, d=day, p=1) for day in range(1, 14))),
                  "\n| Part 2 |" + "".join((comment.format(y=year, d=day, p=2) for day in range(1, 14))),
                  "\n\n|        | 14th | 15th | 16th | 17th | 18th | 19th | 20th | 21st | 22nd | 23rd | 24th | 25th |",
-                 "\n| ------ |" + " --- |" * 13,
+                 "\n| ------ |" + " --- |" * 12,
                  "\n| Part 1 |" + "".join((comment.format(y=year, d=day, p=1) for day in range(14, 26))),
                  "\n| Part 2 |" + "".join((comment.format(y=year, d=day, p=2) for day in range(14, 26))),
                  ""
