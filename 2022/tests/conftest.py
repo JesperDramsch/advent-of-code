@@ -17,7 +17,7 @@ def pytest_runtest_makereport(item, call):
     if m:
         day, part = m.groups()
         if rep.when == 'call' and rep.outcome == 'passed':
-            with open(Path(Path(__file__).resolve().parent.parent.parent, "README.md"), "r+") as f:
+            with open(Path(Path(__file__).resolve().parent.parent.parent, "README.md"), "r+", encoding="utf8") as f:
                 
                 readme = f.read()
 
