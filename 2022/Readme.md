@@ -27,3 +27,11 @@
 - Forget to delete debug print statements. Not an error but I definitely had my screen full of deques.
 - somehow got a None on the crane `deque()`. Let's investigate: `stacks[end-1].extend(crane.reverse()) TypeError: 'NoneType' object is not iterable` – ah yes, the `deque().reverse()` is in-place.
 - Mixed up the example and full data test results, so they failed, when the code worked.
+
+### 2022-12-06
+- Got an empty list, but caught that early, because I didn't want to mess up with this new data. There are no splits and it's a singular string, so I figured my standard loader might not love it.
+- Put the data `mjqjpqmgbljsphdztnvjfqwrcgsmlb` as the solution to the test example. That was a simple enough brain fart.
+- `day.data = [i, set(day.data[x-i] for i in range(4)) for x in range(3, len(day.data))] SyntaxError: invalid syntax`, forgot parantheses
+- `IndexError: list index out of range` messing up the index shifting in the stream
+- Off-by-one error, because the puzzle expects 1-indexed numbers.
+- Didn't change the variable name from `day.data` to `data` when refactoring into a function for part 2.

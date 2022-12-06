@@ -13,7 +13,7 @@ class Day:
         self.debug = False
 
     def load(
-        self, data: list = None, typing: type = int, sep: str = "\n", path: str = None, process: bool = True
+        self, data: list = None, typing: type = int, sep: str = "\n", path: str = None, process: bool = True, strip: bool = True
     ) -> list:
         """Loads Data for Problem
         File _must_ be named dayXX.txt
@@ -24,7 +24,8 @@ class Day:
             typing (type, optional): Type of data in list . Defaults to int.
             sep (str, optional): Separator in input data. Defaults to "\n".
             path (str, optional): Path to data file. Defaults to None.
-            process (bool, optional): [description]. Defaults t
+            process (bool, optional): Apply type and splitting. Defaults to True
+            strip (bool, optional): Strip the input of whitespaces. Defaults to True
 
         Returns:
             list:  Data for Problem
@@ -38,7 +39,9 @@ class Day:
                 self.data = f.read()
 
         if process:
-            self.data = list(map(typing, self.data.strip().split(sep)))
+            if strip:
+                self.data = self.data.strip()
+            self.data = list(map(typing, self.data.split(sep)))
 
         return self
 
