@@ -4,9 +4,9 @@ from aocd import submit
 
 def find_marker(data, length):
     for x in range(length - 1, len(data)):
-        items = set(data[x - i] for i in range(length))
+        items = set(data[x - length : x])
         if len(items) == length:
-            return x + 1
+            return x
 
 
 def find_start_marker(data):
