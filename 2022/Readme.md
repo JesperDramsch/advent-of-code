@@ -35,3 +35,17 @@
 - `IndexError: list index out of range` messing up the index shifting in the stream
 - Off-by-one error, because the puzzle expects 1-indexed numbers.
 - Didn't change the variable name from `day.data` to `data` when refactoring into a function for part 2.
+
+### 2022-12-07
+- `elif "ls" in line: SyntaxError: invalid syntax` forgot a closing bracket
+- `dir = dir.children[dir.children.index(line.split(" ")[1])] ValueError: 'cd' is not in list` forgot that commands have 2 spaces
+- `ValueError: '/' is not in list` follow up to error before where I don't return to root properly, I'll split the command as a result
+- `ValueError: 'cwdpn' is not in list` – no idea what that even means, I made a logic error somewhere. Gotta go debug!
+- `dir.add_file(line.split(" ")) TypeError: Directory.add_file() missing 1 required positional argument: 'name'` gotta broadcast the tuple!
+- `start, name = line.split(" ")[1] ValueError: too many values to unpack (expected 2)` - oops, I should maybe be a bit more careful
+- `AttributeError: 'str' object has no attribute 'size'` changed to a dictionary representation and didn't adjust the size calculation
+- `TypeError: unsupported operand type(s) for +: 'int' and 'str'` didn't convert the sizes to an integer in the File class
+- `ValueError: invalid literal for int() with base 10: 'grgj'` another very nice mistake parsing. Gotta take it slower. The sizes are first in the files.
+- `AttributeError: 'NoneType' object has no attribute 'print'` forgot to return the tree from the `parse_directory()` function
+- Used `if` instead of `elif`, which caused an unexpected output on the `$ cd ..` command
+- Part 2: `wrong answer: 1186199` too high. So I made some logic error.
