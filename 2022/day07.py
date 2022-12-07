@@ -40,28 +40,18 @@ def parse_directory(data):
     tree = Directory("/")
     dir = tree
     for line in data:
-        if line.startswith("$"):
-            # Command
-            if "cd" in line:
-                # Change directory
-                target_dir = line.split(" ")[2].strip()
-                if ".." == target_dir:
-                    dir = dir.parent
-                elif "/" == target_dir:
-                    dir = tree
-                else:
-                    dir = dir.children[target_dir]
-            elif "ls" in line:
-                # List directory
+        match line.split(" "):
+            case "$", "cd", "..":
+                dir = dir.parent
+            case "$", "cd", "/":
+                dir = tree
+            case "$", "cd", target_dir:
+                dir = dir.children[target_dir]
+            case "$", "ls":
                 pass
-        else:
-            start, name = line.split(" ")
-            # File or directory
-            if line.startswith("dir"):
-                # directory
+            case "dir", name:
                 dir.add_child(name)
-            else:
-                # File
+            case start, name:
                 dir.add_file(name, int(start))
     return tree
 
