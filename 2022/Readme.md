@@ -49,3 +49,14 @@
 - `AttributeError: 'NoneType' object has no attribute 'print'` forgot to return the tree from the `parse_directory()` function
 - Used `if` instead of `elif`, which caused an unexpected output on the `$ cd ..` command
 - Part 2: `wrong answer: 1186199` too high. So I made some logic error.
+
+### 2022-12-08
+- `if cell > max_height[ii]: TypeError: '>' not supported between instances of 'str' and 'int'` forgot to change the variable name in function
+- Tried to do some fancy indexing in a row, but realised I'm not checking the list forward and backward. Will just have to do indexing normally without enumerate to keep the code tidy.
+- Forgot to remove print statements before the big input. What a wall of text!
+- `visible = check_visibility(flip(grid), flip(visible)) NameError: name 'flip' is not defined` Removed `flip()` thinking it wasn't needed, as I don't need to flip anymore.
+- `data = """30373 IndentationError: unexpected indent` accidentally hit tab
+- My logic in part 2 seems faulty. Something isn't increasing numbers how I expected it to. May be the `enumerate(range(...))`. Have to investigate.
+- `UnboundLocalError: cannot access local variable 'i' where it is not associated with a value` forgot to remove an `i`
+- Found the error, I was starting ON the tree of the tree house so all viewing distances were seen as `0`... Off-by-one errors. The bane of my coding existence.
+- `out.append(i+1) UnboundLocalError: cannot access local variable 'i' where it is not associated with a value` tried quick and dirty. Didn't work.
