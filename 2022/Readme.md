@@ -60,3 +60,10 @@
 - `UnboundLocalError: cannot access local variable 'i' where it is not associated with a value` forgot to remove an `i`
 - Found the error, I was starting ON the tree of the tree house so all viewing distances were seen as `0`... Off-by-one errors. The bane of my coding existence.
 - `out.append(i+1) UnboundLocalError: cannot access local variable 'i' where it is not associated with a value` tried quick and dirty. Didn't work.
+
+### 2022-12-09
+- `day.data = parse(data) NameError: name 'data' is not defined` oops. Forgot `day.`.
+- `tail = head.real - (diff.real / abs(diff.real)) + (head.imag - (diff.imag / abs(diff.imag))) * 1j ZeroDivisionError: float division by zero` didn't think about zeros...
+- `print(f"{head.real:d} + {head.imag:d}j, \t {tail.real:d} + {tail.imag:d}j,\t {direction.real:d} + {direction.imag:d}j,\t {steps},\t {visited}") ValueError: Unknown format code 'd' for object of type 'float'` confused type conversion and formatting
+- Conceptual error that I did not adjust the diagonal movement correctly.
+- `visited = set(0) TypeError: 'int' object is not iterable` Can't start the set with just a zero
