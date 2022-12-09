@@ -48,11 +48,13 @@ def check_visibility(grid, visible=None):
                     max_height_col[i] = cell
     return visible
 
+
 def scenic_score(scores):
     x = 1
     for i in scores:
         x *= i
     return x
+
 
 def viewing_distance(grid, lat, lon):
     """Find the distance from a cell to the nearest cell with a higher score
@@ -71,39 +73,39 @@ def viewing_distance(grid, lat, lon):
     list(int)
         distances to nearest higher cell
     """
-    out = []
+    # Prepare the cardinal directions for view distance
+    cardinals, out = [
+    #   (lat_a,   lat_z,     lon_a,   lon_z,    direction)
+        (lat,     lat + 1,   lon + 1, len(grid[0]), 1), # right
+        (lat,     lat - 1,   lon - 1, -1,          -1), # left
+        (lat + 1, len(grid), lon,     lon + 1,      1), # down
+        (lat - 1, -1,        lon,     lon - 1,     -1), # up
+    ], []
 
-    for i, right in enumerate(range(lon+1, len(grid[0]))):
-        if grid[lat][right] >= grid[lat][lon]:
-            out.append(i+1)
+    # Iterate through the cardinal directions (up, down, right, left)
+    for lat_a, lat_z, lon_a, lon_z, direction in cardinals:
+        # Iterate through latitude then Iterate through longitude
+        for i, lat_i in enumerate(range(lat_a, lat_z, direction), 1):
+            for ii, lon_i in enumerate(range(lon_a, lon_z, direction), 1):
+                # If the tree is higher, add the distance to the output
+                if grid[lat_i][lon_i] >= grid[lat][lon]:
+                    out.append(i * ii)
+                    break
+            # Break out of nested loop if we found a higher tree
+            else: continue
             break
-    else:
-        out.append(len(grid[0]) - lon - 1)
-    for i, left in enumerate(range(lon-1, -1, -1)):
-        if grid[lat][left] >= grid[lat][lon]:
-            out.append(i+1)
-            break
-    else:
-        out.append(lon)
-    for i, down in enumerate(range(lat+1, len(grid))):
-        if grid[down][lon] >= grid[lat][lon]:
-            out.append(i+1)
-            break
-    else:
-        out.append(len(grid) - lat - 1)
-    for i, up in enumerate(range(lat-1, -1, -1)):
-        if grid[up][lon] >= grid[lat][lon]:
-            out.append(i+1)
-            break
-    else:
-        out.append(lat)
-    
+        else:
+            # If we didn't find a higher tree, add the max distance
+            out.extend(direction * (z + -1 * a) for a, z in ((lat_a, lat_z), (lon_a, lon_z)))
+
     return scenic_score(out)
+
 
 def check_trees(grid):
     for i in range(len(grid)):
         for ii in range(len(grid[0])):
             yield viewing_distance(grid, i, ii)
+
 
 def main(day, part=1):
     grid = parse(day.data)
