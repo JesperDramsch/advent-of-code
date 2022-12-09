@@ -67,3 +67,5 @@
 - `print(f"{head.real:d} + {head.imag:d}j, \t {tail.real:d} + {tail.imag:d}j,\t {direction.real:d} + {direction.imag:d}j,\t {steps},\t {visited}") ValueError: Unknown format code 'd' for object of type 'float'` confused type conversion and formatting
 - Conceptual error that I did not adjust the diagonal movement correctly.
 - `visited = set(0) TypeError: 'int' object is not iterable` Can't start the set with just a zero
+- `tail = rope[i+1] IndexError: list index out of range` gotta stop one before the end with pairs
+- Made the error of using a for loop that returns items on a list that is changing... Didn't throw an error but gave the wrong result.
