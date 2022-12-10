@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 from functools import partial
+from datetime import datetime
 import os
 
 
@@ -96,7 +97,7 @@ def get_year():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create Files")
-    parser.add_argument("day", help="Number of day", type=int)
+    parser.add_argument("--day", help="Number of day", type=int, default=datetime.now().day, required=False)
     args = parser.parse_args()
 
     create_dirs(args.day)
