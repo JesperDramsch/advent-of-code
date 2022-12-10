@@ -69,3 +69,14 @@
 - `visited = set(0) TypeError: 'int' object is not iterable` Can't start the set with just a zero
 - `tail = rope[i+1] IndexError: list index out of range` gotta stop one before the end with pairs
 - Made the error of using a for loop that returns items on a list that is changing... Didn't throw an error but gave the wrong result.
+
+### 2022-12-10
+- `cycle += 1 UnboundLocalError: cannot access local variable 'cycle' where it is not associated with a value` forgot to start cycles
+- `check = checks.values()[0] TypeError: 'dict_values' object is not subscriptable` thought that would be a list or something.
+- `check = checks[20] KeyError: 20` oh my. Good thing I caught that, I set up my `range()` wrong.
+- `if cycles < check <= cycles+inc: TypeError: '<' not supported between instances of 'int' and 'NoneType'` Time to debug what I messed up here! I clearly don't understand the `match` statement well enough yet. Ok, since I split on an empty space the "noop" line still is a list, so the case has to also look into a list like this: `case "noop",:`. Good to know.
+- `if cycles < check <= cycles+inc: TypeError: '<' not supported between instances of 'int' and 'NoneType'` ah. Messed up my logic about using `checks`. It should be the keys I'm working with and I also caught that I need to increment it.
+- `return sum(cyclce*X for cycle, X in checks.items()) NameError: name 'cyclce' is not defined. Did you mean: 'cycle'?` haha, those typos will get me every time.
+- `return inc, add UnboundLocalError: cannot access local variable 'add' where it is not associated with a value` you'd think I'd learn this by now.
+- `return plot_crt(draw_crt(instructions)) NameError: name 'instructions' is not defined` argh. wrong name!
+- Bit of an understanding error about the CRT. I thought it was continuous indexing, but in fact it is for every line individually. Easy fix!
