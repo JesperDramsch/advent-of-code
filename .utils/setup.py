@@ -21,9 +21,9 @@ def create_dirs(number):
             template_test = fp.read()
         with open(there, "w") as fp:
             if "tests" == d:
-                fp.write(template_test.format(number=number, year=year))
+                fp.write(template_test.format(number=number))
             elif "." == d:
-                fp.write(template_day.format(number=number))
+                fp.write(template_day.format(number=number, year=year))
             else:
                 pass
 

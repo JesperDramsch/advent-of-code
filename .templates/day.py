@@ -1,34 +1,22 @@
-import sys
-import pytest
+from day import Day
+from aocd import submit
 
-sys.path.insert(0, ".")
-from util import Day
-from day{number:02d} import *
+def main(day, part=1):
+    if part == 1:
+        pass
+    if part == 2:
+        pass
 
-@pytest.fixture(scope="function")
-def example():
+if __name__ == "__main__":
     day = Day({number})
-    data = """"""
+    day.download()
 
-    day.load(data)
-    return day
-
-@pytest.fixture(scope="function")
-def day():
-    day = Day({number})
     day.load()
-    return day
+    p1 = main(day)
+    print(p1)
+    # submit(p1, part="a", day={number}, year={year})
 
-## Part 1
-def test_example(example):
-    assert main(example, part=1) == False
-
-def test_part1(day):
-    assert main(day, part=1) == False
-
-## Part 2
-def test_example_p2(example):
-    assert main(example, part=2) == False
-
-def test_part2(day):
-    assert main(day, part=2) == False
+    # day.load()
+    # p2 = main(day, part=2)
+    # print(p2)
+    # submit(p2, part="b", day={number}, year={year})
