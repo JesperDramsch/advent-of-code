@@ -80,3 +80,16 @@
 - `return inc, add UnboundLocalError: cannot access local variable 'add' where it is not associated with a value` you'd think I'd learn this by now.
 - `return plot_crt(draw_crt(instructions)) NameError: name 'instructions' is not defined` argh. wrong name!
 - Bit of an understanding error about the CRT. I thought it was continuous indexing, but in fact it is for every line individually. Easy fix!
+
+### 2022-12-11
+- `self.number = int(data[0].split(" ")[1]) NameError: name 'data' is not defined` forgot to rename the variable
+- ` self.number = int(text[0].split(" ")[1]) ValueError: invalid literal for int() with base 10: '0:'` Overlooked the ":"
+- `def main(day, part=1): IndentationError: expected an indented block after function definition on line 35` started writing the `turn()` method, but didn't add `pass` before working on something different.
+- ` from collection import deque ModuleNotFoundError: No module named 'collection'` I can never remember the right name. It's `collections`
+- `item //= 3 TypeError: unsupported operand type(s) for //=: 'NoneType' and 'int'` looks like I messed something up with the items. Forgot the "new =" in the split of the operation. Also caught that I'm now saving the modified self-operation here.
+- `operation = self.operation.replace("old", "{old}").format(old=item) ValueError: Exceeds the limit (4300) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit` well that's new. Apparently Python cannot convert long ints anymore.
+- `if sum(remaidners) == 0: NameError: name 'remaidners' is not defined. Did you mean: 'remainders'?` Speelink is hart
+- `item = [sum(item) // 3] TypeError: 'NoneType' object is not iterable` tried to return an `item.append(...)`, which is `None`.
+- `return [i * int(right) for i in item]TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'` maybe my idea for calculating the modulo arithmetics actually doesn't work out?
+- `item.append((op, right)) AttributeError: 'int' object has no attribute 'append'` 
+- ` self.items = deque(deque(self.starting_items)) AttributeError: 'Monkey' object has no attribute 'starting_items'` oops. it's just `starting_items`
