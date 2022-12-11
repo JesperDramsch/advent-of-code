@@ -13,8 +13,8 @@ year = datetime.now().year
 new_dir = Path(cwd, f'{year}/tests').mkdir(exist_ok=True)
 
 # Copy file from .utils to new directory
-shutil.copy(Path(cwd, '.utils', 'util.py'), Path(cwd, f'{year}'))
-shutil.copy(Path(cwd, '.utils', 'conftest.py'), Path(cwd, f'{year}/tests'))
+shutil.copy(Path(cwd, '.utils', 'day.py'), Path(cwd, f'{year}'))
+shutil.copy(Path(cwd, '.template', 'conftest.py'), Path(cwd, f'{year}/tests'))
 
 
 with open(Path(Path(__file__).resolve().parent.parent, "README.md"), "r+") as f:
