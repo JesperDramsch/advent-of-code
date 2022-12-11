@@ -1,4 +1,4 @@
-from util import Day
+from day import Day
 from aocd import submit
 
 
@@ -46,6 +46,7 @@ def check_program(instructions, checks):
 
 
 def main(day, part=1):
+    day.parse_list()
     if part == 1:
         checks = {20 + n * 40: None for n in range(6)}
         checks = check_program(day.data, checks)
@@ -58,11 +59,12 @@ if __name__ == "__main__":
     day = Day(10)
     day.download()
 
-    day.load(typing=str)
+    day.load()
     p1 = main(day)
     print(p1)
     submit(p1, part="a", day=10, year=2022)
 
+    day.load()
     p2 = main(day, part=2)
     print(p2)
     # submit(p2, part="b", day=10, year=2022)

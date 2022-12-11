@@ -1,4 +1,4 @@
-from util import Day
+from day import Day
 from aocd import submit
 
 
@@ -59,6 +59,7 @@ def game(opponent, result):
 
 
 def main(day, part=1):
+    day.parse_list()
     day.data = (decode(line, part=part) for line in day.data)
     if part == 1:
         return sum(selection_points(line[1]) + winner_points(game(*line)) for line in day.data)
@@ -70,13 +71,13 @@ if __name__ == "__main__":
     day = Day(2)
     day.download()
 
-    day.load(typing=str)
-
+    day.load()
+    
     p1 = main(day)
     print(p1)
     submit(p1, part="a", day=2, year=2022)
 
-    day.load(typing=str)
+    day.load()
 
     p2 = main(day, part=2)
     print(p2)

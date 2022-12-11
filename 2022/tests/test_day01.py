@@ -2,7 +2,7 @@ import sys
 import pytest
 
 sys.path.insert(0, ".")
-from util import Day
+from day import Day
 from day01 import *
 
 @pytest.fixture(scope="function")
@@ -23,13 +23,13 @@ def example():
 
 10000"""
 
-    day.load(data, typing=str)
+    day.load(data)
     return day
 
 @pytest.fixture(scope="function")
 def day():
     day = Day(1)
-    day.load(typing=str)
+    day.load()
     return day
 
 def test_example(example):

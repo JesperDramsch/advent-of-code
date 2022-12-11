@@ -1,4 +1,4 @@
-from util import Day
+from day import Day
 from aocd import submit
 from itertools import chain
 
@@ -23,6 +23,7 @@ def group_badges(data):
     return badges
 
 def main(day, part=1):
+    day.parse_list()
     if part == 1:
         day.data = parse_input(day.data)
         items = [match_compartments(*rucksack) for rucksack in day.data]
@@ -34,12 +35,12 @@ if __name__ == "__main__":
     day = Day(3)
     day.download()
 
-    day.load(typing=str)
+    day.load()
     p1 = main(day)
     print(p1)
     submit(p1, part="a", day=3, year=2022)
 
-    day.load(typing=str)
+    day.load()
     p2 = main(day, part=2)
     print(p2)
     submit(p2, part="b", day=3, year=2022)

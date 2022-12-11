@@ -1,4 +1,4 @@
-from util import Day
+from day import Day
 from aocd import submit
 
 
@@ -18,7 +18,6 @@ def find_message_marker(data):
 
 
 def main(day, part=1):
-
     if part == 1:
         return find_start_marker(day.data)
     if part == 2:
@@ -29,12 +28,12 @@ if __name__ == "__main__":
     day = Day(6)
     day.download()
 
-    day.load(process=False)
+    day.load()
     p1 = main(day)
     print(p1)
     submit(p1, part="a", day=6, year=2022)
 
-    day.load(typing=str)
+    day.load()
     p2 = main(day, part=2)
     print(p2)
     submit(p2, part="b", day=6, year=2022)

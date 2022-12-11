@@ -1,4 +1,4 @@
-from util import Day
+from day import Day
 from aocd import submit
 
 
@@ -108,24 +108,23 @@ def check_trees(grid):
 
 
 def main(day, part=1):
-    grid = parse(day.data)
+    day.parse_list_of_lists(sep="\n", sep2="", typing=int)
     if part == 1:
-        visible = check_visibility(grid)
-        return sum(sum(x) for x in visible)
+        return sum(sum(x) for x in check_visibility(day.data))
     if part == 2:
-        return max(check_trees(grid))
+        return max(check_trees(day.data))
 
 
 if __name__ == "__main__":
     day = Day(8)
     day.download()
 
-    day.load(typing=str)
+    day.load()
     p1 = main(day)
     print(p1)
     submit(p1, part="a", day=8, year=2022)
 
-    # day.load(typing=str)
+    day.load()
     p2 = main(day, part=2)
     print(p2)
     submit(p2, part="b", day=8, year=2022)

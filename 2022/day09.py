@@ -1,12 +1,10 @@
-from util import Day
+from day import Day
 from aocd import submit
 
 
 def parse(data):
     directions = {"R": 1 + 0j, "L": -1 + 0, "U": 0 + 1j, "D": 0 - 1j}
-    for line in data:
-        direction, steps = line.split()
-        yield directions[direction], int(steps)
+    return directions[data[0]], data[1]
 
 
 def movement(rope, direction, steps, visited=set()):
@@ -20,7 +18,6 @@ def movement(rope, direction, steps, visited=set()):
                     tail = tail.real - (diff.real / abs(diff.real)) + tail.imag * 1j
                 if diff.imag != 0:
                     tail = tail.real + (tail.imag - (diff.imag / abs(diff.imag))) * 1j
-                
             rope[i + 1] = tail
         visited.add(rope[-1])
     return rope
@@ -36,7 +33,8 @@ def wiggle(data, rope_length):
 
 
 def main(day, part=1):
-    day.data = parse(day.data)
+    day.parse_list_of_lists(sep2=" ", sep="\n", typing=(str, int))
+    day.apply(parse)
     if part == 1:
         return len(wiggle(day.data, rope_length=2))
     if part == 2:
@@ -56,8 +54,8 @@ D 1
 L 5
 R 2"""
 
-    # day.load(data, typing=str)
-    day.load(typing=str)
+    # day.load(data)
+    day.load()
 
     p1 = main(day)
     print(p1)
@@ -72,8 +70,8 @@ D 10
 L 25
 U 20"""
 
-    # day.load(data, typing=str)
-    day.load(typing=str)
+    # day.load(data)
+    day.load()
 
     p2 = main(day, part=2)
     print(p2)

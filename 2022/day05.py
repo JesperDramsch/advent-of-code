@@ -1,4 +1,4 @@
-from util import Day
+from day import Day
 from aocd import submit
 import re
 from collections import deque
@@ -62,7 +62,8 @@ def extract_top(stacks):
     return "".join(stack.pop() for stack in stacks)
 
 def main(day, part=1):
-    stacks, moves = parse_lines(day.data.split("\n"))
+    day.parse_list()
+    stacks, moves = parse_lines(day.data)
     if part == 1:
         stacks = move_stacks(stacks, moves, cratemove=9000)
     if part == 2:
@@ -73,11 +74,12 @@ if __name__ == "__main__":
     day = Day(5)
     day.download()
 
-    day.load(process=False)
+    day.load(strip=False)
     p1 = main(day)
     print(p1)
     submit(p1, part="a", day=5, year=2022)
 
+    day.load(strip=False)
     p2 = main(day, part=2)
     print(p2)
     submit(p2, part="b", day=5, year=2022)

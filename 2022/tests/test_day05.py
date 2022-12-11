@@ -2,7 +2,7 @@ import sys
 import pytest
 
 sys.path.insert(0, ".")
-from util import Day
+from day import Day
 from day05 import *
 
 @pytest.fixture(scope="function")
@@ -18,13 +18,13 @@ move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2"""
 
-    day.load(data, process=None)
+    day.load(data, strip=False)
     return day
 
 @pytest.fixture(scope="function")
 def day():
     day = Day(5)
-    day.load(process=None)
+    day.load(strip=None)
     return day
 
 def test_example(example):
