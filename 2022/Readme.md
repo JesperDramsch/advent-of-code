@@ -93,3 +93,12 @@
 - `return [i * int(right) for i in item]TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'` maybe my idea for calculating the modulo arithmetics actually doesn't work out?
 - `item.append((op, right)) AttributeError: 'int' object has no attribute 'append'` 
 - ` self.items = deque(deque(self.starting_items)) AttributeError: 'Monkey' object has no attribute 'starting_items'` oops. it's just `starting_items`
+
+### 2022-12-12
+- `wrong answer: 23` well... the hill climbing seemed easy. Now to find what I did wrong.
+-  `if 0 < x < len(data) and row - 1 <= data[x-1][y] <= row + 1: TypeError: unsupported operand type(s) for -: 'list' and 'int'` didn't think about where the actual value is...
+- `day.data[E[1]][E[0]] = ord("z") IndexError: list index out of range` switched rows and columns and forgot this one.
+- `import scipy as sp ModuleNotFoundError: No module named 'scipy'` for once it's not my error! The big data seems to need scipy for networkx.
+- ` raise nx.NetworkXNoPath(f"No path between {source} and {target}.") networkx.exception.NetworkXNoPath: No path between S and E.` Oh no... Ah. I need a directed graph.
+- `raise nx.NetworkXNoPath(f"No path between {source} and {target}.") networkx.exception.NetworkXNoPath: No path between (0, 10) and (20, 120).` haha, yeah of course there are basins without connection to the peak.
+- ` except networkx.exception.NetworkXNoPath: NameError: name 'networkx' is not defined` ah just copied the exception but imported `networkx as nx`
