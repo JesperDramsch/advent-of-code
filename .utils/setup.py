@@ -3,12 +3,10 @@ from pathlib import Path
 from datetime import datetime
 
 
-def create_dirs(number):
+def create_dirs(number, year):
     filename = f"day{number:02d}"
     files = (filename + ".py", filename + ".txt", "test_" + filename + ".py")
     dirs = (".", "data", "tests")
-
-    year = get_year()
 
     for d, f in zip(dirs, files):
         there = Path(d, f)
@@ -27,14 +25,10 @@ def create_dirs(number):
             else:
                 pass
 
-
-def get_year():
-    return Path(__file__).resolve().parent.name
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create Files")
     parser.add_argument("--day", help="Number of day", type=int, default=datetime.now().day, required=False)
+    parser.add_argument("--year", help="Number of year", type=int, default=datetime.now().year, required=False)
     args = parser.parse_args()
 
-    create_dirs(args.day)
+    create_dirs(args.day, args.year)

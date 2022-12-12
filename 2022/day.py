@@ -52,7 +52,10 @@ class Day(Parser):
         """
 
         mapfunc = partial(func, *args, **kwargs)
-        self.data = list(map(mapfunc, self.data))
+        try:
+            self.data = list(map(mapfunc, self.data))
+        except TypeError:
+            self.data = [list(map(mapfunc, x)) for x in self.data]
         return self
 
     def download(self):
