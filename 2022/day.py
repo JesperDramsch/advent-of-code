@@ -54,7 +54,7 @@ class Day(Parser):
         mapfunc = partial(func, *args, **kwargs)
         try:
             self.data = list(map(mapfunc, self.data))
-        except TypeError:
+        except:
             self.data = [list(map(mapfunc, x)) for x in self.data]
         return self
 

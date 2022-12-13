@@ -102,3 +102,14 @@
 - ` raise nx.NetworkXNoPath(f"No path between {source} and {target}.") networkx.exception.NetworkXNoPath: No path between S and E.` Oh no... Ah. I need a directed graph.
 - `raise nx.NetworkXNoPath(f"No path between {source} and {target}.") networkx.exception.NetworkXNoPath: No path between (0, 10) and (20, 120).` haha, yeah of course there are basins without connection to the peak.
 - ` except networkx.exception.NetworkXNoPath: NameError: name 'networkx' is not defined` ah just copied the exception but imported `networkx as nx`
+
+### 2022-12-13
+- `def main(day, part=1): IndentationError: expected an indented block after function definition on line 4` Good ol' suddenly working on a different idea and forgetting a `pass`
+- `indices = [i, compare(outcome) for i, outcome in enumerate(day.data)] SyntaxError: did you forget parentheses around the comprehension target?` Yes I did.
+-  `indices = [(i, compare(outcome)) for i, outcome in enumerate(day.data)] TypeError: compare() missing 1 required positional argument: 'right'` Whoops. `*outcome`
+- `raise ValueError(msg + f': {node!r}') ValueError: malformed node or string: [4, 3, 4, [2]]` forgot to escape the string evaluation in a recursive function.
+- `if value in {u"", b"", None, b"None", u"None"}: TypeError: unhashable type: 'list'` forgot to actually do the math.
+- `return sum(i[0] for i in indices if i[1]]) SyntaxError: closing parenthesis ']' does not match opening parenthesis '('` Hello autocomplete...
+- `wrong answer: 662` oh no. Off by one!
+- `return sorted(day.data, cmp=compare) TypeError: 'cmp' is an invalid keyword argument for sort()` It helps reading the documentation for Python 3 instead of 2...
+- `return sorted([item for sublist in day.data for item in sublist], key=compare) TypeError: compare() missing 1 required positional argument: 'right'` ok... this time actually read the full paragraph and import `cmp_to_key()` from `functools` *facepalm*
