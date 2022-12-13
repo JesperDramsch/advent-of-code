@@ -4,20 +4,23 @@ import networkx as nx
 
 
 def build_graph(data):
-    G = nx.DiGraph()
+    """Build graph from 2D structure
 
-    for x, row in enumerate(data):
-        for y, val in enumerate(row):
-            # Forward
-            if x < len(data) - 1 and data[x + 1][y] <= val + 1:
-                G.add_edge((x, y), (x + 1, y))
-            if y < len(row) - 1 and data[x][y + 1] <= val + 1:
-                G.add_edge((x, y), (x, y + 1))
-            # Backward
-            if 0 < x and data[x - 1][y] <= val + 1:
-                G.add_edge((x, y), (x - 1, y))
-            if 0 < y and data[x][y - 1] <= val + 1:
-                G.add_edge((x, y), (x, y - 1))
+    Parameters
+    ----------
+    data : List(List(int)
+        Data of map
+
+    Returns
+    -------
+    G : networkx.DiGraph
+        Directed graph of map
+    """
+    # Build graph from 2 dimensional array
+    G = nx.grid_2d_graph(len(data), len(data[0]), create_using=nx.DiGraph)
+    # Remove edges that are not valid
+    G.remove_edges_from([(a, b) for a, b in G.edges if data[b[0]][b[1]] > data[a[0]][a[1]] + 1])
+    # Faster than building the graph from scratch
     return G
 
 
