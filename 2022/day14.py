@@ -3,46 +3,44 @@ from aocd import submit
 
 
 def create_grid(data):
-    grid = {}
+    grid = set()
     max_depth = 0
     for line in data:
         for (a, b), (x, y) in zip(line, line[1:]):
             for i in range(min(a, x), max(a, x) + 1):
                 for ii in range(min(b, y), max(b, y) + 1):
-                    grid[(i, ii)] = True
+                    grid.add(i + ii*1j)
                     max_depth = max(max_depth, ii)
     return grid, max_depth + 1
 
 
-def sand_grain(grid, max_depth, start=(500, 0), floor=None):
-    x, y = start
+def sand_grain(grid, max_depth, floor=None):
+    loc = complex(500)
 
     if floor is not None:
         max_depth = floor
 
-    while y < max_depth + 1:
-        if (x, y + 1) in grid:
-            if (x - 1, y + 1) in grid:
-                if (x + 1, y + 1) in grid:
-                    grid[(x, y)] = False
-                    return grid
-                else:
-                    x += 1
-            else:
-                x -= 1
-        elif y + 1 == floor:
-            grid[(x, y)] = False
+    while loc.imag < max_depth + 1:
+        if loc.imag + 1 == floor:
+            grid.add(loc)
             return grid
+        elif loc + 1j not in grid:
+            loc += 1j
+        elif loc -1 + 1j not in grid:
+            loc += -1 +1j
+        elif loc + 1 + 1j not in grid:
+            loc += 1 + 1j
         else:
-            y += 1
+            grid.add(loc)
+            return grid
     return False
 
 
-def grain_rain(grid, max_depth, start=(500, 0), floor=None):
+def grain_rain(grid, max_depth, floor=None):
     grains = 0
     while grid:
-        grid = sand_grain(grid, max_depth, start=start, floor=floor)
-        if not grid or start in grid:
+        grid = sand_grain(grid, max_depth, floor=floor)
+        if not grid or complex(500) in grid:
             return grains
         grains += 1
     return grains
