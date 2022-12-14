@@ -113,3 +113,8 @@
 - `wrong answer: 662` oh no. Off by one!
 - `return sorted(day.data, cmp=compare) TypeError: 'cmp' is an invalid keyword argument for sort()` It helps reading the documentation for Python 3 instead of 2...
 - `return sorted([item for sublist in day.data for item in sublist], key=compare) TypeError: compare() missing 1 required positional argument: 'right'` ok... this time actually read the full paragraph and import `cmp_to_key()` from `functools` *facepalm*
+
+### 2022-12-14
+- Not an error, but I did get a wrong intermittent result, when I forgot to change `min` to `max` in `range(min(b,y), max(b,y) + 1):`
+- `if not grid and start in grid: TypeError: argument of type 'bool' is not iterable` want to make it work with the existing function, but messed up one return.
+- Wrong answer for example part 2, but that was just a off-by-one error in the floor.

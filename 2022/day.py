@@ -55,7 +55,10 @@ class Day(Parser):
         try:
             self.data = list(map(mapfunc, self.data))
         except:
-            self.data = [list(map(mapfunc, x)) for x in self.data]
+            try:
+                self.data = [list(map(mapfunc, x)) for x in self.data]
+            except:
+                self.data = [[list(map(mapfunc, x)) for x in y] for y in self.data]
         return self
 
     def download(self):
