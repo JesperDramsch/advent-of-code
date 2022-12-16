@@ -118,3 +118,12 @@
 - Not an error, but I did get a wrong intermittent result, when I forgot to change `min` to `max` in `range(min(b,y), max(b,y) + 1):`
 - `if not grid and start in grid: TypeError: argument of type 'bool' is not iterable` want to make it work with the existing function, but messed up one return.
 - Wrong answer for example part 2, but that was just a off-by-one error in the floor.
+
+### 2022-12-15
+- `day.data = (complex(a, b), complex(c, d) for a, b, c, d in day.data) SyntaxError: invalid syntax` oops. Those tuple parantheses. One day I will learn.
+- `return block(8+7j, 9) NameError: name 'block' is not defined. Did you mean: 'clock'?` yes I did..
+- `blocked = set(sensor) TypeError: 'complex' object is not iterable` One day I'll learn.
+- `blocked = set.union(clock(sensor, manhattan(sensor, beacon)) for sensor, beacon in day.data) TypeError: descriptor 'union' for 'set' objects doesn't apply to a 'generator' object` hm... 
+- `for i in range(distance+1): TypeError: 'float' object cannot be interpreted as an integer` ah the distance measure should return an int.
+- ` a, b = merge(a, b) ValueError: too many values to unpack (expected 2)` Didn't tuple the tuple.
+- `return blocked[y] KeyError: 2000000` hehe, still on the easy stuff not the big problem.

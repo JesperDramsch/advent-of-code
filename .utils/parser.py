@@ -1,5 +1,5 @@
 from typing import Union, Iterable, Tuple, List, Dict, Any, Callable, Optional
-
+import re
 class Parser:
     def __init__(self, data: str):
         self.data = data
@@ -33,9 +33,22 @@ class Parser:
         self.parse_list(sep = sep, typing = str)
         self.data = [self.apply_type(self.split(line, sep2), typing=typing) for line in self.data]
 
+    def parse_regex(self, regex: str, typing: Union[Iterable[type], type] = str) -> list:
+        """Parse data using regex
+
+        Parameters
+        ----------
+        regex : str
+            Regex to use
+        typing : type, optional
+            Type of data in list, by default str
+        """
+        self.data = re.findall(regex, self.data)
+        self.data = self.apply_type(self.data, typing=typing)
 
     @staticmethod
     def split(data, sep: str = "\n") -> list:
+        """Split data into list even if sep is empty"""
         if sep:
             return data.split(sep)
         else:
@@ -56,7 +69,11 @@ class Parser:
         # Extract and apply same type to iterable
         iter_typing = type(data)
         if type(typing) == type:
-            changed = map(typing, data)
+            try:
+                changed = iter_typing(typing(x) for x in data)
+            except TypeError:
+                iteriter_typing = type(data[0])
+                changed = iter_typing(iteriter_typing(typing(x) for x in y) for y in data)
         else:
             if len(typing) != len(data):
                 print(typing, data)
