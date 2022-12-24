@@ -115,7 +115,7 @@ def compress_valves(valves):
 
 
 @cache
-def tunneling(valves, opened=(), valve="AA", minutes=30, ele=False):
+def tunneling(valves, opened=frozenset(), valve="AA", minutes=30, ele=False):
 
     if minutes <= 0:
         return 0
@@ -126,11 +126,8 @@ def tunneling(valves, opened=(), valve="AA", minutes=30, ele=False):
     # First let the elephant run thanks to the cache function
     max_steam = 0 if not ele else tunneling(valves, opened, valve="AA", minutes=26)
     minutes -= 1
-    current_steam = 0
-
-    if valve not in opened:
-        current_steam = minutes * valves[valve].flow
-        opened = tuple(sorted(opened + (valve,)))
+    current_steam = minutes * valves[valve].flow if valve not in opened else 0
+    opened = frozenset(tuple(opened) + (valve,))
 
     # Now test all the neighbouring valves
     for tunnel, steps in valves[valve].neighbours.items():
