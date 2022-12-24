@@ -76,9 +76,12 @@ class Parser:
                 changed = iter_typing(iteriter_typing(typing(x) for x in y) for y in data)
         else:
             if len(typing) != len(data):
-                print(typing, data)
-                raise IndexError("Length of typing and data not equal")
-            changed = (types(x) for types, x in zip(typing, data))
+                if len(typing) != len(data[0]):
+                    raise IndexError(f"Length of typing ({len(typing)}) and data ({len(data)}) not equal")
+                else:
+                    changed = (iter_typing(types(x) for types, x in zip(typing, y)) for y in data)
+            else:
+                changed = (types(x) for types, x in zip(typing, data))
         return iter_typing(changed)
 
 
