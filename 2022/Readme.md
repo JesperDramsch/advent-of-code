@@ -127,3 +127,12 @@
 - `for i in range(distance+1): TypeError: 'float' object cannot be interpreted as an integer` ah the distance measure should return an int.
 - ` a, b = merge(a, b) ValueError: too many values to unpack (expected 2)` Didn't tuple the tuple.
 - `return blocked[y] KeyError: 2000000` hehe, still on the easy stuff not the big problem.
+
+### 2022-12-16
+- `for tunnel in tunnels[valve]: TypeError: string indices must be integers, not 'str'` replaced the wrong variable. That was silly.
+- `self.name: str NameError: name 'self' is not defined` tried to write dataclasses from memory
+- `v.neighbours[v2.name] = find_shortest_path(valves, v.name, v2.name) TypeError: 'NoneType' object does not support item assignment` Gotta initialize those values.
+- `if min(minutes) <= 0: UnboundLocalError: cannot access local variable 'minutes' where it is not associated with a value` forgot to rename the variable
+- `all_minutes = (new_minutes,) + all_minutes[not eleflop] TypeError: can only concatenate tuple (not "int") to tuple` forgot I changed  to index instead of slice
+
+It's December 24th when I finally solved this with heavy help from the solutions thread. I lost my mind on this and out of frustration I stopped adding errors here, especially when I got unconcentrated over the weekend. Sorry.
