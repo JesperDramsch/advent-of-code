@@ -135,4 +135,16 @@
 - `if min(minutes) <= 0: UnboundLocalError: cannot access local variable 'minutes' where it is not associated with a value` forgot to rename the variable
 - `all_minutes = (new_minutes,) + all_minutes[not eleflop] TypeError: can only concatenate tuple (not "int") to tuple` forgot I changed  to index instead of slice
 
-It's December 24th when I finally solved this with heavy help from the solutions thread. I lost my mind on this and out of frustration I stopped adding errors here, especially when I got unconcentrated over the weekend. Sorry.
+IIt's December 24th when I finally solved this with heavy help from the solutions thread. I lost my mind on this and out of frustration I stopped adding errors here, especially when I got unconcentrated over the weekend. Sorry.
+
+### 2022-12-17
+- `new_pieces.append(i+ii*1j) NameError: name 'new_pieces' is not defined. Did you mean: 'new_piece'?` oops. Yes I did. The new Python errors are really good actually.
+- `IndentationError: expected an indented block after function definition on line 52` started working on a different part and forgot the `pass`
+- `return "\n".join("".join(row) for row in self.board) TypeError: can only join an iterable` argh. Yeah makes sense. I don't actually have rows.
+- `for i, v in self.pieces.items(): AttributeError: 'list' object has no attribute 'items'` wrong variable
+- `def _right(self): SyntaxError: invalid syntax` closing brackets. Weird autocomplete quirks...
+- `if i + direction in self.board or i + direction < 0 or i + direction > self.width: TypeError: '<' not supported between instances of 'complex' and 'int'` argh, yeah makes sense.
+- `for i in range(self.height): TypeError: 'float' object cannot be interpreted as an integer` oops, yeah the `max()` function returned a float
+- `self.check_tetris(piece) TypeError: Tetris.check_tetris() takes 1 positional argument but 2 were given` forgot to provide the `piece` to the function
+- `signature = tuple(k-(self.height+23) for k, v in self.board.items() if k >= self.height - 23)TypeError: '>=' not supported between instances of 'complex' and 'int'` I will never not fall for this.
+- `self.height += height_offset - h_end UnboundLocalError: cannot access local variable 'height_offset' where it is not associated with a value` didn't initialize...
