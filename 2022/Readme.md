@@ -135,7 +135,7 @@
 - `if min(minutes) <= 0: UnboundLocalError: cannot access local variable 'minutes' where it is not associated with a value` forgot to rename the variable
 - `all_minutes = (new_minutes,) + all_minutes[not eleflop] TypeError: can only concatenate tuple (not "int") to tuple` forgot I changed  to index instead of slice
 
-IIt's December 24th when I finally solved this with heavy help from the solutions thread. I lost my mind on this and out of frustration I stopped adding errors here, especially when I got unconcentrated over the weekend. Sorry.
+It's December 24th when I finally solved this with heavy help from the solutions thread. I lost my mind on this and out of frustration I stopped adding errors here, especially when I got unconcentrated over the weekend. Sorry.
 
 ### 2022-12-17
 - `new_pieces.append(i+ii*1j) NameError: name 'new_pieces' is not defined. Did you mean: 'new_piece'?` oops. Yes I did. The new Python errors are really good actually.
@@ -148,3 +148,8 @@ IIt's December 24th when I finally solved this with heavy help from the solution
 - `self.check_tetris(piece) TypeError: Tetris.check_tetris() takes 1 positional argument but 2 were given` forgot to provide the `piece` to the function
 - `signature = tuple(k-(self.height+23) for k, v in self.board.items() if k >= self.height - 23)TypeError: '>=' not supported between instances of 'complex' and 'int'` I will never not fall for this.
 - `self.height += height_offset - h_end UnboundLocalError: cannot access local variable 'height_offset' where it is not associated with a value` didn't initialize...
+
+### 2022-12-18
+- Made a logic error, where I thought a single dimension has to be offset by one to be a neighbour. No idea how I had that error in my mind.
+- `cube = nx.grid_graph(dim=(range(min_x-2, max_x+2), range(min_y-2, max_y+2), range(min_z-2, max_z+2)) SyntaxError: '(' was never closed` just autocomplete things.
+- `KeyError: (-2, -2, -2)` oops. wrong minimum
