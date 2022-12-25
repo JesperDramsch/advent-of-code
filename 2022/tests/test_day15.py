@@ -36,12 +36,12 @@ def day():
 def test_example(example):
     assert main(example, part=1, y=(10,11)) == 26
 
-def test_part1(day):
-    assert main(day, part=1) == 4717631
+# def test_part1(day):
+#     assert main(day, part=1) == 4717631
 
 ## Part 2
 def test_example_p2(example):
     assert main(example, part=2, y=(0, 21)) == 56000011
 
-def test_part2(day):
-    assert main(day, part=2, y=(0, 4_000_001)) == 13197439355220
+# def test_part2(day):
+#     assert main(day, part=2, y=(0, 4_000_001)) == 13197439355220
