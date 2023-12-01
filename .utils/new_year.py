@@ -10,7 +10,7 @@ cwd = os.getcwd()
 year = datetime.now().year
 
 # Create a new directory
-new_dir = Path(cwd, f"{year}/tests").mkdir(exist_ok=True)
+new_dir = Path(cwd, f"{year}/tests").mkdir(parents=True, exist_ok=True)
 
 # Copy file from .utils to new directory
 shutil.copy(Path(cwd, ".utils", "day.py"), Path(cwd, f"{year}"))
