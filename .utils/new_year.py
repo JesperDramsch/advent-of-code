@@ -13,12 +13,22 @@ year = datetime.now().year
 # Create a new directory
 new_dir = Path(cwd, f"{year}/tests").mkdir(parents=True, exist_ok=True)
 new_dir = Path(cwd, f"{year}/data").mkdir(parents=True, exist_ok=True)
-subprocess.check_call('mklink /J "%s" "%s"' % (Path(cwd, str(year), "utils"), Path(cwd, ".utils")), shell=True)
+try:
+    subprocess.check_call('mklink /J "%s" "%s"' % (Path(cwd, str(year), "utils"), Path(cwd, ".utils")), shell=True)
+except subprocess.CalledProcessError:
+    pass
 
 # Copy file from .utils to new directory
 shutil.copy(Path(cwd, ".utils", "day.py"), Path(cwd, f"{year}"))
 shutil.copy(Path(cwd, ".templates", "conftest.py"), Path(cwd, f"{year}/tests"))
 
+with Path(cwd, str(year), "README.md").open("w", encoding="utf-8") as f:
+    f.write(
+        (
+            f"# 🎄 Advent of Code {year} 🎄\n\n ## Runtime Error Log\n\n"
+            f"### {year}-{datetime.now().month:02d}-{datetime.now().day:02d}\n\n"
+        )
+    )
 
 with open(Path(Path(__file__).resolve().parent.parent, "README.md"), "r+") as f:
     splitter = "## 🌟 Completion Status 🌟"
