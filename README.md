@@ -34,6 +34,8 @@ I wrote a few common data parsers for AoC in `.utils/parser.py`.
 
 ### 2023
 
+
+
 ### 2022
 
 Decided to make Matt Harrison's idea of a detailed error log this year's focus. Put it in the [Readme.md](/2022/Readme.md) of [2022](/2022/).
