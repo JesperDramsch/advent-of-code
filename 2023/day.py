@@ -6,7 +6,6 @@ import os
 
 class Day:
     def __init__(self, day: int):
-
         self.day = day
         self.data = []
 
@@ -24,7 +23,7 @@ class Day:
             typing (type, optional): Type of data in list . Defaults to int.
             sep (str, optional): Separator in input data. Defaults to "\n".
             path (str, optional): Path to data file. Defaults to None.
-            process (bool, optional): [description]. Defaults t
+            process (bool, optional): [description]. Defaults to True.
 
         Returns:
             list:  Data for Problem
