@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from datetime import datetime
 import shutil
+import subprocess
 
 # Get the current working directory
 cwd = os.getcwd()
@@ -11,6 +12,8 @@ year = datetime.now().year
 
 # Create a new directory
 new_dir = Path(cwd, f"{year}/tests").mkdir(parents=True, exist_ok=True)
+new_dir = Path(cwd, f"{year}/data").mkdir(parents=True, exist_ok=True)
+subprocess.check_call('mklink /J "%s" "%s"' % (Path(cwd, str(year), "utils"), Path(cwd, ".utils")), shell=True)
 
 # Copy file from .utils to new directory
 shutil.copy(Path(cwd, ".utils", "day.py"), Path(cwd, f"{year}"))
