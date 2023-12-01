@@ -153,3 +153,9 @@ It's December 24th when I finally solved this with heavy help from the solutions
 - Made a logic error, where I thought a single dimension has to be offset by one to be a neighbour. No idea how I had that error in my mind.
 - `cube = nx.grid_graph(dim=(range(min_x-2, max_x+2), range(min_y-2, max_y+2), range(min_z-2, max_z+2)) SyntaxError: '(' was never closed` just autocomplete things.
 - `KeyError: (-2, -2, -2)` oops. wrong minimum
+
+### 2022-12-19
+- `self.robot_cost = {ore: None, clay: None, obsidian: None, geode: None} NameError: name 'ore' is not defined. Did you mean: 'ord'?` forgot to make the keys strings
+- `self.robot_cost["ore"] = extract_cost(re.search(r'Each ore robot costs ([\d a-z]+).', self.data).group(1)) NameError: name 'extract_cost' is not defined` method not function. my bad
+- `def Factory: SyntaxError: expected '('` that should've been a class
+- `self.ore += self.robots['ore']AttributeError: 'Factory' object has no attribute 'ore'` worked on changing the resources to a Counter
