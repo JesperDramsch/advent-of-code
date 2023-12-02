@@ -5,16 +5,14 @@ import re
 
 def parse_data(data):
     output = {}
+    game_id_re = re.compile(r"Game (\d+): .*")
+    round_data_re = re.compile(r"(\d+) (\w+)")
     for line in data:
-        game_id_re = re.compile(r"Game (\d+): .*")
-        round_data_re = re.compile(r"(\d+) (\w+)")
-
-        game_id_match = game_id_re.match(line)
-        game_id = int(game_id_match.group(1))
-
         capture = dict(red=0, green=0, blue=0)
-        round_data = round_data_re.findall(line)
-        for num, color in round_data:
+
+        game_id = int(game_id_re.match(line).group(1))
+
+        for num, color in round_data_re.findall(line):
             capture[color] = max(capture.get(color, 0), int(num))
         output[game_id] = capture
     return output
@@ -30,16 +28,6 @@ def inspect_data(game_data):
     return valid_ids
 
 
-def find_minimum(game_data):
-    output = {}
-    for game_id, colors in game_data.items():
-        minimum = dict(red=0, green=0, blue=0)
-        for color, maximum in colors.items():
-            minimum[color] = max(minimum[color], maximum)
-        output[game_id] = minimum
-    return output
-
-
 def calculate_power(scores):
     output = []
     for score in scores.values():
@@ -53,8 +41,7 @@ def main(day, part=1):
         valid_ids = inspect_data(data)
         return sum(valid_ids)
     if part == 2:
-        minimal = find_minimum(data)
-        return sum(calculate_power(minimal))
+        return sum(calculate_power(data))
 
 
 if __name__ == "__main__":
