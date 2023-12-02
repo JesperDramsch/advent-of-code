@@ -13,3 +13,10 @@
 -   Submitted wrong answer
 -   Thought I can just "replace" the values but this cuts into valid earlier values if they're
 -   Forgot to escape string in the f-string
+
+### 2023-12-02
+
+-   `TypeError: expected string or bytes-like object, got 'list'` forgot that I wanted to map the function to each line individually
+-   `TypeError: 'str' object does not support item assignment` double assignment of variable 👀
+-   Forgot to remove the test data call
+-   Mixed up my datatypes `KeyError: 0`, thought it was a list
