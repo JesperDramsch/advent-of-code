@@ -12,7 +12,7 @@ class Day:
         self.debug = False
 
     def load(
-        self, data: list = None, typing: type = int, sep: str = "\n", path: str = None, process: bool = True
+        self, data: list = None, typing: type = str, sep: str = "\n", path: str = None, process: bool = True
     ) -> list:
         """Loads Data for Problem
         File _must_ be named dayXX.txt
