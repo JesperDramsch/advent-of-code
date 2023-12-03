@@ -1,7 +1,9 @@
-from day import Day
-from aocd import submit
 import re
 import uuid
+
+from aocd import submit
+from day import Day
+from itertools import product
 from functools import cached_property
 
 
@@ -58,7 +60,7 @@ class Engine(dict):
 
     def _neighbours(self, location):
         # The 8 adjacent locations are the given location plus each of the 8 directions
-        return [location + direction for direction in [1 - 1j, 0 - 1j, -1 - 1j, 1, -1, 1 + 1j, 0 + 1j, -1 + 1j]]
+        return [location + coord[0] + coord[1] * 1j for coord in product((-1, 0, 1), repeat=2)]
 
     def _parts_next_to(self, location):
         return list(
