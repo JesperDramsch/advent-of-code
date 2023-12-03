@@ -10,6 +10,7 @@ class Part:
         self.location = [y + i * 1j for i in range(x[0], x[1])]
         self.value = value
         self.id = uuid.uuid4()
+        self.valid = False
 
     def __repr__(self):
         return f"Part({self.location=}, {self.value=})"
@@ -62,38 +63,34 @@ class Engine(dict):
     def _parts_next_to(self, location):
         return list(
             set(
-                [
-                    self.parts[self[part_location]]
-                    for part_location in self._neighbours(location)
-                    if part_location in self.keys()
-                ]
+                self.parts[self[part_location]]
+                for part_location in self._neighbours(location)
+                if part_location in self.keys()
             )
         )
 
     def _add_symbol_neighbours(self):
         for symbol in self.symbols.values():
             self.symbols[symbol.id].neighbours = self._parts_next_to(symbol.location)
+            for valid_parts in self.symbols[symbol.id].neighbours:
+                self.parts[valid_parts.id].valid = True
 
+    @cached_property
     def gear_ratio_sum(self):
-        ratios = 0
-        for symbol in self.symbols.values():
-            ratios += symbol.gear_ratio
-        return ratios
+        return sum(symbol.gear_ratio for symbol in self.symbols.values())
 
+    @cached_property
     def engine_sum(self):
-        valid_parts = set()
-        for symbol in self.symbols.values():
-            valid_parts.update(symbol.neighbours)
-        return sum(part.value for part in valid_parts)
+        return sum(part.value for part in self.parts.values() if part.valid)
 
 
 def main(day, part=1):
     engine = Engine()
     engine.parse_map(day.data)
     if part == 1:
-        return engine.engine_sum()
+        return engine.engine_sum
     if part == 2:
-        return engine.gear_ratio_sum()
+        return engine.gear_ratio_sum
 
 
 if __name__ == "__main__":
