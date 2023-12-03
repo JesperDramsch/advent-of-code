@@ -20,3 +20,14 @@
 -   `TypeError: 'str' object does not support item assignment` double assignment of variable 👀
 -   Forgot to remove the test data call
 -   Mixed up my datatypes `KeyError: 0`, thought it was a list
+
+### 2023-12-03
+
+-   Forgot to add `self` to method
+-   Had an `enumerate` instead of looking at the `match_group.span()`, which I caught in the example (not technically an error but good I checked)
+-   Forgot to comment out new code while refactoring
+-   `TypeError: Engine.add_symbol_neighbours() missing 1 required positional argument: 'symbol'` forgot to remove arg from signature
+-   `AttributeError: 'complex' object has no attribute 'location'` should've used dict iteration but used simple for loop...
+-   Dict iteration again in another method...
+-   `AttributeError: 'Symbol' object has no attribute 'value'`, symbol not part...
+-   `KeyError: (1+9j)` oops. Changed keys to ID but didn't update the assignment
