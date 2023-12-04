@@ -32,8 +32,8 @@ class Pile:
     def multiplying_cards(self):
         for i in range(len(self.cards)):
             this_extra_tickets = max(0, i - self.cards[i].num_winning_numbers)
-            for j in range(this_extra_tickets, i):
-                self.cards[i].tickets += self.cards[j].tickets
+            for ii in range(this_extra_tickets, i):
+                self.cards[i].tickets += self.cards[ii].tickets
 
 
 def main(day, part=1):
