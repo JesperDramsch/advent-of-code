@@ -38,3 +38,4 @@
 -   `TypeError: unsupported operand type(s) for -: 'set' and 'int'` put the -1 inside the length
 -   Not technically an error, but I didn't have parentheses around the exponent, so got the wrong result on the test data
 -   `TypeError: unsupported operand type(s) for +=: 'NoneType' and 'int'` initialized extra_tickets as None, could just use 0
+-   Would only be fair to note that I was hunting a bunch of off-by-one errors, but they never actually resulted in errors or bad submissions.
