@@ -31,3 +31,10 @@
 -   Dict iteration again in another method...
 -   `AttributeError: 'Symbol' object has no attribute 'value'`, symbol not part...
 -   `KeyError: (1+9j)` oops. Changed keys to ID but didn't update the assignment
+
+### 2023-12-04
+
+-   `ValueError: invalid literal for int() with base 10: 'Card'` forgot to get rid of the "Card ###":
+-   `TypeError: unsupported operand type(s) for -: 'set' and 'int'` put the -1 inside the length
+-   Not technically an error, but I didn't have parentheses around the exponent, so got the wrong result on the test data
+-   `TypeError: unsupported operand type(s) for +=: 'NoneType' and 'int'` initialized extra_tickets as None, could just use 0
