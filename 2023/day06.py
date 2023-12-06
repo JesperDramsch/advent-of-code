@@ -3,7 +3,7 @@ from aocd import submit
 from dataclasses import dataclass
 
 import re
-from math import prod
+import math
 
 
 @dataclass
@@ -11,11 +11,18 @@ class ToyBoatRace:
     time: int
     winning_distance: int
 
-    def strategies(self):
-        return [x * (self.time - x) for x in range(1, self.time)]
-
     def count_wins(self):
-        return sum(1 for x in self.strategies() if x > self.winning_distance)
+        # Nullstelle finden von x * (time - x) = self.winning_distance
+        # self.time * x - x^2 = self.winning_distance
+        # x^2 - self.time * x + self.winning_distance = 0
+        # PQ-Formel!
+        # x1, x2 = (-p/2) ± sqrt((p/2)^2 - q)
+        # p = -self.time
+        # q = self.winning_distance
+        x1 = math.ceil((self.time / 2) - math.sqrt((self.time / 2) ** 2 - self.winning_distance))
+        x2 = math.floor((self.time / 2) + math.sqrt((self.time / 2) ** 2 - self.winning_distance))
+
+        return x2 - x1 + 1
 
     def __repr__(self):
         return f"{self.time=}, {self.winning_distance=}"
@@ -28,10 +35,12 @@ def parse_data(data):
 def main(day, part=1):
     time, distance = parse_data(day.data)
     if part == 1:
-        races = [ToyBoatRace(t, d) for t, d in zip(time, distance)]
-        return prod([race.count_wins() for race in races])
+        races = [ToyBoatRace(t, d + 1) for t, d in zip(time, distance)]
+        return math.prod([race.count_wins() for race in races])
     if part == 2:
-        pass
+        time = int("".join(map(str, time)))
+        distance = int("".join(map(str, distance)))
+        return ToyBoatRace(time, distance + 1).count_wins()
 
 
 if __name__ == "__main__":
@@ -43,7 +52,6 @@ if __name__ == "__main__":
     print(p1)
     submit(p1, part="a", day=6, year=2023)
 
-    # day.load()
-    # p2 = main(day, part=2)
-    # print(p2)
-    # submit(p2, part="b", day=6, year=2023)
+    p2 = main(day, part=2)
+    print(p2)
+    submit(p2, part="b", day=6, year=2023)

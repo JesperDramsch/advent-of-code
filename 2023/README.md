@@ -50,4 +50,10 @@
 -   `TypeError: '<=' not supported between instances of 'int' and 'tuple'` messed up somewhere?
 -   `TypeError: '<=' not supported between instances of 'int' and 'range'` trying to figure out how to do the ranges... this will probably not work anyways...
 -   Ok, honestly, we knew this wouldn't work, just going through the ranges. We need to find the overlaps of ranges.
-- `TypeError: list.append() takes exactly one argument (2 given)` forgot to make them tuples again
+-   `TypeError: list.append() takes exactly one argument (2 given)` forgot to make them tuples again
+
+### 2023-12-06
+
+-   `TypeError: object of type 'generator' has no len()` should've just used a list
+-   `TypeError: sequence item 0: expected str instance, int found` thought I could be lazy
+-   `TypeError: can only concatenate str (not "int") to str` so many types. So little time
