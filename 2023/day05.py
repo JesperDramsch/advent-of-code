@@ -3,6 +3,7 @@ from day import Day
 from aocd import submit
 from functools import cached_property
 from utils.parser import Parser
+from itertools import combinations
 
 
 class Page:
@@ -39,6 +40,10 @@ class Almanach(dict):
     def seeds(self):
         return list(map(int, self._data[0][0].split(" ")[1:]))
 
+    @cached_property
+    def ranges(self):
+        return sorted((seed, seed + rng) for seed, rng in zip(self.seeds[::2], self.seeds[1::2]))
+
     def build_pages(self):
         for page in self._data[1:]:
             page = Page(page)
@@ -52,13 +57,76 @@ class Almanach(dict):
             page = self[page].dest
         return key
 
+    def propagate_range(self):
+        page = "seed"
+        this_range = self.ranges
+        print(page, this_range[:3], sum(rng[1] - rng[0] for rng in this_range))
+        # Propagate until we're at the location page
+        while page != "location":
+            next_range = set()
+            # For each range, find the overlapping and non-overlapping parts
+            for range in this_range:
+                new_src_ranges = self.find_segments(range, self[page]._map.keys())
+
+                # Add the overlapping and non-overlapping parts to the next range
+                for src_range in new_src_ranges:
+                    if src_range is not None:
+                        # Shift the end around, since we're using half-open ranges
+                        next_range.add((self[page][src_range[0]], self[page][src_range[1] - 1] + 1))
+
+            this_range = sorted(next_range)
+            page = self[page].dest
+            print(page, this_range[:3], sum(rng[1] - rng[0] for rng in this_range))
+        return this_range
+
+    def find_segments(self, original_range, list_of_ranges):
+        result = []
+        start, end = original_range
+
+        # Check for overlap for all "mapped sections"
+        for rng_start, rng_end in list_of_ranges:
+            # Check that the range is within the range to check
+            if rng_start < end and rng_end > start:
+                overlap_start = max(start, rng_start)
+                overlap_end = min(end, rng_end)
+                result.append((overlap_start, overlap_end))
+        result = sorted(result)
+
+        # Add non-overlapping segment if any
+        non_result = []
+        if result:
+            # Add the first non-overlapping segment from the start to the first overlap
+            non_overlap_start = start
+            non_overlap_end = result[0][0]
+            if non_overlap_start < non_overlap_end:
+                non_result.append((non_overlap_start, non_overlap_end))
+
+            # Add the non-overlapping segments between the overlaps
+            for i in range(len(result) - 1):
+                non_overlap_start = result[i][1]
+                non_overlap_end = result[i + 1][0]
+                if non_overlap_start < non_overlap_end:
+                    non_result.append((non_overlap_start, non_overlap_end))
+
+            # Add the last non-overlapping segment from the last overlap to the end
+            non_overlap_start = result[-1][1]
+            non_overlap_end = end
+            if non_overlap_start < non_overlap_end:
+                non_result.append((non_overlap_start, non_overlap_end))
+        else:
+            # If there's no overlap, just return the original range
+            result.append(original_range)
+        # Merge results
+        result.extend(non_result)
+        return sorted(set(result))
+
 
 def main(day, part=1):
     almanach = Almanach(day.data)
     if part == 1:
         return min(almanach.seed_location(seed) for seed in almanach.seeds)
     if part == 2:
-        pass
+        return almanach.propagate_range()[0][0]
 
 
 if __name__ == "__main__":
@@ -70,7 +138,6 @@ if __name__ == "__main__":
     print(p1)
     submit(p1, part="a", day=5, year=2023)
 
-    # day.load()
-    # p2 = main(day, part=2)
-    # print(p2)
-    # submit(p2, part="b", day=5, year=2023)
+    p2 = main(day, part=2)
+    print(p2)
+    submit(p2, part="b", day=5, year=2023)

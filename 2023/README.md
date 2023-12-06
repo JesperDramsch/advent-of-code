@@ -39,3 +39,15 @@
 -   Not technically an error, but I didn't have parentheses around the exponent, so got the wrong result on the test data
 -   `TypeError: unsupported operand type(s) for +=: 'NoneType' and 'int'` initialized extra_tickets as None, could just use 0
 -   Would only be fair to note that I was hunting a bunch of off-by-one errors, but they never actually resulted in errors or bad submissions.
+
+### 2023-12-05
+
+-   Messed up the import of the Parser
+-   `AttributeError: 'list' object has no attribute 'split'` indexed the wrong one...
+-   `ValueError: invalid literal for int() with base 10: 'seeds:'` forgot it has a name
+-   `TypeError: 'str' object cannot be interpreted as an integer` forgot to `int()` the range
+-   `MemoryError` didn't look at the input. Building a dense dictionary is a bad idea...
+-   `TypeError: '<=' not supported between instances of 'int' and 'tuple'` messed up somewhere?
+-   `TypeError: '<=' not supported between instances of 'int' and 'range'` trying to figure out how to do the ranges... this will probably not work anyways...
+-   Ok, honestly, we knew this wouldn't work, just going through the ranges. We need to find the overlaps of ranges.
+- `TypeError: list.append() takes exactly one argument (2 given)` forgot to make them tuples again
