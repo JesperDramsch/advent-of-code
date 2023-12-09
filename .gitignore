@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+.mypy_cache/
 .vscode/
 
 # C extensions
@@ -121,3 +122,4 @@ $RECYCLE.BIN/
 2020/aoc2020.code-workspace
 
 utils/
+day*.txt
