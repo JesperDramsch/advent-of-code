@@ -63,3 +63,8 @@
 -   `TypeError: unsupported operand type(s) for *: 'int' and 'Hand'` wanted to access the bid attribute of the hand, but got sloppy
 -   `KeyError: 'J'` forgot that there are hands without Jokers...
 -   `IndexError: list index out of range` got a hand full of jokers...
+
+### 2023-12-08
+
+-   `AttributeError: 'list' object has no attribute 'split'`
+-   Accidentally re-ran A for part B

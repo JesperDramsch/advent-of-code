@@ -1,5 +1,7 @@
 from typing import Union, Iterable, Tuple, List, Dict, Any, Callable, Optional
 import re
+
+
 class Parser:
     def __init__(self, data: str):
         self.data = data
@@ -17,8 +19,9 @@ class Parser:
         self.data = self.split(self.data, sep=sep)
         self.data = self.apply_type(self.data, typing=typing)
 
-
-    def parse_list_of_lists(self, sep: str = "\n\n", sep2: str = "\n", typing: Union[Iterable[type], type] = str) -> list:
+    def parse_list_of_lists(
+        self, sep: str = "\n\n", sep2: str = "\n", typing: Union[Iterable[type], type] = str
+    ) -> list:
         """Parse into list of lists of type
 
         Parameters
@@ -30,7 +33,7 @@ class Parser:
         typing : type, optional
             type of items in groups, by default str
         """
-        self.parse_list(sep = sep, typing = str)
+        self.parse_list(sep=sep, typing=str)
         self.data = [self.apply_type(self.split(line, sep2), typing=typing) for line in self.data]
 
     def parse_regex(self, regex: str, typing: Union[Iterable[type], type] = str) -> list:
@@ -53,7 +56,6 @@ class Parser:
             return data.split(sep)
         else:
             return [x for x in data]
-
 
     @staticmethod
     def apply_type(data, typing: Union[Iterable[type], type] = str) -> list:
@@ -86,8 +88,17 @@ class Parser:
 
 
 class ParserMap:
-    def __init__(self, n: str = None, ne: str = None, e: str = None, se: str = None, s: str = None, sw: str = None, w: str = None, nw: str = None):
-
+    def __init__(
+        self,
+        n: str = None,
+        ne: str = None,
+        e: str = None,
+        se: str = None,
+        s: str = None,
+        sw: str = None,
+        w: str = None,
+        nw: str = None,
+    ):
         directions = {
             "n": 1 + 0j,
             "ne": 1 + 1j,
@@ -119,7 +130,6 @@ class ParserMap:
             self.cardinals[nw] = directions["nw"]
         else:
             raise IndexError
-
 
     def parse_xy(self, coords: list) -> list:
         def parse(data):
