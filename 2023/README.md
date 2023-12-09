@@ -57,3 +57,9 @@
 -   `TypeError: object of type 'generator' has no len()` should've just used a list
 -   `TypeError: sequence item 0: expected str instance, int found` thought I could be lazy
 -   `TypeError: can only concatenate str (not "int") to str` so many types. So little time
+
+### 2023-12-07
+
+-   `TypeError: unsupported operand type(s) for *: 'int' and 'Hand'` wanted to access the bid attribute of the hand, but got sloppy
+-   `KeyError: 'J'` forgot that there are hands without Jokers...
+-   `IndexError: list index out of range` got a hand full of jokers...
