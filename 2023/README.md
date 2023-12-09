@@ -68,3 +68,13 @@
 
 -   `AttributeError: 'list' object has no attribute 'split'`
 -   Accidentally re-ran A for part B
+
+### 2023-12-09
+
+-   `sequences = Parser(day.data).parse_list_of_lists(sep2=" ", sep="\n" typing=int)` forgot a comma
+-   `NameError: name 'sequence' is not defined. Did you mean: 'Sequence'?` changes to `self.data` and didn't update
+-   `wrong answer: That's not the right answer; your answer is too high` Huh, genuinely thought I had it...
+-   `SyntaxError: can't use starred expression here` figuring out how to zip the enumerate
+-   `ValueError: Expected 2D array, got scalar array instead:` playing around with scikit-learn
+-   Scikit-learn didn't work but it was fun trying.
+-   My big error was thinking I could just use `sum(sequence) == 0` and of course I couldn't -.-'
