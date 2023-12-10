@@ -9,19 +9,6 @@ import sys
 sys.setrecursionlimit(10000000)
 
 
-class Pipe:
-    pass
-
-    # | is a vertical pipe connecting north and south.
-    # - is a horizontal pipe connecting east and west.
-    # ╰ is a 90-degree bend connecting north and east.
-    # ╯ is a 90-degree bend connecting north and west.
-    # ╮ is a 90-degree bend connecting south and west.
-    # ╭ is a 90-degree bend connecting south and east.
-    # . is ground; there is no pipe in this tile.
-    # S is the starting position of the animal; there is a pipe on this tile, but your sketch doesn't show what shape the pipe has.
-
-
 class PipeSystem(Parser):
     def __init__(self, data):
         super().__init__(data)
@@ -32,6 +19,10 @@ class PipeSystem(Parser):
 
     def __str__(self):
         return self.print(self.data)
+
+    @property
+    def shape(self):
+        return len(self.data), len(self.data[0])
 
     def convert_string(self, string):
         return (
@@ -48,7 +39,9 @@ class PipeSystem(Parser):
 
     def print_data(self, data):
         for i, line in enumerate(self.data):
+            print(f"{i:2} ", end="")
             if all(val == " " for val in line):
+                print()
                 continue
             for ii, val in enumerate(line):
                 if (i + ii * 1j) in data:
@@ -91,8 +84,17 @@ class PipeSystem(Parser):
             pos - 1: ("|", "╮", "╭"),
         }
         these_neighbours = {connection: neighbours[connection] for connection in connections[self.map[pos]]}
+        valid_neighbours = []
+        for neighbour, valid in these_neighbours.items():
+            if self.map.get(neighbour) in valid:
+                valid_neighbours.append(neighbour)
 
-        return [neighbour for neighbour, valid in these_neighbours.items() if self.map.get(neighbour) in valid]
+        # Replace start with appropriate connection
+        if self.map[pos] == "⭐":
+            reverse_connections = {v: k for k, v in connections.items()}
+            self.map[pos] = reverse_connections[tuple(valid_neighbours)]
+
+        return valid_neighbours
 
     @cached_property
     def neighbours(self):
@@ -113,15 +115,41 @@ class PipeSystem(Parser):
                     return visited
         return set()
 
+    def find_contained_squares(self):
+        delimiters = ("╰", "╭"), ("╯", "╮", "|")
+        verticals = ("╭╯", "╰╮", "|")
+        squares = set()
+        vert, hori = self.shape
+        for i in range(vert):
+            inside = False
+            horizontal_section = ""
+            for ii in range(hori):
+                pos = i + ii * 1j
+                if pos in self.loop:
+                    segment = self.map[pos]
+                    if segment in delimiters[0]:
+                        horizontal_section = segment
+                    elif segment in delimiters[1]:
+                        horizontal_section += segment
+                        if horizontal_section in verticals:
+                            inside = not inside
+                        horizontal_section = ""
+                else:
+                    if inside:
+                        squares.add(pos)
+            assert not inside, f"Inside at end of line: {i}"
+        return squares
+
 
 def main(day, part=1):
     pipes = PipeSystem(day.data)
     if part == 1:
-        pipes.print_map()
-        pipes.print_loop()
+        if __name__ == "__main__":
+            pipes.print_map()
+            pipes.print_loop()
         return len(pipes.loop) // 2
     if part == 2:
-        pass
+        return len(pipes.find_contained_squares())
 
 
 if __name__ == "__main__":
@@ -129,18 +157,10 @@ if __name__ == "__main__":
     day.download()
 
     day.load(process=False)
-    #     data = """.FF7F
-    # .FJ|.
-    # SJ.L7
-    # |F--J
-    # LJ..."""
-
-    #     day.load(data, process=False)
     p1 = main(day)
     print(p1)
     submit(p1, part="a", day=10, year=2023)
 
-    # day.load()
-    # p2 = main(day, part=2)
-    # print(p2)
-    # submit(p2, part="b", day=10, year=2023)
+    p2 = main(day, part=2)
+    print(p2)
+    submit(p2, part="b", day=10, year=2023)

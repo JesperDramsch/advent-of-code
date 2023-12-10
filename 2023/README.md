@@ -78,3 +78,11 @@
 -   `ValueError: Expected 2D array, got scalar array instead:` playing around with scikit-learn
 -   Scikit-learn didn't work but it was fun trying.
 -   My big error was thinking I could just use `sum(sequence) == 0` and of course I couldn't -.-'
+
+### 2023-12-10
+
+-   `TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'` didn't return value from "self.method"
+-   `AttributeError: 'PipeSystem' object has no attribute 'set_all_neighbours'.` Refactor incomplete...
+-   Had an error where I used every Neighbour that could connect to "this" pipe, without filtering for "this" pipe to connect to the other
+-   `RecursionError: maximum recursion depth exceeded while calling a Python object` computer go brrrr
+-   Made a mistake, where the "start symbol" wasn't counted as a "vertical bar", so got the wrong answer.
