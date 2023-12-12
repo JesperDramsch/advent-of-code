@@ -86,3 +86,7 @@
 -   Had an error where I used every Neighbour that could connect to "this" pipe, without filtering for "this" pipe to connect to the other
 -   `RecursionError: maximum recursion depth exceeded while calling a Python object` computer go brrrr
 -   Made a mistake, where the "start symbol" wasn't counted as a "vertical bar", so got the wrong answer.
+
+### 2023-12-12
+
+-   `KeyError: 7` tried to remove from set twice
