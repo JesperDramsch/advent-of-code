@@ -87,6 +87,14 @@
 -   `RecursionError: maximum recursion depth exceeded while calling a Python object` computer go brrrr
 -   Made a mistake, where the "start symbol" wasn't counted as a "vertical bar", so got the wrong answer.
 
-### 2023-12-12
+### 2023-12-11
 
 -   `KeyError: 7` tried to remove from set twice
+
+### 2023-12-12
+
+-   `AttributeError: 'dict' object has no attribute 'check_valid'` wrong object
+-   `TypeError: 'int' object is not iterable` forgot the range again...
+-   Didn't read the instructions for part 2 correctly. I was missing the extra `?` -.-'
+-   Have to switch to dynamic programming to work with pointers instead
+-   Somehow `@cache` was memoizing the wrong info and writing my own state_dict gave the correct info?
