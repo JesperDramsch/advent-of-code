@@ -98,3 +98,7 @@
 -   Didn't read the instructions for part 2 correctly. I was missing the extra `?` -.-'
 -   Have to switch to dynamic programming to work with pointers instead
 -   Somehow `@cache` was memoizing the wrong info and writing my own state_dict gave the correct info?
+
+### 2023-12-13
+
+-   Forgot to reset the tolerance in the loop for checking midpoints

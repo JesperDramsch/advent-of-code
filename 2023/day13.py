@@ -16,62 +16,47 @@ class Pattern:
             for j in range(self.width):
                 self.transpose[j] += self.pattern[i][j]
 
-    def find_midpoint(self):
-        midpoints, modpints = [], []
-        for i in range(self.width - 1):
-            if self.transpose[i] == self.transpose[i + 1]:
+    def search_midpoint(self, dim, pattern, tolerance):
+        midpoints = []
+        for i in range(dim - 1):
+            if self.equal_parts(pattern[i], pattern[i + 1]) <= tolerance:
                 midpoints.append(i)  # 0-indexed
+        return midpoints
 
+    def check_mirror(self, midpoints, dim, pattern, tolerance):
+        tmp = tolerance
         for midpoint in midpoints:
-            for i, ii in zip(range(midpoint + 1, self.width), range(midpoint, -1, -1)):
-                if self.transpose[i] != self.transpose[ii]:
+            tolerance = tmp
+            for i, ii in zip(range(midpoint + 1, dim), range(midpoint, -1, -1)):
+                tolerance -= self.equal_parts(pattern[i], pattern[ii])
+                if tolerance < 0:
                     break
             else:
-                return midpoint + 1
+                if tolerance == 0:
+                    return midpoint + 1
 
-        for i in range(self.height - 1):
-            if self.pattern[i] == self.pattern[i + 1]:
-                modpints.append(i)  # 0-indexed
+    def find_midpoint(self, tolerance):
+        midpoints = self.search_midpoint(self.width, self.transpose, tolerance)
+        midpoint = self.check_mirror(midpoints, self.width, self.transpose, tolerance)
+        if midpoint is not None:
+            return midpoint
 
-        for modpint in modpints:
-            for i, ii in zip(range(modpint + 1, self.height), range(modpint, -1, -1)):
-                if self.pattern[i] != self.pattern[ii]:
-                    break
-            else:
-                return (modpint + 1) * 100
+        modpints = self.search_midpoint(self.height, self.pattern, tolerance)
+        modpint = self.check_mirror(modpints, self.height, self.pattern, tolerance)
+        if modpint is not None:
+            return modpint * 100
 
-    def find_midpoint_error(self):
-        midpoints, modpints = [], []
-        for i in range(self.width - 1):
-            if self.transpose[i] == self.transpose[i + 1]:
-                midpoints.append(i)  # 0-indexed
-
-        for midpoint in midpoints:
-            for i, ii in zip(range(midpoint + 1, self.width), range(midpoint, -1, -1)):
-                if self.transpose[i] != self.transpose[ii]:
-                    break
-            else:
-                return midpoint + 1
-
-        for i in range(self.height - 1):
-            if self.pattern[i] == self.pattern[i + 1]:
-                modpints.append(i)  # 0-indexed
-
-        for modpint in modpints:
-            for i, ii in zip(range(modpint + 1, self.height), range(modpint, -1, -1)):
-                if self.pattern[i] != self.pattern[ii]:
-                    break
-            else:
-                return (modpint + 1) * 100
+    def equal_parts(self, one, two):
+        return len(one) - sum(a == b for a, b in zip(one, two))
 
 
 def main(day, part=1):
     patterns = Parser(day.data)
     patterns.parse_list_of_lists()
     if part == 1:
-        return sum(Pattern(data).find_midpoint() for data in patterns.data)
+        return sum([Pattern(data).find_midpoint(0) for data in patterns.data])
     if part == 2:
-        pass
+        return sum([Pattern(data).find_midpoint(1) for data in patterns.data])
 
 
 if __name__ == "__main__":
@@ -83,23 +68,6 @@ if __name__ == "__main__":
     print(p1)
     submit(p1, part="a", day=13, year=2023)
 
-    data = """#.##..##.
-..#.##.#.
-##......#
-##......#
-..#.##.#.
-..##..##.
-#.#.##.#.
-
-#...##..#
-#....#..#
-..##..###
-#####.##.
-#####.##.
-..##..###
-#....#..#"""
-
-    day.load(data, process=False)
     p2 = main(day, part=2)
     print(p2)
-    # submit(p2, part="b", day=13, year=2023)
+    submit(p2, part="b", day=13, year=2023)
