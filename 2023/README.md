@@ -108,3 +108,7 @@
 -   `TypeError: 'float' object cannot be interpreted as an integer` even remembered it first, but then forgot to "int" the value
 -   Got my logic wrong, where I needed to use `or` instead of `and`
 -   Had to sort my list depending on the tilt direction, which stumped me a bit
+
+### 2023-12-15
+
+-
