@@ -125,3 +125,9 @@
 -   Also had to use raw strings, because of backslashes.
 
 Didn't need to optimise...
+
+### 2023-12-17
+
+-   `AttributeError: 'list' object has no attribute 'splitlines'` damnit Copilot!
+-   `TypeError: '<' not supported between instances of 'complex' and 'int'` heap doesn't like comparing my nice coordinates.
+-   I wanted to do something else today, so I looked at what 4HbQ did and it was mindblowing. I need to learn about priority queues more.
