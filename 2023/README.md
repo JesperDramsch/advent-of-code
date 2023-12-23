@@ -131,3 +131,9 @@ Didn't need to optimise...
 -   `AttributeError: 'list' object has no attribute 'splitlines'` damnit Copilot!
 -   `TypeError: '<' not supported between instances of 'complex' and 'int'` heap doesn't like comparing my nice coordinates.
 -   I wanted to do something else today, so I looked at what 4HbQ did and it was mindblowing. I need to learn about priority queues more.
+
+### 2023-12-18
+
+-   `IndexError: list index out of range` hmmm...
+-   `ValueError: invalid literal for int() with base 16: '#088ba'` no hashtags!
+    
