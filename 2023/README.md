@@ -112,3 +112,16 @@
 ### 2023-12-15
 
 -   Wrong regex `AttributeError: 'NoneType' object has no attribute 'groups'`
+
+### 2023-12-16
+
+-   `SyntaxError: expected '('` used `def` meant `class`
+-   `TypeError: '>' not supported between instances of 'complex' and 'int'` wrong variable
+-   `TypeError: 'NoneType' object is not iterable`
+-   `UnboundLocalError: cannot access local variable 'new_direction' where it is not associated with a value` indents
+-   Wrong answer. I was stupid about "cleaning up the connections"
+-   I double counted crossing beams... So just using a set and optimising later
+-   `TypeError: '>' not supported between instances of 'set' and 'int'` wrong append
+-   Also had to use raw strings, because of backslashes.
+
+Didn't need to optimise...
