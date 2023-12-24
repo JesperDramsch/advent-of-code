@@ -136,4 +136,9 @@ Didn't need to optimise...
 
 -   `IndexError: list index out of range` hmmm...
 -   `ValueError: invalid literal for int() with base 16: '#088ba'` no hashtags!
-    
+
+### 2023-12-19
+
+-   `AttributeError: 'list' object has no attribute 'split'` forget to turn off processing
+-   `TypeError: cannot unpack non-iterable Parser object` forgot to access the data
+-   `TypeError: int() argument must be a string, a bytes-like object or a real number, not 'tuple'` findall returned a list not the tuples
