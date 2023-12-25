@@ -142,3 +142,6 @@ Didn't need to optimise...
 -   `AttributeError: 'list' object has no attribute 'split'` forget to turn off processing
 -   `TypeError: cannot unpack non-iterable Parser object` forgot to access the data
 -   `TypeError: int() argument must be a string, a bytes-like object or a real number, not 'tuple'` findall returned a list not the tuples
+-   `ValueError: not enough values to unpack (expected 4, got 3)` forgot to drop the last value for the splits
+
+Absolute ugly brute force. Best not to run this...
