@@ -145,3 +145,8 @@ Didn't need to optimise...
 -   `ValueError: not enough values to unpack (expected 4, got 3)` forgot to drop the last value for the splits
 
 Absolute ugly brute force. Best not to run this...
+
+### 2023-12-20
+
+-   `ValueError: not enough values to unpack (expected 2, got 1)` yikes
+-   Tried running it for a while, but it took a while, so I looked at the graph, found a bunch of conjunctions and figured out how to reverse engineer the low pulse coinciding and hope for some periodicity in the conjunctions two before, where it's four conjunctions that have to come together. Then just LCM, good ol' AoC periodicity!
