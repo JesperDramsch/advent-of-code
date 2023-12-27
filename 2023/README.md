@@ -150,3 +150,17 @@ Absolute ugly brute force. Best not to run this...
 
 -   `ValueError: not enough values to unpack (expected 2, got 1)` yikes
 -   Tried running it for a while, but it took a while, so I looked at the graph, found a bunch of conjunctions and figured out how to reverse engineer the low pulse coinciding and hope for some periodicity in the conjunctions two before, where it's four conjunctions that have to come together. Then just LCM, good ol' AoC periodicity!
+
+### 2023-12-21
+
+-   Can't do mod on complex, I figured but wanted to test anyways.
+-   Part two, I started check the input and there's a weird diamond shape in the input...
+-   Checked the solutions, because I have no clue how to solve this.
+
+### 2023-12-22
+
+-   Didn't account for "self-collision" in my check, but caught it.
+-   Got two wrong answers, probably from moving the bricks around.
+-   Assumed the bricks were sorted like in the example...
+-   First time, I gave a bunch of wrong answers... Simulating the move now, then moving.
+-   Thought I had to find the maximum number of bricks that would fall... Not the sum...
