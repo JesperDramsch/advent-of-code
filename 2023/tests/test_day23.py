@@ -59,4 +59,4 @@ def test_example_p2(example):
 
 
 def test_part2(day):
-    assert main(day, part=2) == False
+    assert main(day, part=2) == 6490
